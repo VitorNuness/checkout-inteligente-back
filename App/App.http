@@ -1,0 +1,6 @@
+@App_HostAddress = http://localhost:5102
+
+GET {{App_HostAddress}}/
+Accept: application/json
+
+###
