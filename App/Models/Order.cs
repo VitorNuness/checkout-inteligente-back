@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace App.Models
 {
-    public class Category
+    public class Order
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public User? User { get; set; }
         public List<Product>? Products { get; set; }
 
-        public Category(string? name)
+        public Order(User? user)
         {
-            this.Name = name;
+            this.User = user;
             this.Products = new List<Product>();
         }
 
-        private Category() { }
+        private Order() { }
     }
 }
