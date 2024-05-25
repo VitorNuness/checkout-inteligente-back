@@ -10,6 +10,5 @@ namespace App.Controllers
     [Route("api/users")]
     public class UserController : ControllerBase
     {
-
     }
 }
