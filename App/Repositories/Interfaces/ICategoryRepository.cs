@@ -10,7 +10,7 @@ namespace App.Repositories.Interfaces
     public interface ICategoryRepository
     {
         public List<Category> GetAll();
-        public Category Get(int id);
+        public Category? Get(int id);
         public void Store(Category data);
         public void Update(int id, Category data);
         public void Delete(int id);

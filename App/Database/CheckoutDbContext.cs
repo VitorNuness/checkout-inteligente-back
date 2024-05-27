@@ -12,6 +12,7 @@ public partial class CheckoutDbContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     public CheckoutDbContext()
     {

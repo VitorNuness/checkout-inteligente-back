@@ -23,7 +23,7 @@ namespace App.Repositories
             return this.DbContext.Campaigns.ToList();
         }
 
-        public Campaign Get(int id)
+        public Campaign? Get(int id)
         {
             return this.DbContext.Campaigns.Where(c => c.Id == id).First();
         }
@@ -36,15 +36,23 @@ namespace App.Repositories
 
         public void Update(int id, Campaign data)
         {
-            Campaign campaign = this.Get(id);
-            this.DbContext.Campaigns.Update(campaign);
+            Campaign? campaign = this.Get(id);
+            if (campaign != null)
+            {
+                campaign.Id = id;
+                this.DbContext.Entry(campaign).CurrentValues.SetValues(data);
+            }
+
             this.DbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            Campaign campaign = this.Get(id);
-            this.DbContext.Campaigns.Remove(campaign);
+            Campaign? campaign = this.Get(id);
+            if (campaign != null)
+            {
+                this.DbContext.Campaigns.Remove(campaign);
+            }
             this.DbContext.SaveChanges();
         }
     }

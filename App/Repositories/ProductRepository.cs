@@ -36,8 +36,12 @@ namespace App.Repositories
         public void Update(int id, Product data)
         {
             Product product = this.Get(id);
-            product = data;
-            this.DbContext.Products.Update(product);
+            if (product != null)
+            {
+                product.Id = id;
+                this.DbContext.Entry(product).CurrentValues.SetValues(data);
+            }
+
             this.DbContext.SaveChanges();
         }
 

@@ -10,7 +10,7 @@ namespace App.Repositories.Interfaces
     public interface ICampaignRepository
     {
         public List<Campaign> GetAll();
-        public Campaign Get(int id);
+        public Campaign? Get(int id);
         public void Store(Campaign data);
         public void Update(int id, Campaign data);
         public void Delete(int id);

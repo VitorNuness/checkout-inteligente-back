@@ -23,7 +23,7 @@ namespace App.Repositories
             return this.DbContext.Users.ToList();
         }
 
-        public User Get(int id)
+        public User? Get(int id)
         {
             return this.DbContext.Users.Where(u => u.Id == id).First();
         }
@@ -36,15 +36,23 @@ namespace App.Repositories
 
         public void Update(int id, User data)
         {
-            User user = this.Get(id);
-            this.DbContext.Users.Update(user);
+            User? user = this.Get(id);
+            if (user != null)
+            {
+                user.Id = id;
+                this.DbContext.Entry(user).CurrentValues.SetValues(data);
+            }
+
             this.DbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            User user = this.Get(id);
-            this.DbContext.Users.Remove(user);
+            User? user = this.Get(id);
+            if (user != null)
+            {
+                this.DbContext.Users.Remove(user);
+            }
             this.DbContext.SaveChanges();
         }
     }

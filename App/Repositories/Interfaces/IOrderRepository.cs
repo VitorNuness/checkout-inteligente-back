@@ -6,12 +6,12 @@ using App.Models;
 
 namespace App.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IOrderRepository
     {
-        public List<User> GetAll();
-        public User? Get(int id);
-        public void Store(User data);
-        public void Update(int id, User data);
+        public List<Order> GetAll();
+        public Order? Get(int id);
+        public void Create(Order data);
+        public void Update(int id, Order data);
         public void Delete(int id);
     }
 }

@@ -22,7 +22,7 @@ namespace App.Repositories
             return this.DbContext.Categories.ToList();
         }
 
-        public Category Get(int id)
+        public Category? Get(int id)
         {
             return this.DbContext.Categories.Where(c => c.Id == id).First();
         }
@@ -35,14 +35,25 @@ namespace App.Repositories
 
         public void Update(int id, Category data)
         {
-            Category category = this.Get(id);
-            this.DbContext.Categories.Update(category);
+            Category? category = this.Get(id);
+            if (category != null)
+            {
+                category.Id = id;
+                this.DbContext.Entry(category).CurrentValues.SetValues(data);
+            }
+
             this.DbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            this.DbContext.Categories.Remove(this.Get(id));
+            Category? category = this.Get(id);
+            if (category != null)
+            {
+                category.Id = id;
+                this.DbContext.Categories.Remove(category);
+            }
+
             this.DbContext.SaveChanges();
         }
     }

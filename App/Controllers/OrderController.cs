@@ -8,26 +8,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
 {
-
     [ApiController]
-    [Route("api/users")]
-    public class UserController : ControllerBase
+    [Route("api/orders")]
+    public class OrderController : ControllerBase
     {
-        private readonly UserService Service;
+        private readonly OrderService Service;
 
-        public UserController()
+        public OrderController()
         {
-            this.Service = new UserService();
+            this.Service = new OrderService();
         }
 
         [HttpGet]
-        public ActionResult<List<User>> Index()
+        public ActionResult<List<Order>> Index()
         {
             return this.Service.GetAll();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> Show(int id)
+        public ActionResult<Order> Show(int id)
         {
             return this.Service.GetById(id);
         }
