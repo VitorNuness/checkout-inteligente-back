@@ -27,7 +27,7 @@ namespace App.Repositories
             return this.DbContext.Orders.Find(id);
         }
 
-        public void Create(Order data)
+        public void Store(Order data)
         {
             this.DbContext.Orders.Add(data);
             this.DbContext.SaveChanges();

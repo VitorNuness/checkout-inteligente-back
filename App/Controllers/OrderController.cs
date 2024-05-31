@@ -28,21 +28,28 @@ namespace App.Controllers
         [HttpGet("{id}")]
         public ActionResult<Order> Show(int id)
         {
-            return this.Service.GetById(id);
+            Order? order = this.Service.GetById(id);
+
+            if (order != null)
+            {
+                return order;
+            }
+
+            return NotFound();
         }
 
         [HttpPost]
-        public ActionResult Store(User user)
+        public ActionResult Store(Order order)
         {
-            this.Service.Create(user);
+            this.Service.Create(order);
 
             return NoContent();
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, User data)
+        public ActionResult Update(int id, Order order)
         {
-            this.Service.Update(id, data);
+            this.Service.Update(id, order);
 
             return NoContent();
         }

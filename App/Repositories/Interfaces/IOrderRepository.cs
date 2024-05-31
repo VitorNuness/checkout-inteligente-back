@@ -10,7 +10,7 @@ namespace App.Repositories.Interfaces
     {
         public List<Order> GetAll();
         public Order? Get(int id);
-        public void Create(Order data);
+        public void Store(Order data);
         public void Update(int id, Order data);
         public void Delete(int id);
     }
