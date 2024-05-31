@@ -26,23 +26,29 @@ namespace App.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Campaign> Show(int id)
+        public ActionResult<Campaign> Show(int id, string? sort)
         {
-            return this.Service.GetById(id);
+            Campaign? campaign = this.Service.GetById(id, sort);
+            if (campaign != null)
+            {
+                return campaign;
+            }
+
+            return NotFound();
         }
 
         [HttpPost]
-        public ActionResult Store(User user)
+        public ActionResult Store(Campaign campaign)
         {
-            this.Service.Create(user);
+            this.Service.Create(campaign);
 
             return NoContent();
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, User data)
+        public ActionResult Update(int id, Campaign campaign)
         {
-            this.Service.Update(id, data);
+            this.Service.Update(id, campaign);
 
             return NoContent();
         }
