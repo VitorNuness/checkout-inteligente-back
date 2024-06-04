@@ -32,15 +32,15 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Store(User user)
+        public ActionResult Store(Product data)
         {
-            this.Service.Create(user);
+            this.Service.Create(data);
 
             return NoContent();
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, User data)
+        public ActionResult Update(int id, Product data)
         {
             this.Service.Update(id, data);
 

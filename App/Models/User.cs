@@ -15,12 +15,14 @@ namespace App.Models
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
+        public bool? Admin { get; set; }
 
-        public User(string? name, string? email, string? password)
+        public User(string? name, string? email, string? password, bool? admin = false)
         {
             this.Name = name;
             this.Email = email;
             this.Password = password;
+            this.Admin = admin;
         }
 
         private User() { }
