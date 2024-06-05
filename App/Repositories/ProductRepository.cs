@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using App.Database;
 using App.Models;
 using App.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
@@ -17,9 +18,13 @@ namespace App.Repositories
             this.DbContext = new CheckoutDbContext();
         }
 
-        public List<Product> GetAll()
+        public List<Product> GetAll(int? category = null)
         {
-            return this.DbContext.Products.ToList();
+            if (category == null)
+            {
+                return this.DbContext.Products.Include(p => p.Category).ToList();
+            }
+            return this.DbContext.Products.Include(p => p.Category).Where(p => p.CategoryId == category).ToList();
         }
 
         public Product Get(int id)
@@ -29,7 +34,14 @@ namespace App.Repositories
 
         public void Store(Product data)
         {
-            this.DbContext.Products.Add(data);
+            Category? category = this.DbContext.Categories.FirstOrDefault(c => c.Id == data.CategoryId);
+
+            if (category != null)
+            {
+                data.Category = category;
+                this.DbContext.Products.Add(data);
+            }
+
             this.DbContext.SaveChanges();
         }
 

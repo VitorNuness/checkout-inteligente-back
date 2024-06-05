@@ -30,7 +30,11 @@ public partial class CheckoutDbContext : DbContext
     {
         modelBuilder
             .UseCollation("utf8mb4_0900_ai_ci")
-            .HasCharSet("utf8mb4");
+            .HasCharSet("utf8mb4")
+            .Entity<Category>()
+                .HasMany(p => p.Products)
+                .WithOne(p => p.Category)
+                .HasForeignKey(p => p.CategoryId);
 
         OnModelCreatingPartial(modelBuilder);
     }

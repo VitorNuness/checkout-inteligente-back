@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace App.Models
@@ -13,7 +14,8 @@ namespace App.Models
         [Key]
         public int Id { get; set; }
         public string? Name { get; set; }
-        public List<Product>? Products { get; set; }
+        [JsonIgnore]
+        public IList<Product>? Products { get; set; }
 
         public Category(string? name)
         {

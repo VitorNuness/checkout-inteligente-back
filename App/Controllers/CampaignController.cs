@@ -38,11 +38,11 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Store(Campaign campaign)
+        public ActionResult<Campaign> Store(Campaign campaign)
         {
             this.Service.Create(campaign);
 
-            return NoContent();
+            return campaign;
         }
 
         [HttpPut("{id}")]

@@ -39,11 +39,11 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Store(Category category)
+        public ActionResult<Category> Store(Category category)
         {
             this.Service.Create(category);
 
-            return NoContent();
+            return category;
         }
 
         [HttpPut("{id}")]

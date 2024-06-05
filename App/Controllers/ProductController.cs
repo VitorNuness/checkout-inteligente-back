@@ -20,23 +20,23 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Product>> Index()
+        public ActionResult<List<Product>?> Index(int? category = null, string? sort = null)
         {
-            return this.Service.GetAll();
+            return this.Service.GetAll(category, sort);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Show(int id)
+        public ActionResult<Product?> Show(int id)
         {
             return this.Service.GetById(id);
         }
 
         [HttpPost]
-        public ActionResult Store(Product data)
+        public ActionResult<Product> Store(Product data)
         {
             this.Service.Create(data);
 
-            return NoContent();
+            return data;
         }
 
         [HttpPut("{id}")]

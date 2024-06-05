@@ -12,12 +12,14 @@ namespace App.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
+        public int? UserId { get; set; }
         public User? User { get; set; }
-        public List<Product>? Products { get; set; }
+        public IList<Product>? Products { get; set; }
 
-        public Order(User? user)
+        public Order(User? user, int? userId)
         {
             this.User = user;
+            this.UserId = userId;
             this.Products = new List<Product>();
         }
 

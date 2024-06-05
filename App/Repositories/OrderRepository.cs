@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using App.Database;
 using App.Models;
 using App.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
@@ -19,7 +20,7 @@ namespace App.Repositories
 
         public List<Order> GetAll()
         {
-            return this.DbContext.Orders.ToList();
+            return this.DbContext.Orders.Include(o => o.User).ToList();
         }
 
         public Order? Get(int id)

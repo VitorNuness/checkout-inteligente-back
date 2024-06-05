@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20240604173124_first_migration")]
+    [Migration("20240605171704_first_migration")]
     partial class first_migration
     {
         /// <inheritdoc />
@@ -94,8 +94,11 @@ namespace App.Migrations
                     b.Property<int?>("CampaignId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -165,7 +168,9 @@ namespace App.Migrations
 
                     b.HasOne("App.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("App.Models.Order", null)
                         .WithMany("Products")

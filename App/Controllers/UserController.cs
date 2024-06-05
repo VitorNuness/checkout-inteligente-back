@@ -33,11 +33,11 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Store(User user)
+        public ActionResult<User> Store(User user)
         {
             this.Service.Create(user);
 
-            return NoContent();
+            return user;
         }
 
         [HttpPut("{id}")]

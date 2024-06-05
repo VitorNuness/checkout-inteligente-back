@@ -39,11 +39,11 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Store(Order order)
+        public ActionResult<Order> Store(Order order)
         {
             this.Service.Create(order);
 
-            return NoContent();
+            return order;
         }
 
         [HttpPut("{id}")]

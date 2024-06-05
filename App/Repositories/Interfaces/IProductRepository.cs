@@ -9,7 +9,7 @@ namespace App.Repositories.Interfaces
 {
     public interface IProductRepository
     {
-        public List<Product> GetAll();
+        public List<Product> GetAll(int? category = null);
         public Product Get(int id);
         public void Store(Product data);
         public void Update(int id, Product data);

@@ -13,7 +13,7 @@ namespace App.Models
         [Key]
         public int Id { get; set; }
         public string? Title { get; set; }
-        public List<Product>? Products { get; set; }
+        public IList<Product>? Products { get; set; }
         public bool Rule { get; set; }
         public string? ImagePath { get; set; }
 
