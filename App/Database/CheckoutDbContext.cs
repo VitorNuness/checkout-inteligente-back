@@ -12,6 +12,7 @@ public partial class CheckoutDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<Image> Images { get; set; }
 
     public CheckoutDbContext()
     {
@@ -35,6 +36,11 @@ public partial class CheckoutDbContext : DbContext
                 .HasMany(p => p.Products)
                 .WithOne(p => p.Category)
                 .HasForeignKey(p => p.CategoryId);
+
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.Image)
+            .WithOne(i => i.Product)
+            .HasForeignKey<Product>(p => p.ImageId);
 
         OnModelCreatingPartial(modelBuilder);
     }

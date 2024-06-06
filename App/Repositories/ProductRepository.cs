@@ -22,14 +22,14 @@ namespace App.Repositories
         {
             if (category == null)
             {
-                return this.DbContext.Products.Include(p => p.Category).ToList();
+                return this.DbContext.Products.Include(p => p.Category).Include(p => p.Image).ToList();
             }
             return this.DbContext.Products.Include(p => p.Category).Where(p => p.CategoryId == category).ToList();
         }
 
         public Product Get(int id)
         {
-            return this.DbContext.Products.Where(p => p.Id == id).First();
+            return this.DbContext.Products.Where(p => p.Id == id).Include(p => p.Category).Include(p => p.Image).First();
         }
 
         public void Store(Product data)
@@ -62,6 +62,5 @@ namespace App.Repositories
             this.DbContext.Products.Remove(this.Get(id));
             this.DbContext.SaveChanges();
         }
-
     }
 }

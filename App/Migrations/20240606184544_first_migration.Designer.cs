@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20240605171704_first_migration")]
+    [Migration("20240606184544_first_migration")]
     partial class first_migration
     {
         /// <inheritdoc />
@@ -65,6 +65,30 @@ namespace App.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("App.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("App.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -97,8 +121,8 @@ namespace App.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("longtext");
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -120,6 +144,9 @@ namespace App.Migrations
                     b.HasIndex("CampaignId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique();
 
                     b.HasIndex("OrderId");
 
@@ -172,11 +199,17 @@ namespace App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("App.Models.Image", "Image")
+                        .WithOne("Product")
+                        .HasForeignKey("App.Models.Product", "ImageId");
+
                     b.HasOne("App.Models.Order", null)
                         .WithMany("Products")
                         .HasForeignKey("OrderId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("App.Models.Campaign", b =>
@@ -187,6 +220,11 @@ namespace App.Migrations
             modelBuilder.Entity("App.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("App.Models.Image", b =>
+                {
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("App.Models.Order", b =>
