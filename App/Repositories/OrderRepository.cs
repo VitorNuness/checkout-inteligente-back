@@ -20,12 +20,28 @@ namespace App.Repositories
 
         public List<Order> GetAll()
         {
-            return this.DbContext.Orders.Include(o => o.User).ToList();
+            return this.DbContext.Orders
+                .Include(o => o.User)
+                .Include(o => o.Items)
+                .ToList();
         }
 
         public Order? Get(int id)
         {
-            return this.DbContext.Orders.Find(id);
+            return this.DbContext.Orders
+                .Include(o => o.User)
+                .Include(o => o.Items)
+                .Where(o => o.Id == id)
+                .FirstOrDefault();
+        }
+
+        public Order? GetCurrentUserOrder(int userId)
+        {
+            return this.DbContext.Orders
+                .Include(o => o.User)
+                .Include(o => o.Items)
+                .Where(o => o.UserId == userId && o.IsComplete == false)
+                .FirstOrDefault();
         }
 
         public void Store(Order data)

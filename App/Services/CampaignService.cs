@@ -17,9 +17,9 @@ namespace App.Services
             this.Repository = new CampaignRepository();
         }
 
-        public List<Campaign> GetAll()
+        public List<Campaign>? GetAll(string? sort = null)
         {
-            return this.Repository.GetAll();
+            return this.Repository.GetAll(sort);
         }
 
         public Campaign? GetById(int id, string? sort = null)

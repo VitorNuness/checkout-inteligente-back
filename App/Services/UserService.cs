@@ -12,10 +12,12 @@ namespace App.Services
     public class UserService : IUserService
     {
         private readonly UserRepository Repository;
+        private readonly OrderService OrderService;
 
         public UserService()
         {
             this.Repository = new UserRepository();
+            this.OrderService = new OrderService();
         }
 
         public List<User> GetAll()
@@ -31,6 +33,8 @@ namespace App.Services
         public void Create(User data)
         {
             this.Repository.Store(data);
+            Order? newOrder = new Order(data, data.Id);
+            this.OrderService.Create(newOrder);
         }
 
         public void Update(int id, User data)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using App.Database;
 using App.Models;
 using App.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
@@ -18,14 +19,34 @@ namespace App.Repositories
             this.DbContext = new CheckoutDbContext();
         }
 
-        public List<Campaign> GetAll()
+        public List<Campaign>? GetAll(string? sort = null)
         {
-            return this.DbContext.Campaigns.ToList();
+            List<Campaign>? campaigns = this.DbContext.Campaigns
+                .Include(c => c.Products)
+                .ToList();
+
+            if (campaigns != null)
+            {
+                if (sort == "active")
+                {
+                    campaigns = campaigns.Where(c => c.Active == true).ToList();
+                }
+
+                if (sort == "desactive")
+                {
+                    campaigns = campaigns.Where(c => c.Active == false).ToList();
+                }
+            }
+
+            return campaigns;
         }
 
         public Campaign? Get(int id)
         {
-            return this.DbContext.Campaigns.Where(c => c.Id == id).First();
+            return this.DbContext.Campaigns
+                .Include(c => c.Products)
+                .Where(c => c.Id == id)
+                .FirstOrDefault();
         }
 
         public void Store(Campaign data)

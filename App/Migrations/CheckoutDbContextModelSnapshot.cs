@@ -32,6 +32,9 @@ namespace App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("ImagePath")
                         .HasColumnType("longtext");
 
@@ -94,6 +97,9 @@ namespace App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -102,6 +108,35 @@ namespace App.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("App.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("App.Models.Product", b =>
@@ -124,9 +159,6 @@ namespace App.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
@@ -144,8 +176,6 @@ namespace App.Migrations
 
                     b.HasIndex("ImageId")
                         .IsUnique();
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -184,6 +214,25 @@ namespace App.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("App.Models.OrderItem", b =>
+                {
+                    b.HasOne("App.Models.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("App.Models.Product", b =>
                 {
                     b.HasOne("App.Models.Campaign", null)
@@ -199,10 +248,6 @@ namespace App.Migrations
                     b.HasOne("App.Models.Image", "Image")
                         .WithOne("Product")
                         .HasForeignKey("App.Models.Product", "ImageId");
-
-                    b.HasOne("App.Models.Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
 
                     b.Navigation("Category");
 
@@ -226,7 +271,7 @@ namespace App.Migrations
 
             modelBuilder.Entity("App.Models.Order", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

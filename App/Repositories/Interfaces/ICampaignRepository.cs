@@ -9,7 +9,7 @@ namespace App.Repositories.Interfaces
 {
     public interface ICampaignRepository
     {
-        public List<Campaign> GetAll();
+        public List<Campaign>? GetAll(string? sort = null);
         public Campaign? Get(int id);
         public void Store(Campaign data);
         public void Update(int id, Campaign data);

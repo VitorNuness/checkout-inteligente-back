@@ -48,5 +48,15 @@ namespace App.Services
         {
             this.Repository.Delete(id);
         }
+
+        public void AddView(int id)
+        {
+            Product? product = this.GetById(id);
+            if (product != null)
+            {
+                product.Views++;
+                this.Update(id, product);
+            }
+        }
     }
 }

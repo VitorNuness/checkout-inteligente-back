@@ -8,7 +8,7 @@ namespace App.Services.Interfaces
 {
     public interface ICampaignService
     {
-        public List<Campaign> GetAll();
+        public List<Campaign>? GetAll(string? sort = null);
         public Campaign? GetById(int id, string? sort = null);
         public void Create(Campaign data);
         public void Update(int id, Campaign data);

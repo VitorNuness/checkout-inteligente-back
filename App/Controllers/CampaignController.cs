@@ -20,9 +20,9 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Campaign>> Index()
+        public ActionResult<List<Campaign>> Index(string? sort = null)
         {
-            return this.Service.GetAll();
+            return this.Service.GetAll(sort);
         }
 
         [HttpGet("{id}")]

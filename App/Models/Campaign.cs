@@ -15,12 +15,14 @@ namespace App.Models
         public string? Title { get; set; }
         public IList<Product>? Products { get; set; }
         public bool Rule { get; set; }
+        public bool Active { get; set; }
         public string? ImagePath { get; set; }
 
         public Campaign(string? title, string? imagePath)
         {
             this.Title = title;
             this.Rule = true;
+            this.Active = true;
             this.ImagePath = imagePath;
         }
 
