@@ -16,10 +16,12 @@ namespace App.Models
         public int? UserId { get; set; }
         public User? User { get; set; }
         public List<OrderItem>? Items { get; set; }
+        public bool FreeShipping { get; set; }
 
         public Order(User? user, int? userId)
         {
             this.IsComplete = false;
+            this.FreeShipping = false;
             this.User = user;
             this.UserId = userId;
             this.Items = new List<OrderItem>();

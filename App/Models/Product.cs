@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace App.Models
 {
@@ -21,6 +22,9 @@ namespace App.Models
         public int? ImageId { get; set; }
         public Image? Image { get; set; }
 
+        [JsonIgnore]
+        public List<OrderItem> Orders { get; set; }
+
         public Product(string? name, int categoryId, Category category, double quantity, double price, int? imageId = null, Image? image = null)
         {
             this.Name = name;
@@ -33,6 +37,8 @@ namespace App.Models
 
             this.ImageId = imageId;
             this.Image = image;
+
+            this.Orders = new List<OrderItem>();
         }
 
         private Product() { }

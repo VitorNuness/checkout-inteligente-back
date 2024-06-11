@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Models;
 using App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -31,6 +32,7 @@ namespace App.Controllers
             return this.Service.GetById(id);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<Product> Store(Product data)
         {
@@ -39,6 +41,7 @@ namespace App.Controllers
             return data;
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult Update(int id, Product data)
         {
@@ -47,6 +50,7 @@ namespace App.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

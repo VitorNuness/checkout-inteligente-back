@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Models;
 using App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -37,6 +38,7 @@ namespace App.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<Campaign> Store(Campaign campaign)
         {
@@ -45,6 +47,7 @@ namespace App.Controllers
             return campaign;
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult Update(int id, Campaign campaign)
         {
@@ -53,6 +56,7 @@ namespace App.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

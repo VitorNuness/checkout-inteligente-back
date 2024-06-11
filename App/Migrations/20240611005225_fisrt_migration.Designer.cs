@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20240607171536_first_migration")]
-    partial class first_migration
+    [Migration("20240611005225_fisrt_migration")]
+    partial class fisrt_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,9 @@ namespace App.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("FreeShipping")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsComplete")
                         .HasColumnType("tinyint(1)");
@@ -226,7 +229,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.HasOne("App.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -275,6 +278,11 @@ namespace App.Migrations
             modelBuilder.Entity("App.Models.Order", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("App.Models.Product", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

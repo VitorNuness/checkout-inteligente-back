@@ -97,6 +97,9 @@ namespace App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("FreeShipping")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("IsComplete")
                         .HasColumnType("tinyint(1)");
 
@@ -223,7 +226,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.HasOne("App.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -272,6 +275,11 @@ namespace App.Migrations
             modelBuilder.Entity("App.Models.Order", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("App.Models.Product", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

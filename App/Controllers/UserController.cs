@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Models;
 using App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers

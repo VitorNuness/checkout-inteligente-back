@@ -44,7 +44,9 @@ public partial class CheckoutDbContext : DbContext
             .HasForeignKey<Product>(p => p.ImageId);
 
         modelBuilder.Entity<OrderItem>()
-            .HasOne(o => o.Product);
+            .HasOne(o => o.Product)
+            .WithMany(p => p.Orders)
+            .HasForeignKey(o => o.ProductId);
 
         OnModelCreatingPartial(modelBuilder);
     }

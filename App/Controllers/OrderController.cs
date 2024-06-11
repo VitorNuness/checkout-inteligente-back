@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Models;
 using App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -38,7 +39,8 @@ namespace App.Controllers
             return NotFound();
         }
 
-        [HttpGet("/current")]
+        [Authorize]
+        [HttpGet("current")]
         public ActionResult<Order> GetCurrentUserCart(int userId)
         {
             Order? order = this.Service.GetCurrentUserOrder(userId);
@@ -51,6 +53,7 @@ namespace App.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpGet("{id}/suggestions")]
         public ActionResult<List<Product>> ProductSuggestion(int id, bool byCampaigns = false)
         {
@@ -81,6 +84,7 @@ namespace App.Controllers
             return order;
         }
 
+        [Authorize]
         [HttpPost("{id}/products/add")]
         public ActionResult<Order> AddProduct(int id, int productId)
         {
@@ -88,6 +92,7 @@ namespace App.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPost("{id}/products/remove")]
         public ActionResult<Order> RemoveProduct(int id, int productId)
         {
@@ -95,6 +100,7 @@ namespace App.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPost("{id}/complete")]
         public ActionResult<Order> CompleteOrder(int id)
         {
@@ -106,7 +112,6 @@ namespace App.Controllers
         public ActionResult Update(int id, Order order)
         {
             this.Service.Update(id, order);
-
             return NoContent();
         }
 

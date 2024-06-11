@@ -132,7 +132,7 @@ namespace App.Services
             List<Campaign>? campaigns = this.CampaignService.GetAll("active");
             List<Product>? products = new List<Product>();
 
-            if (campaigns != null)
+            if (campaigns != null && order != null && !order.FreeShipping)
             {
                 foreach (Campaign campaign in campaigns)
                 {
@@ -150,6 +150,40 @@ namespace App.Services
 
             List<Product>? suggestions = this.SuggestionService.GetSuggestions(order, products);
             return suggestions;
+        }
+
+        public void VerifyFreeShiping(int id)
+        {
+            Order? order = this.GetById(id);
+            List<Campaign>? campaigns = this.CampaignService.GetAll("active");
+            List<Product>? productsInCampaigns = new List<Product>();
+
+            if (order != null && campaigns != null)
+            {
+                foreach (Campaign campaign in campaigns)
+                {
+                    if (campaign.Products != null && order.Items != null)
+                    {
+                        foreach (Product product in campaign.Products)
+                        {
+                            foreach (OrderItem item in order.Items)
+                            {
+                                if (product == item.Product)
+                                {
+                                    productsInCampaigns.Add(product);
+                                }
+                            }
+                        }
+                        if (productsInCampaigns.Count() == campaign.Products.Count())
+                        {
+                            order.FreeShipping = true;
+                            this.Update(id, order);
+                            return;
+                        }
+                        productsInCampaigns = [];
+                    }
+                }
+            }
         }
     }
 }
