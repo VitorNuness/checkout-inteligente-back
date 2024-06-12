@@ -18,12 +18,12 @@ namespace App.Models
         public List<OrderItem>? Items { get; set; }
         public bool FreeShipping { get; set; }
 
-        public Order(User? user, int? userId)
+        public Order(User? user)
         {
             this.IsComplete = false;
             this.FreeShipping = false;
             this.User = user;
-            this.UserId = userId;
+            this.UserId = user.Id;
             this.Items = new List<OrderItem>();
         }
 

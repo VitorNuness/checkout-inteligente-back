@@ -33,7 +33,7 @@ namespace App.Services
         public void Create(User data)
         {
             this.Repository.Store(data);
-            Order? newOrder = new Order(data, data.Id);
+            Order? newOrder = new Order(data);
             this.OrderService.Create(newOrder);
         }
 
