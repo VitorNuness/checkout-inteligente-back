@@ -76,8 +76,9 @@ namespace App.Services
                 else
                 {
                     order.Items.Add(item);
-                    this.Update(id, order);
                 }
+                order = this.VerifyFreeShiping(order);
+                this.Update(id, order);
 
             }
         }
@@ -95,6 +96,7 @@ namespace App.Services
                 {
                     this.OrderItemService.RemoveProduct(item.Id, productId);
                 }
+                order = this.VerifyFreeShiping(order);
                 this.Update(id, order);
             }
         }
@@ -152,11 +154,10 @@ namespace App.Services
             return suggestions;
         }
 
-        public void VerifyFreeShiping(int id)
+        public Order VerifyFreeShiping(Order order)
         {
-            Order? order = this.GetById(id);
             List<Campaign>? campaigns = this.CampaignService.GetAll("active");
-            List<Product>? productsInCampaigns = new List<Product>();
+            HashSet<Product> productsInCampaigns = new HashSet<Product>();
 
             if (order != null && campaigns != null)
             {
@@ -177,13 +178,18 @@ namespace App.Services
                         if (productsInCampaigns.Count() == campaign.Products.Count())
                         {
                             order.FreeShipping = true;
-                            this.Update(id, order);
-                            return;
+                            return order;
                         }
-                        productsInCampaigns = [];
+                        else
+                        {
+                            order.FreeShipping = false;
+                        }
+                        productsInCampaigns.Clear();
                     }
                 }
             }
+            return order;
         }
+
     }
 }

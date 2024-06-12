@@ -23,6 +23,7 @@ namespace App.Repositories
             return this.DbContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.Items)
+                    .ThenInclude(o => o.Product)
                 .ToList();
         }
 
@@ -31,6 +32,7 @@ namespace App.Repositories
             return this.DbContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.Items)
+                    .ThenInclude(o => o.Product)
                 .Where(o => o.Id == id)
                 .FirstOrDefault();
         }
@@ -40,6 +42,7 @@ namespace App.Repositories
             return this.DbContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.Items)
+                    .ThenInclude(o => o.Product)
                 .Where(o => o.UserId == userId && o.IsComplete == false)
                 .FirstOrDefault();
         }

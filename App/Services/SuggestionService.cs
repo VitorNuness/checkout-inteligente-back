@@ -12,29 +12,42 @@ namespace App.Services
         {
             List<Product> suggestions = new List<Product>();
 
-            if (products != null && cart != null)
+            if (products != null)
             {
                 foreach (Product product in products)
                 {
-                    if (cart.Items != null)
+                    if (cart != null && cart.Items != null)
                     {
+                        bool productInCart = false;
                         foreach (OrderItem item in cart.Items)
                         {
-                            if (item.Product != product)
+                            if (item.Product.Id == product.Id)
                             {
-                                suggestions.Add(product);
-                            }
-
-                            if (suggestions.Count == 10)
-                            {
+                                productInCart = true;
                                 break;
                             }
                         }
+
+                        if (!productInCart)
+                        {
+                            suggestions.Add(product);
+                        }
+                    }
+                    else
+                    {
+                        suggestions.Add(product);
+                    }
+
+                    if (suggestions.Count == 10)
+                    {
+                        break;
                     }
                 }
             }
 
             return suggestions;
         }
+
+
     }
 }
