@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using App.Enums;
 
 namespace App.Models
@@ -14,6 +15,7 @@ namespace App.Models
         public required string Password { get; set; }
         public required ERole Role { get; set; }
 
+        [SetsRequiredMembers]
         public User(string name, string email, string password, ERole role = ERole.CUSTOMER)
         {
             Name = name;
