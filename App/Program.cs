@@ -1,9 +1,7 @@
 using System.Text;
-using App.Database;
+using App.Repositories.Database;
 using App.Repositories;
-using App.Repositories.Interfaces;
 using App.Services;
-using App.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
