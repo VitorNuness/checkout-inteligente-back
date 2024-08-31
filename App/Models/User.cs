@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using App.Enums;
 
 namespace App.Models
 {
@@ -12,17 +9,17 @@ namespace App.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
-        public bool? Admin { get; set; }
+        public required string Name { get; set; }
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+        public required ERole Role { get; set; }
 
-        public User(string? name, string? email, string? password, bool? admin = false)
+        public User(string name, string email, string password, ERole role = ERole.CUSTOMER)
         {
-            this.Name = name;
-            this.Email = email;
-            this.Password = password;
-            this.Admin = admin;
+            Name = name;
+            Email = email;
+            Password = password;
+            Role = role;
         }
 
         private User() { }
