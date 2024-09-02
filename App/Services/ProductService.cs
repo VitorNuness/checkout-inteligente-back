@@ -1,60 +1,105 @@
+using App.DTOs;
 using App.Models;
 using App.Repositories;
-using App.Services.Interfaces;
 
 namespace App.Services
 {
-    public class ProductService : IProductService
+    public class ProductService
     {
         private readonly ProductRepository _productRepository;
+        private readonly CategoryService _categoryService;
+        private readonly FileService _fileService;
+        private readonly IWebHostEnvironment _environment;
 
         public ProductService(
-            ProductRepository productRepository
+            ProductRepository productRepository,
+            CategoryService categoryService,
+            FileService fileService,
+            IWebHostEnvironment environment
         )
         {
             _productRepository = productRepository;
+            _categoryService = categoryService;
+            _fileService = fileService;
+            _environment = environment;
         }
 
-        public List<Product>? GetAll(int? category = null, string? sort = null)
+        public async Task<IEnumerable<Product?>> GetAll()
         {
-            List<Product>? products = _productRepository.GetAll(category);
+            return await _productRepository.GetAll();
+        }
 
-            if (products != null && sort == "popularity")
+        public async Task<Product> GetById(int id)
+        {
+            return await _productRepository.FindOrFail(id);
+        }
+
+        public async Task<Product> Create(ProductInputDTO productInputDTO, IFormFile? image)
+        {
+            Category category = await _categoryService.GetById(productInputDTO.CategoryId);
+
+            Product product = new(
+                productInputDTO.Name,
+                category,
+                productInputDTO.Quantity,
+                productInputDTO.Price
+            );
+
+            await _productRepository.Store(product);
+
+            if (image?.Length > 0)
             {
-                products = products.OrderByDescending(p => p.Views).ToList();
+                string path = GetProductImagesPath(product.Id);
+                await _fileService.SaveFile(image, path);
+
+                product.ImageUrl = GetProductImagesUrl(product.Id);
+                await _productRepository.Update(product, product);
             }
 
-            return products;
+            return product;
         }
 
-        public Product? GetById(int id)
+        public async Task<Product> Update(int id, ProductInputDTO productInputDTO, IFormFile? image)
         {
-            return _productRepository.Get(id);
-        }
+            Category category = await _categoryService.GetById(productInputDTO.CategoryId);
 
-        public void Create(Product data)
-        {
-            _productRepository.Store(data);
-        }
+            Product oldProduct = await _productRepository.FindOrFail(id);
 
-        public void Update(int id, Product data)
-        {
-            _productRepository.Update(id, data);
-        }
-
-        public void Delete(int id)
-        {
-            _productRepository.Delete(id);
-        }
-
-        public void AddView(int id)
-        {
-            Product? product = this.GetById(id);
-            if (product != null)
+            Product product = new(
+                productInputDTO.Name,
+                category,
+                productInputDTO.Quantity,
+                productInputDTO.Price
+            )
             {
-                product.Views++;
-                this.Update(id, product);
+                Id = oldProduct.Id,
+                ImageUrl = oldProduct.ImageUrl
+            };
+
+            if (image?.Length > 0)
+            {
+                string path = GetProductImagesPath(product.Id);
+                await _fileService.SaveFile(image, path);
+
+                product.ImageUrl = GetProductImagesUrl(product.Id);
+            }
+
+            return await _productRepository.Update(oldProduct, product);
+        }
+
+        public async Task Delete(int id)
+        {
+            Product product = await GetById(id);
+            await _productRepository.Delete(product);
+
+            if (product.ImageUrl != GetProductImagesUrl(0))
+            {
+                await _fileService.RemoveFile(GetProductImagesPath(id));
             }
         }
+
+        private string GetProductImagesPath(int id) => Path.Combine(_environment.WebRootPath, "files/images/products", id.ToString() + ".png");
+
+        private string GetProductImagesUrl(int id) => "http://localhost:5102/files/images/products/" + id.ToString() + ".png";
     }
 }

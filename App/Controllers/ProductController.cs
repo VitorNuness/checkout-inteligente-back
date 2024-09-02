@@ -1,3 +1,4 @@
+using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -21,38 +22,45 @@ namespace App.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product?>>> Index()
         {
-            return _productService.GetAll();
+            return Ok(await _productService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product?> Show(int id)
+        public async Task<ActionResult<Product?>> Show(int id)
         {
-            return _productService.GetById(id);
+            return Ok(await _productService.GetById(id));
         }
 
-        [Authorize]
         [HttpPost]
-        public ActionResult<Product> Store(Product data)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult<Product>> Store(
+            [FromForm] ProductInputDTO productInputDTO,
+            IFormFile? image = null
+        )
         {
-            _productService.Create(data);
+            Product product = await _productService.Create(productInputDTO, image);
 
-            return data;
+            return CreatedAtAction(nameof(Store), product);
         }
 
-        [Authorize]
         [HttpPut("{id}")]
-        public ActionResult Update(int id, Product data)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult<Product>> Update(
+            int id,
+            [FromForm] ProductInputDTO productInputDTO,
+            IFormFile? image = null
+        )
         {
-            _productService.Update(id, data);
+            Product product = await _productService.Update(id, productInputDTO, image);
 
-            return NoContent();
+            return Ok(product);
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        // [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Delete(int id)
         {
-            _productService.Delete(id);
+            await _productService.Delete(id);
 
             return NoContent();
         }

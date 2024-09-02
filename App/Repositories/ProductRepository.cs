@@ -1,11 +1,10 @@
 using App.Models;
 using App.Repositories.Database;
-using App.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository
     {
         private readonly CheckoutDbContext _dbContext;
 
@@ -16,49 +15,40 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
-        public List<Product> GetAll(int? category = null)
+        public async Task<IEnumerable<Product?>> GetAll()
         {
-            if (category == null)
-            {
-                return _dbContext.Products.Include(p => p.Category).Include(p => p.Image).ToList();
-            }
-            return _dbContext.Products.Include(p => p.Category).Where(p => p.CategoryId == category).ToList();
+            return await _dbContext.Products
+                .Include(p => p.Category)
+                .ToListAsync();
         }
 
-        public Product Get(int id)
+        public async Task<Product> FindOrFail(int id)
         {
-            return _dbContext.Products.Where(p => p.Id == id).Include(p => p.Category).Include(p => p.Image).First();
+            return await _dbContext.Products.Include(p => p.Category).Where(p => p.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Product not exist.");
         }
 
-        public void Store(Product data)
+        public async Task<Product> Store(Product product)
         {
-            Category? category = _dbContext.Categories.FirstOrDefault(c => c.Id == data.CategoryId);
+            _dbContext.Products.Add(product);
+            await _dbContext.SaveChangesAsync();
 
-            if (category != null)
-            {
-                data.Category = category;
-                _dbContext.Products.Add(data);
-            }
-
-            _dbContext.SaveChanges();
+            return product;
         }
 
-        public void Update(int id, Product data)
+        public async Task<Product> Update(Product oldProduct, Product newProduct)
         {
-            Product product = this.Get(id);
-            if (product != null)
-            {
-                product.Id = id;
-                _dbContext.Entry(product).CurrentValues.SetValues(data);
-            }
+            _dbContext.Entry(oldProduct).CurrentValues.SetValues(newProduct);
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
+            return newProduct;
         }
 
-        public void Delete(int id)
+        public async Task Delete(Product product)
         {
-            _dbContext.Products.Remove(this.Get(id));
-            _dbContext.SaveChanges();
+            _dbContext.Remove(product);
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
