@@ -57,10 +57,10 @@ namespace App.Services
             _orderRepository.Delete(id);
         }
 
-        public void AddProduct(int id, int productId)
+        public async void AddProduct(int id, int productId)
         {
             Order? order = this.GetById(id);
-            Product? product = _productService.GetById(productId);
+            Product? product = await _productService.GetById(productId);
 
             if (order != null && product != null)
             {
@@ -86,10 +86,10 @@ namespace App.Services
         }
 
 
-        public void RemoveProduct(int id, int productId)
+        public async void RemoveProduct(int id, int productId)
         {
             Order? order = this.GetById(id);
-            Product? product = _productService.GetById(productId);
+            Product? product = await _productService.GetById(productId);
 
             if (order != null && product != null)
             {
@@ -113,22 +113,17 @@ namespace App.Services
 
                 Order? newOrder = new Order(order.User, order.UserId);
                 this.Create(newOrder);
-
-                foreach (OrderItem? item in order.Items)
-                {
-                    _productService.AddView(item.ProductId);
-                }
             }
         }
 
-        public List<Product>? GetSuggestions(int id)
-        {
-            Order? order = this.GetById(id);
-            List<Product>? products = _productService.GetAll(null, "popularity");
+        // public async Task<IEnumerable<Product?>> GetSuggestions(int id)
+        // {
+        //     Order? order = this.GetById(id);
+        //     IEnumerable<Product?> products = await _productService.GetAll();
 
-            List<Product>? suggestions = _suggestionService.GetSuggestions(order, products);
-            return suggestions;
-        }
+        //     // List<Product>? suggestions = _suggestionService.GetSuggestions(order, products);
+        //     return suggestions;
+        // }
 
         public List<Product>? GetSuggestionsByCampaigns(int id)
         {
@@ -150,7 +145,6 @@ namespace App.Services
                 }
             }
 
-            products = products.OrderByDescending(p => p.Views).ToList();
 
             List<Product>? suggestions = _suggestionService.GetSuggestions(order, products);
             return suggestions;
