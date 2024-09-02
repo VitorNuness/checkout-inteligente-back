@@ -51,10 +51,10 @@ namespace App.Services
             _orderItemRepository.Delete(id);
         }
 
-        public void AddProduct(int id, int productId)
+        public async void AddProduct(int id, int productId)
         {
             OrderItem? item = this.GetById(id);
-            Product? product = _productService.GetById(productId);
+            Product? product = await _productService.GetById(productId);
 
             if (item != null && product != null)
             {
@@ -64,10 +64,10 @@ namespace App.Services
             }
         }
 
-        public void RemoveProduct(int id, int productId)
+        public async void RemoveProduct(int id, int productId)
         {
             OrderItem? item = this.GetById(id);
-            Product? product = _productService.GetById(productId);
+            Product? product = await _productService.GetById(productId);
 
             if (item != null && product != null)
             {
