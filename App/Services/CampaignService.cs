@@ -24,20 +24,6 @@ namespace App.Services
         {
             Campaign? campaign = _campaignRepository.Get(id);
 
-            if (campaign == null)
-            {
-                return campaign;
-            }
-
-            if (sort == "trend")
-            {
-                if (campaign.Products != null)
-                {
-                    campaign.Products = campaign.Products.OrderByDescending(p => p.Views).ToList();
-                    return campaign;
-                }
-            }
-
             return campaign;
         }
 
