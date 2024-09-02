@@ -1,10 +1,11 @@
+using App.DTOs;
 using App.Models;
 using App.Repositories;
 using App.Services.Interfaces;
 
 namespace App.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService
     {
         private readonly CategoryRepository _categoryRepository;
 
@@ -15,44 +16,32 @@ namespace App.Services
             _categoryRepository = categoryRepository;
         }
 
-        public List<Category> GetAll()
+        public async Task<IEnumerable<Category?>> GetAll()
         {
-            return _categoryRepository.GetAll();
+            return await _categoryRepository.GetAll();
         }
 
-        public Category? GetById(int id, string? sort)
+        public async Task<Category> GetById(int id)
         {
-            Category? category = _categoryRepository.Get(id);
-
-            if (category == null)
-            {
-                return category;
-            }
-
-            if (sort == "trend")
-            {
-                if (category.Products != null)
-                {
-                    category.Products = category.Products.OrderByDescending(p => p.Views).ToList();
-                }
-            }
-
-            return category;
+            return await _categoryRepository.FindOrFail(id);
         }
 
-        public void Create(Category data)
+        public async Task<Category> Create(CategoryInputDTO categoryInputDTO)
         {
-            _categoryRepository.Store(data);
+            Category category = new(categoryInputDTO.Name);
+
+            return await _categoryRepository.Store(category);
         }
 
-        public void Update(int id, Category data)
+        public async Task Update(int id, Category data)
         {
-            _categoryRepository.Update(id, data);
+            await _categoryRepository.Update(id, data);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _categoryRepository.Delete(id);
+            Category category = await GetById(id);
+            await _categoryRepository.Delete(category);
         }
     }
 }

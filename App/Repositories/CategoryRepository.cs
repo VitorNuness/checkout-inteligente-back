@@ -1,10 +1,11 @@
+using App.DTOs;
 using App.Models;
 using App.Repositories.Database;
-using App.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository
     {
         private readonly CheckoutDbContext _dbContext;
 
@@ -15,44 +16,39 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
-        public List<Category> GetAll()
+        public async Task<IEnumerable<Category?>> GetAll()
         {
-            return _dbContext.Categories.ToList();
+            return await _dbContext.Categories.Include(c => c.Products).ToListAsync();
         }
 
-        public Category? Get(int id)
+        public async Task<Category> FindOrFail(int id)
         {
-            return _dbContext.Categories.Where(c => c.Id == id).First();
+            return await _dbContext.Categories.Include(c => c.Products).Where(p => p.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Category not exist.");
         }
 
-        public void Store(Category data)
+        public async Task<Category> Store(Category category)
         {
-            _dbContext.Categories.Add(data);
-            _dbContext.SaveChanges();
+            _dbContext.Categories.Add(category);
+            await _dbContext.SaveChangesAsync();
+
+            return category;
         }
 
-        public void Update(int id, Category data)
+        public async Task<Category> Update(int id, Category newCategory)
         {
-            Category? category = this.Get(id);
-            if (category != null)
-            {
-                category.Id = id;
-                _dbContext.Entry(category).CurrentValues.SetValues(data);
-            }
+            Category category = await FindOrFail(id);
 
-            _dbContext.SaveChanges();
+            _dbContext.Entry(category).CurrentValues.SetValues(newCategory);
+            await _dbContext.SaveChangesAsync();
+
+            return category;
         }
 
-        public void Delete(int id)
+        public async Task Delete(Category category)
         {
-            Category? category = this.Get(id);
-            if (category != null)
-            {
-                category.Id = id;
-                _dbContext.Categories.Remove(category);
-            }
+            _dbContext.Categories.Remove(category);
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

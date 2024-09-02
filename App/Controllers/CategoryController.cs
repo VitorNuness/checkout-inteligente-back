@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,30 +23,25 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Category>> Index()
+        public async Task<ActionResult<List<Category?>>> Index()
         {
-            return _categoryService.GetAll();
+            return Ok(await _categoryService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Category> Show(int id, string? sort)
+        public async Task<ActionResult<Category>> Show(int id)
         {
-            Category? category = _categoryService.GetById(id, sort);
+            Category category = await _categoryService.GetById(id);
 
-            if (category != null)
-            {
-                return category;
-            }
-
-            return NotFound();
+            return Ok(category);
         }
 
         [HttpPost]
-        public ActionResult<Category> Store(Category category)
+        public async Task<ActionResult<Category>> Store(CategoryInputDTO categoryInputDTO)
         {
-            _categoryService.Create(category);
+            Category category = await _categoryService.Create(categoryInputDTO);
 
-            return category;
+            return CreatedAtAction(nameof(Store), category);
         }
 
         [HttpPut("{id}")]
