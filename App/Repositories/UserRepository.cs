@@ -55,7 +55,7 @@ namespace App.Repositories
             User? user = await FindOrFail(id);
             if (user != null)
             {
-                this._dbContext.Users.Remove(user);
+                this._dbContext.Remove(user);
             }
             this._dbContext.SaveChanges();
         }
