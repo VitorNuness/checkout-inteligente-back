@@ -69,7 +69,7 @@ namespace App.Repositories
             Campaign? campaign = this.Get(id);
             if (campaign != null)
             {
-                _dbContext.Campaigns.Remove(campaign);
+                _dbContext.Remove(campaign);
             }
             _dbContext.SaveChanges();
         }
