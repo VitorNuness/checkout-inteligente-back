@@ -1,36 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Database;
 using App.Models;
+using App.Repositories.Database;
 using App.Repositories.Interfaces;
 
 namespace App.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public CategoryRepository()
+        public CategoryRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
         public List<Category> GetAll()
         {
-            return this.DbContext.Categories.ToList();
+            return _dbContext.Categories.ToList();
         }
 
         public Category? Get(int id)
         {
-            return this.DbContext.Categories.Where(c => c.Id == id).First();
+            return _dbContext.Categories.Where(c => c.Id == id).First();
         }
 
         public void Store(Category data)
         {
-            this.DbContext.Categories.Add(data);
-            this.DbContext.SaveChanges();
+            _dbContext.Categories.Add(data);
+            _dbContext.SaveChanges();
         }
 
         public void Update(int id, Category data)
@@ -39,10 +37,10 @@ namespace App.Repositories
             if (category != null)
             {
                 category.Id = id;
-                this.DbContext.Entry(category).CurrentValues.SetValues(data);
+                _dbContext.Entry(category).CurrentValues.SetValues(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -51,10 +49,10 @@ namespace App.Repositories
             if (category != null)
             {
                 category.Id = id;
-                this.DbContext.Categories.Remove(category);
+                _dbContext.Categories.Remove(category);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 }

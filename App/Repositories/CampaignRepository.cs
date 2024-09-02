@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using App.Database;
 using App.Models;
+using App.Repositories.Database;
 using App.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,16 +7,18 @@ namespace App.Repositories
 {
     public class CampaignRepository : ICampaignRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public CampaignRepository()
+        public CampaignRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
         public List<Campaign>? GetAll(string? sort = null)
         {
-            List<Campaign>? campaigns = this.DbContext.Campaigns
+            List<Campaign>? campaigns = _dbContext.Campaigns
                 .Include(c => c.Products)
                 .ToList();
 
@@ -43,7 +40,7 @@ namespace App.Repositories
 
         public Campaign? Get(int id)
         {
-            return this.DbContext.Campaigns
+            return _dbContext.Campaigns
                 .Include(c => c.Products)
                 .Where(c => c.Id == id)
                 .FirstOrDefault();
@@ -51,8 +48,8 @@ namespace App.Repositories
 
         public void Store(Campaign data)
         {
-            this.DbContext.Campaigns.Add(data);
-            this.DbContext.SaveChanges();
+            _dbContext.Campaigns.Add(data);
+            _dbContext.SaveChanges();
         }
 
         public void Update(int id, Campaign data)
@@ -61,10 +58,10 @@ namespace App.Repositories
             if (campaign != null)
             {
                 campaign.Id = id;
-                this.DbContext.Entry(campaign).CurrentValues.SetValues(data);
+                _dbContext.Entry(campaign).CurrentValues.SetValues(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -72,9 +69,9 @@ namespace App.Repositories
             Campaign? campaign = this.Get(id);
             if (campaign != null)
             {
-                this.DbContext.Campaigns.Remove(campaign);
+                _dbContext.Campaigns.Remove(campaign);
             }
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 }

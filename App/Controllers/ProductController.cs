@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,30 +9,32 @@ namespace App.Controllers
     [Route("api/products")]
     public class ProductController : ControllerBase
     {
-        private readonly ProductService Service;
+        private readonly ProductService _productService;
 
-        public ProductController()
+        public ProductController(
+            ProductService productService
+        )
         {
-            this.Service = new ProductService();
+            _productService = productService;
         }
 
         [HttpGet]
-        public ActionResult<List<Product>?> Index(int? category = null, string? sort = null)
+        public async Task<ActionResult<IEnumerable<Product?>>> Index()
         {
-            return this.Service.GetAll(category, sort);
+            return _productService.GetAll();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Product?> Show(int id)
         {
-            return this.Service.GetById(id);
+            return _productService.GetById(id);
         }
 
         [Authorize]
         [HttpPost]
         public ActionResult<Product> Store(Product data)
         {
-            this.Service.Create(data);
+            _productService.Create(data);
 
             return data;
         }
@@ -45,7 +43,7 @@ namespace App.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(int id, Product data)
         {
-            this.Service.Update(id, data);
+            _productService.Update(id, data);
 
             return NoContent();
         }
@@ -54,7 +52,7 @@ namespace App.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            this.Service.Delete(id);
+            _productService.Delete(id);
 
             return NoContent();
         }

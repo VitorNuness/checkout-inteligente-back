@@ -13,23 +13,25 @@ namespace App.Controllers
     [Route("api/campaigns")]
     public class CampaignController : ControllerBase
     {
-        private readonly CampaignService Service;
+        private readonly CampaignService _campaignService;
 
-        public CampaignController()
+        public CampaignController(
+            CampaignService campaignService
+        )
         {
-            this.Service = new CampaignService();
+            _campaignService = campaignService;
         }
 
         [HttpGet]
         public ActionResult<List<Campaign>> Index(string? sort = null)
         {
-            return this.Service.GetAll(sort);
+            return _campaignService.GetAll(sort);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Campaign> Show(int id, string? sort)
         {
-            Campaign? campaign = this.Service.GetById(id, sort);
+            Campaign? campaign = _campaignService.GetById(id, sort);
             if (campaign != null)
             {
                 return campaign;
@@ -42,7 +44,7 @@ namespace App.Controllers
         [HttpPost]
         public ActionResult<Campaign> Store(Campaign campaign)
         {
-            this.Service.Create(campaign);
+            _campaignService.Create(campaign);
 
             return campaign;
         }
@@ -51,7 +53,7 @@ namespace App.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(int id, Campaign campaign)
         {
-            this.Service.Update(id, campaign);
+            _campaignService.Update(id, campaign);
 
             return NoContent();
         }
@@ -60,7 +62,7 @@ namespace App.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            this.Service.Delete(id);
+            _campaignService.Delete(id);
 
             return NoContent();
         }

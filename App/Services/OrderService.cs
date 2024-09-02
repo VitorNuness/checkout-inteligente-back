@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using App.Models;
 using App.Repositories;
 using App.Services.Interfaces;
@@ -10,59 +6,65 @@ namespace App.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly ProductService ProductService;
-        private readonly SuggestionService SuggestionService;
-        private readonly CampaignService CampaignService;
-        private readonly OrderItemService OrderItemService;
-        private readonly OrderRepository Repository;
+        private readonly ProductService _productService;
+        private readonly SuggestionService _suggestionService;
+        private readonly CampaignService _campaignService;
+        private readonly OrderItemService _orderItemService;
+        private readonly OrderRepository _orderRepository;
 
-        public OrderService()
+        public OrderService(
+            ProductService productService,
+            SuggestionService suggestionService,
+            CampaignService campaignService,
+            OrderItemService orderItemService,
+            OrderRepository orderRepository
+        )
         {
-            this.ProductService = new ProductService();
-            this.SuggestionService = new SuggestionService();
-            this.CampaignService = new CampaignService();
-            this.OrderItemService = new OrderItemService();
-            this.Repository = new OrderRepository();
+            _productService = productService;
+            _suggestionService = suggestionService;
+            _campaignService = campaignService;
+            _orderItemService = orderItemService;
+            _orderRepository = orderRepository;
         }
 
         public List<Order> GetAll()
         {
-            return this.Repository.GetAll();
+            return _orderRepository.GetAll();
         }
 
         public Order? GetById(int id)
         {
-            return this.Repository.Get(id);
+            return _orderRepository.Get(id);
         }
 
         public Order? GetCurrentUserOrder(int userId)
         {
-            return this.Repository.GetCurrentUserOrder(userId);
+            return _orderRepository.GetCurrentUserOrder(userId);
         }
 
         public void Create(Order data)
         {
-            this.Repository.Store(data);
+            _orderRepository.Store(data);
         }
 
         public void Update(int id, Order data)
         {
-            this.Repository.Update(id, data);
+            _orderRepository.Update(id, data);
         }
 
         public void Delete(int id)
         {
-            this.Repository.Delete(id);
+            _orderRepository.Delete(id);
         }
 
         public void AddProduct(int id, int productId)
         {
             Order? order = this.GetById(id);
-            Product? product = this.ProductService.GetById(productId);
+            Product? product = _productService.GetById(productId);
 
             if (order != null && product != null)
             {
-                OrderItem? item = this.OrderItemService.GetByProductAndOrder(productId, order.Id);
+                OrderItem? item = _orderItemService.GetByProductAndOrder(productId, order.Id);
 
                 if (item == null)
                 {
@@ -71,7 +73,7 @@ namespace App.Services
 
                 if (order.Items != null && order.Items.Any(i => i.ProductId == productId))
                 {
-                    this.OrderItemService.AddProduct(item.Id, productId);
+                    _orderItemService.AddProduct(item.Id, productId);
                 }
                 else
                 {
@@ -87,14 +89,14 @@ namespace App.Services
         public void RemoveProduct(int id, int productId)
         {
             Order? order = this.GetById(id);
-            Product? product = this.ProductService.GetById(productId);
+            Product? product = _productService.GetById(productId);
 
             if (order != null && product != null)
             {
-                OrderItem? item = this.OrderItemService.GetByProductAndOrder(productId, order.Id);
+                OrderItem? item = _orderItemService.GetByProductAndOrder(productId, order.Id);
                 if (order.Items != null && order.Items.Any(i => i.ProductId == productId))
                 {
-                    this.OrderItemService.RemoveProduct(item.Id, productId);
+                    _orderItemService.RemoveProduct(item.Id, productId);
                 }
                 order = this.VerifyFreeShiping(order);
                 this.Update(id, order);
@@ -114,7 +116,7 @@ namespace App.Services
 
                 foreach (OrderItem? item in order.Items)
                 {
-                    this.ProductService.AddView(item.ProductId);
+                    _productService.AddView(item.ProductId);
                 }
             }
         }
@@ -122,16 +124,16 @@ namespace App.Services
         public List<Product>? GetSuggestions(int id)
         {
             Order? order = this.GetById(id);
-            List<Product>? products = this.ProductService.GetAll(null, "popularity");
+            List<Product>? products = _productService.GetAll(null, "popularity");
 
-            List<Product>? suggestions = this.SuggestionService.GetSuggestions(order, products);
+            List<Product>? suggestions = _suggestionService.GetSuggestions(order, products);
             return suggestions;
         }
 
         public List<Product>? GetSuggestionsByCampaigns(int id)
         {
             Order? order = this.GetById(id);
-            List<Campaign>? campaigns = this.CampaignService.GetAll("active");
+            List<Campaign>? campaigns = _campaignService.GetAll("active");
             List<Product>? products = new List<Product>();
 
             if (campaigns != null && order != null && !order.FreeShipping)
@@ -150,13 +152,13 @@ namespace App.Services
 
             products = products.OrderByDescending(p => p.Views).ToList();
 
-            List<Product>? suggestions = this.SuggestionService.GetSuggestions(order, products);
+            List<Product>? suggestions = _suggestionService.GetSuggestions(order, products);
             return suggestions;
         }
 
         public Order VerifyFreeShiping(Order order)
         {
-            List<Campaign>? campaigns = this.CampaignService.GetAll("active");
+            List<Campaign>? campaigns = _campaignService.GetAll("active");
             HashSet<Product> productsInCampaigns = new HashSet<Product>();
 
             if (order != null && campaigns != null)

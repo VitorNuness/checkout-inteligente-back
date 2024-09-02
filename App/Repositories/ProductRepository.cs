@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Database;
 using App.Models;
+using App.Repositories.Database;
 using App.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,38 +7,40 @@ namespace App.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public ProductRepository()
+        public ProductRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
         public List<Product> GetAll(int? category = null)
         {
             if (category == null)
             {
-                return this.DbContext.Products.Include(p => p.Category).Include(p => p.Image).ToList();
+                return _dbContext.Products.Include(p => p.Category).Include(p => p.Image).ToList();
             }
-            return this.DbContext.Products.Include(p => p.Category).Where(p => p.CategoryId == category).ToList();
+            return _dbContext.Products.Include(p => p.Category).Where(p => p.CategoryId == category).ToList();
         }
 
         public Product Get(int id)
         {
-            return this.DbContext.Products.Where(p => p.Id == id).Include(p => p.Category).Include(p => p.Image).First();
+            return _dbContext.Products.Where(p => p.Id == id).Include(p => p.Category).Include(p => p.Image).First();
         }
 
         public void Store(Product data)
         {
-            Category? category = this.DbContext.Categories.FirstOrDefault(c => c.Id == data.CategoryId);
+            Category? category = _dbContext.Categories.FirstOrDefault(c => c.Id == data.CategoryId);
 
             if (category != null)
             {
                 data.Category = category;
-                this.DbContext.Products.Add(data);
+                _dbContext.Products.Add(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Update(int id, Product data)
@@ -51,16 +49,16 @@ namespace App.Repositories
             if (product != null)
             {
                 product.Id = id;
-                this.DbContext.Entry(product).CurrentValues.SetValues(data);
+                _dbContext.Entry(product).CurrentValues.SetValues(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            this.DbContext.Products.Remove(this.Get(id));
-            this.DbContext.SaveChanges();
+            _dbContext.Products.Remove(this.Get(id));
+            _dbContext.SaveChanges();
         }
     }
 }

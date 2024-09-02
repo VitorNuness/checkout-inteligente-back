@@ -1,39 +1,37 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Database;
 using App.Models;
+using App.Repositories.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
     public class OrderItemRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public OrderItemRepository()
+        public OrderItemRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
         public List<OrderItem> GetAll()
         {
-            return this.DbContext.OrderItems
+            return _dbContext.OrderItems
                 .Include(o => o.Product)
                 .ToList();
         }
 
         public OrderItem? Get(int id)
         {
-            return this.DbContext.OrderItems
+            return _dbContext.OrderItems
                 .Include(o => o.Product)
                 .Where(o => o.Id == id)
                 .FirstOrDefault();
         }
         public OrderItem? GetByProductAndOrder(int productId, int orderId)
         {
-            return this.DbContext.OrderItems
+            return _dbContext.OrderItems
                 .Include(o => o.Product)
                 .Where(o => o.ProductId == productId && o.OrderId == orderId)
                 .FirstOrDefault();
@@ -41,8 +39,8 @@ namespace App.Repositories
 
         public void Store(OrderItem data)
         {
-            this.DbContext.OrderItems.Add(data);
-            this.DbContext.SaveChanges();
+            _dbContext.OrderItems.Add(data);
+            _dbContext.SaveChanges();
         }
 
         public void Update(int id, OrderItem data)
@@ -51,10 +49,10 @@ namespace App.Repositories
             if (item != null)
             {
                 item.Id = id;
-                this.DbContext.Entry(item).CurrentValues.SetValues(data);
+                _dbContext.Entry(item).CurrentValues.SetValues(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -62,10 +60,10 @@ namespace App.Repositories
             OrderItem? item = this.Get(id);
             if (item != null)
             {
-                this.DbContext.OrderItems.Remove(item);
+                _dbContext.OrderItems.Remove(item);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 }

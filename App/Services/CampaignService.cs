@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using App.Models;
 using App.Repositories;
 using App.Services.Interfaces;
@@ -10,21 +6,23 @@ namespace App.Services
 {
     public class CampaignService : ICampaignService
     {
-        private readonly CampaignRepository Repository;
+        private readonly CampaignRepository _campaignRepository;
 
-        public CampaignService()
+        public CampaignService(
+            CampaignRepository campaignRepository
+        )
         {
-            this.Repository = new CampaignRepository();
+            _campaignRepository = campaignRepository;
         }
 
         public List<Campaign>? GetAll(string? sort = null)
         {
-            return this.Repository.GetAll(sort);
+            return _campaignRepository.GetAll(sort);
         }
 
         public Campaign? GetById(int id, string? sort = null)
         {
-            Campaign? campaign = this.Repository.Get(id);
+            Campaign? campaign = _campaignRepository.Get(id);
 
             if (campaign == null)
             {
@@ -45,17 +43,17 @@ namespace App.Services
 
         public void Create(Campaign data)
         {
-            this.Repository.Store(data);
+            _campaignRepository.Store(data);
         }
 
         public void Update(int id, Campaign data)
         {
-            this.Repository.Update(id, data);
+            _campaignRepository.Update(id, data);
         }
 
         public void Delete(int id)
         {
-            this.Repository.Delete(id);
+            _campaignRepository.Delete(id);
         }
     }
 }

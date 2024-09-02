@@ -9,36 +9,38 @@ namespace App.Services
 {
     public class ImageService
     {
-        private readonly ImageRepository Repository;
+        private readonly ImageRepository _imageRepository;
 
-        public ImageService()
+        public ImageService(
+            ImageRepository imageRepository
+        )
         {
-            this.Repository = new ImageRepository();
+            _imageRepository = imageRepository;
         }
 
         public List<Image>? GetAll()
         {
-            return this.Repository.GetAll();
+            return _imageRepository.GetAll();
         }
 
         public Image? GetById(int id)
         {
-            return this.Repository.Get(id);
+            return _imageRepository.Get(id);
         }
 
         public void Create(Image data)
         {
-            this.Repository.Store(data);
+            _imageRepository.Store(data);
         }
 
         public void Update(int id, Image data)
         {
-            this.Repository.Update(id, data);
+            _imageRepository.Update(id, data);
         }
 
         public void Delete(int id)
         {
-            this.Repository.Delete(id);
+            _imageRepository.Delete(id);
         }
 
         public string SaveImage(IFormFile file)

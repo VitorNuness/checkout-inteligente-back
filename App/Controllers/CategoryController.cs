@@ -12,23 +12,25 @@ namespace App.Controllers
     [Route("api/categories")]
     public class CategoryController : ControllerBase
     {
-        private readonly CategoryService Service;
+        private readonly CategoryService _categoryService;
 
-        public CategoryController()
+        public CategoryController(
+            CategoryService categoryService
+        )
         {
-            this.Service = new CategoryService();
+            _categoryService = categoryService;
         }
 
         [HttpGet]
         public ActionResult<List<Category>> Index()
         {
-            return this.Service.GetAll();
+            return _categoryService.GetAll();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Category> Show(int id, string? sort)
         {
-            Category? category = this.Service.GetById(id, sort);
+            Category? category = _categoryService.GetById(id, sort);
 
             if (category != null)
             {
@@ -41,7 +43,7 @@ namespace App.Controllers
         [HttpPost]
         public ActionResult<Category> Store(Category category)
         {
-            this.Service.Create(category);
+            _categoryService.Create(category);
 
             return category;
         }
@@ -49,7 +51,7 @@ namespace App.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(int id, Category category)
         {
-            this.Service.Update(id, category);
+            _categoryService.Update(id, category);
 
             return NoContent();
         }
@@ -57,7 +59,7 @@ namespace App.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            this.Service.Delete(id);
+            _categoryService.Delete(id);
 
             return NoContent();
         }

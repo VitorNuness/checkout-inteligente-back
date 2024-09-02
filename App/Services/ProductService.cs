@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using App.Models;
 using App.Repositories;
 using App.Services.Interfaces;
@@ -10,16 +6,18 @@ namespace App.Services
 {
     public class ProductService : IProductService
     {
-        private readonly ProductRepository Repository;
+        private readonly ProductRepository _productRepository;
 
-        public ProductService()
+        public ProductService(
+            ProductRepository productRepository
+        )
         {
-            this.Repository = new ProductRepository();
+            _productRepository = productRepository;
         }
 
         public List<Product>? GetAll(int? category = null, string? sort = null)
         {
-            List<Product>? products = this.Repository.GetAll(category);
+            List<Product>? products = _productRepository.GetAll(category);
 
             if (products != null && sort == "popularity")
             {
@@ -31,22 +29,22 @@ namespace App.Services
 
         public Product? GetById(int id)
         {
-            return this.Repository.Get(id);
+            return _productRepository.Get(id);
         }
 
         public void Create(Product data)
         {
-            this.Repository.Store(data);
+            _productRepository.Store(data);
         }
 
         public void Update(int id, Product data)
         {
-            this.Repository.Update(id, data);
+            _productRepository.Update(id, data);
         }
 
         public void Delete(int id)
         {
-            this.Repository.Delete(id);
+            _productRepository.Delete(id);
         }
 
         public void AddView(int id)

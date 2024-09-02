@@ -13,23 +13,25 @@ namespace App.Controllers
     [Route("api/orders")]
     public class OrderController : ControllerBase
     {
-        private readonly OrderService Service;
+        private readonly OrderService _orderService;
 
-        public OrderController()
+        public OrderController(
+            OrderService orderService
+        )
         {
-            this.Service = new OrderService();
+            _orderService = orderService;
         }
 
         [HttpGet]
         public ActionResult<List<Order>> Index()
         {
-            return this.Service.GetAll();
+            return _orderService.GetAll();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Order> Show(int id)
         {
-            Order? order = this.Service.GetById(id);
+            Order? order = _orderService.GetById(id);
 
             if (order != null)
             {
@@ -43,7 +45,7 @@ namespace App.Controllers
         [HttpGet("current")]
         public ActionResult<Order> GetCurrentUserCart(int userId)
         {
-            Order? order = this.Service.GetCurrentUserOrder(userId);
+            Order? order = _orderService.GetCurrentUserOrder(userId);
 
             if (order != null)
             {
@@ -61,11 +63,11 @@ namespace App.Controllers
 
             if (byCampaigns)
             {
-                suggestions = this.Service.GetSuggestionsByCampaigns(id);
+                suggestions = _orderService.GetSuggestionsByCampaigns(id);
             }
             else
             {
-                suggestions = this.Service.GetSuggestions(id);
+                suggestions = _orderService.GetSuggestions(id);
             }
 
             if (suggestions != null)
@@ -79,7 +81,7 @@ namespace App.Controllers
         [HttpPost]
         public ActionResult<Order> Store(Order order)
         {
-            this.Service.Create(order);
+            _orderService.Create(order);
 
             return order;
         }
@@ -88,7 +90,7 @@ namespace App.Controllers
         [HttpPost("{id}/products/add")]
         public ActionResult<Order> AddProduct(int id, int productId)
         {
-            this.Service.AddProduct(id, productId);
+            _orderService.AddProduct(id, productId);
             return NoContent();
         }
 
@@ -96,7 +98,7 @@ namespace App.Controllers
         [HttpPost("{id}/products/remove")]
         public ActionResult<Order> RemoveProduct(int id, int productId)
         {
-            this.Service.RemoveProduct(id, productId);
+            _orderService.RemoveProduct(id, productId);
             return NoContent();
         }
 
@@ -104,21 +106,21 @@ namespace App.Controllers
         [HttpPost("{id}/complete")]
         public ActionResult<Order> CompleteOrder(int id)
         {
-            this.Service.CompleteOrder(id);
+            _orderService.CompleteOrder(id);
             return NoContent();
         }
 
         [HttpPut("{id}")]
         public ActionResult Update(int id, Order order)
         {
-            this.Service.Update(id, order);
+            _orderService.Update(id, order);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            this.Service.Delete(id);
+            _orderService.Delete(id);
 
             return NoContent();
         }

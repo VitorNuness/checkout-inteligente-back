@@ -1,43 +1,40 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Database;
 using App.Models;
-using Microsoft.EntityFrameworkCore;
+using App.Repositories.Database;
 
 namespace App.Repositories
 {
     public class ImageRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public ImageRepository()
+        public ImageRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
         public List<Image> GetAll()
         {
-            return this.DbContext.Images.ToList();
+            return _dbContext.Images.ToList();
         }
 
         public Image Get(int id)
         {
-            return this.DbContext.Images.Where(p => p.Id == id).First();
+            return _dbContext.Images.Where(p => p.Id == id).First();
         }
 
         public void Store(Image data)
         {
-            Product? product = this.DbContext.Products.FirstOrDefault(c => c.Id == data.ProductId);
+            Product? product = _dbContext.Products.FirstOrDefault(c => c.Id == data.ProductId);
 
             if (product != null)
             {
                 data.Product = product;
-                this.DbContext.Images.Add(data);
+                _dbContext.Images.Add(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Update(int id, Image data)
@@ -46,16 +43,16 @@ namespace App.Repositories
             if (image != null)
             {
                 image.Id = id;
-                this.DbContext.Entry(image).CurrentValues.SetValues(data);
+                _dbContext.Entry(image).CurrentValues.SetValues(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            this.DbContext.Images.Remove(this.Get(id));
-            this.DbContext.SaveChanges();
+            _dbContext.Images.Remove(this.Get(id));
+            _dbContext.SaveChanges();
         }
     }
 }

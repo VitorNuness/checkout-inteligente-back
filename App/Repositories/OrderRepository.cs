@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Database;
 using App.Models;
+using App.Repositories.Database;
 using App.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,16 +7,18 @@ namespace App.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public OrderRepository()
+        public OrderRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
         public List<Order> GetAll()
         {
-            return this.DbContext.Orders
+            return _dbContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.Items)
                     .ThenInclude(o => o.Product)
@@ -29,7 +27,7 @@ namespace App.Repositories
 
         public Order? Get(int id)
         {
-            return this.DbContext.Orders
+            return _dbContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.Items)
                     .ThenInclude(o => o.Product)
@@ -39,7 +37,7 @@ namespace App.Repositories
 
         public Order? GetCurrentUserOrder(int userId)
         {
-            return this.DbContext.Orders
+            return _dbContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.Items)
                     .ThenInclude(o => o.Product)
@@ -47,10 +45,10 @@ namespace App.Repositories
                 .FirstOrDefault();
         }
 
-        public void Store(Order data)
+        public async void Store(Order data)
         {
-            this.DbContext.Orders.Add(data);
-            this.DbContext.SaveChanges();
+            _dbContext.Orders.Add(data);
+            await _dbContext.SaveChangesAsync();
         }
 
         public void Update(int id, Order data)
@@ -59,10 +57,10 @@ namespace App.Repositories
             if (order != null)
             {
                 order.Id = id;
-                this.DbContext.Entry(order).CurrentValues.SetValues(data);
+                _dbContext.Entry(order).CurrentValues.SetValues(data);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -70,10 +68,10 @@ namespace App.Repositories
             Order? order = this.Get(id);
             if (order != null)
             {
-                this.DbContext.Orders.Remove(order);
+                _dbContext.Orders.Remove(order);
             }
 
-            this.DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 }
