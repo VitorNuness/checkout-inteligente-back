@@ -67,7 +67,7 @@ namespace App.Controllers
             }
             else
             {
-                suggestions = _orderService.GetSuggestions(id);
+                // suggestions = _orderService.GetSuggestions(id);
             }
 
             if (suggestions != null)
