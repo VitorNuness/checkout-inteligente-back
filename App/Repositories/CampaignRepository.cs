@@ -16,43 +16,27 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
-        public List<Campaign>? GetAll(string? sort = null)
+        public async List<Campaign>? GetAll()
         {
-            List<Campaign>? campaigns = _dbContext.Campaigns
+            return await _dbContext.Campaigns
                 .Include(c => c.Products)
-                .ToList();
+                .ToListAsync();
 
-            if (campaigns != null)
-            {
-                if (sort == "active")
-                {
-                    campaigns = campaigns.Where(c => c.Active == true).ToList();
-                }
 
-                if (sort == "desactive")
-                {
-                    campaigns = campaigns.Where(c => c.Active == false).ToList();
-                }
-            }
-
-            return campaigns;
         }
 
-        public Campaign? Get(int id)
+        public async Campaign? FindOrFail(int id)
         {
-            return _dbContext.Campaigns
-                .Include(c => c.Products)
-                .Where(c => c.Id == id)
-                .FirstOrDefault();
+            return await _dbContext.Campaigns.Where(c => c.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Campaign not exist.");
         }
 
-        public void Store(Campaign data)
+        public async void Store(Campaign data)
         {
             _dbContext.Campaigns.Add(data);
             _dbContext.SaveChanges();
         }
 
-        public void Update(int id, Campaign data)
+        public async void Update(int id, Campaign data)
         {
             Campaign? campaign = this.Get(id);
             if (campaign != null)
@@ -64,7 +48,7 @@ namespace App.Repositories
             _dbContext.SaveChanges();
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
             Campaign? campaign = this.Get(id);
             if (campaign != null)
@@ -73,5 +57,7 @@ namespace App.Repositories
             }
             _dbContext.SaveChanges();
         }
-    }
+
+
+
 }

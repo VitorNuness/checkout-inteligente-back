@@ -15,29 +15,29 @@ namespace App.Services
             _campaignRepository = campaignRepository;
         }
 
-        public List<Campaign>? GetAll(string? sort = null)
+        public async List<Campaign>? GetAll()
         {
-            return _campaignRepository.GetAll(sort);
+            return _campaignRepository.GetAll();
         }
 
-        public Campaign? GetById(int id, string? sort = null)
+        public async Campaign? GetById(int id)
         {
             Campaign? campaign = _campaignRepository.Get(id);
 
             return campaign;
         }
 
-        public void Create(Campaign data)
+        public async void Create(Campaign data)
         {
             _campaignRepository.Store(data);
         }
 
-        public void Update(int id, Campaign data)
+        public async void Update(int id, Campaign data)
         {
             _campaignRepository.Update(id, data);
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
             _campaignRepository.Delete(id);
         }

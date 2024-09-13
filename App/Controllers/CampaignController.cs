@@ -23,15 +23,15 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Campaign>> Index(string? sort = null)
+        public  async ActionResult<List<Campaign>> Index()
         {
-            return _campaignService.GetAll(sort);
+            return _campaignService.GetAll();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Campaign> Show(int id, string? sort)
+        public async ActionResult<Campaign> Show(int id)
         {
-            Campaign? campaign = _campaignService.GetById(id, sort);
+            Campaign? campaign = _campaignService.GetById(id);
             if (campaign != null)
             {
                 return campaign;
@@ -42,7 +42,7 @@ namespace App.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult<Campaign> Store(Campaign campaign)
+        public async ActionResult<Campaign> Store(Campaign campaign)
         {
             _campaignService.Create(campaign);
 
@@ -51,7 +51,7 @@ namespace App.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public ActionResult Update(int id, Campaign campaign)
+        public async ActionResult Update(int id, Campaign campaign)
         {
             _campaignService.Update(id, campaign);
 
@@ -60,7 +60,7 @@ namespace App.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async ActionResult Delete(int id)
         {
             _campaignService.Delete(id);
 
