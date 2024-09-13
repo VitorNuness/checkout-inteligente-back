@@ -30,10 +30,12 @@ namespace App.Repositories
             return await _dbContext.Campaigns.Where(c => c.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Campaign not exist.");
         }
 
-        public async void Store(Campaign data)
+        public async Task<Campaign> Store(Campaign data)
         {
             _dbContext.Campaigns.Add(data);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
+            return data;
         }
 
         public async void Update(int id, Campaign data)
