@@ -48,9 +48,27 @@ namespace App.Services
             }
         }
 
-        public async void Update(int id, Campaign data)
+        public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO)
         {
-            _campaignRepository.Update(id, data);
+            Campaign oldCampaign = await _campaignRepository.FindOrFail(id);
+
+            Campaign updatedCampaign = new(
+                campaignInputDTO.Name,
+                campaignInputDTO.StartDate,
+                campaignInputDTO.EndDate,
+                campaignInputDTO.DiscountPercentage
+            )
+            {       //processar imagem / upload
+                Id = oldCampaign.Id,
+                ImageUrl = oldCampaign.ImageUrl
+            };
+
+            if (campaignInputDTO.Image?.Length > 0)
+            {
+                string path = GetCampaignImagesPath(updatedCampaign.Id);
+            }
+
+            return await _campaignRepository.Update(oldCampaign, updatedCampaign):
         }
 
         public async void Delete(int id)
