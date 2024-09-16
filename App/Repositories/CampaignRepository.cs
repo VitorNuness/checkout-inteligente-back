@@ -38,16 +38,14 @@ namespace App.Repositories
             return data;
         }
 
-        public async void Update(int id, Campaign data)
+        public async Task<Campaign> Update(Campaign oldCampaign, Campaign newCampaign)
         {
-            Campaign? campaign = this.Get(id);
-            if (campaign != null)
-            {
-                campaign.Id = id;
-                _dbContext.Entry(campaign).CurrentValues.SetValues(data);
-            }
+            _dbContext.Entry(oldCampaign).CurrentValues.SetValues(newCampaign);
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
+
+            return newCampaign;
         }
 
         public async void Delete(int id)
