@@ -20,11 +20,9 @@ namespace App.Services
             return _campaignRepository.GetAll();
         }
 
-        public async Campaign? GetById(int id)
+        public async Task<Campaign> GetById(int id)
         {
-            Campaign? campaign = _campaignRepository.Get(id);
-
-            return campaign;
+           return await _campaignRepository.FindOrFail(id);
         }
 
         public async void Create(Campaign data)
