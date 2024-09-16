@@ -25,9 +25,27 @@ namespace App.Services
            return await _campaignRepository.FindOrFail(id);
         }
 
-        public async void Create(Campaign data)
+        public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO)
         {
-            _campaignRepository.Store(data);
+            Campaign campaign = new(
+                campaignInputDTO.Name,
+                campaignInputDTO.StartDate,
+                campaignInputDTO.EndDate,
+                campaignInputDTO.DiscountPercentage
+            );
+
+            await _campaignRepository.Store(campaign);
+
+            return campaign;
+
+            if (image?.Length > 0)
+            {
+                string path = GetCampaignImagesPath(campaign.Id);
+                await _fileService.SaveFile(image, path);
+
+                campaign.ImageUrl = GetCampaignImagesUrl(campaign.Id);
+                await _campaignRepository.Update(campaign, campaign);
+            }
         }
 
         public async void Update(int id, Campaign data)
