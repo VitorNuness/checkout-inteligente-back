@@ -71,9 +71,17 @@ namespace App.Services
             return await _campaignRepository.Update(oldCampaign, updatedCampaign):
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
-            _campaignRepository.Delete(id);
+            Campaign campaign = await _campaignRepository.FindOrFail(id);
+
+            await _campaignRepository.Delete(campaign);
+
+
+            if (campaign.ImageUrl != GetCampaignImagesUrl(0))
+            {
+                await _fileService.RemoveFile(GetCampaignImagesPath(id));
+            }
         }
     }
 }
