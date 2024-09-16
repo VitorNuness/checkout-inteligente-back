@@ -48,14 +48,14 @@ namespace App.Repositories
             return newCampaign;
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
-            Campaign? campaign = this.Get(id);
+            Campaign? campaign = await _dbContext.Campaigns.FindAsync(id);
             if (campaign != null)
             {
                 _dbContext.Remove(campaign);
             }
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
 
