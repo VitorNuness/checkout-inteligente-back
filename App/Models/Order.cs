@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
+using App.Enums;
 
 namespace App.Models
 {
@@ -12,21 +10,29 @@ namespace App.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public bool IsComplete { get; set; }
-        public int? UserId { get; set; }
-        public User? User { get; set; }
-        public List<OrderItem>? Items { get; set; }
-        public bool FreeShipping { get; set; }
+        public required User User { get; set; }
+        public List<OrderItem?> Items { get; set; } = [];
+        public double TotalAmount { get; private set; }
+        public EOrderStatus Status { get; private set; } = EOrderStatus.CURRENT;
 
-        public Order(User? user, int? userId)
+        [SetsRequiredMembers]
+        public Order(User user)
         {
-            this.IsComplete = false;
-            this.FreeShipping = false;
-            this.User = user;
-            this.UserId = userId;
-            this.Items = new List<OrderItem>();
+            User = user;
+
+            CalculateTotal();
         }
 
         private Order() { }
+
+        public void CalculateTotal()
+        {
+            TotalAmount = Items?.Sum(i => i?.Total) ?? 0;
+        }
+
+        public void CompleteOrder()
+        {
+            Status = EOrderStatus.COMPLETE;
+        }
     }
 }
