@@ -16,9 +16,11 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Order> WhereUser(User user)
+        public async Task<Order> FindOrFailCurrentUserOrder(User user)
         {
-            return await _dbContext.Orders.Where(o => o.User.Id == user.Id).FirstOrDefaultAsync() ??
+            return await _dbContext.Orders
+                .Where(o => o.User.Id == user.Id && o.Status == Enums.EOrderStatus.CURRENT)
+                .FirstOrDefaultAsync() ??
                 throw new NotExistException("Order not exists.");
         }
 
@@ -26,7 +28,7 @@ namespace App.Repositories
         {
             try
             {
-                return await WhereUser(user);
+                return await FindOrFailCurrentUserOrder(user);
             }
             catch (NotExistException)
             {
