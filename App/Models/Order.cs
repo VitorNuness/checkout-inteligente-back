@@ -32,7 +32,7 @@ namespace App.Models
 
         public void CompleteOrder()
         {
-            if (Status != EOrderStatus.CURRENT)
+            if (Status != EOrderStatus.CURRENT || TotalAmount <= 0)
             {
                 return;
             }
