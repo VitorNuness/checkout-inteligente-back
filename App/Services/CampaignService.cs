@@ -15,31 +15,73 @@ namespace App.Services
             _campaignRepository = campaignRepository;
         }
 
-        public List<Campaign>? GetAll(string? sort = null)
+        public async List<Campaign>? GetAll()
         {
-            return _campaignRepository.GetAll(sort);
+            return _campaignRepository.GetAll();
         }
 
-        public Campaign? GetById(int id, string? sort = null)
+        public async Task<Campaign> GetById(int id)
         {
-            Campaign? campaign = _campaignRepository.Get(id);
+           return await _campaignRepository.FindOrFail(id);
+        }
+
+        public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO)
+        {
+            Campaign campaign = new(
+                campaignInputDTO.Name,
+                campaignInputDTO.StartDate,
+                campaignInputDTO.EndDate,
+                campaignInputDTO.DiscountPercentage
+            );
+
+            await _campaignRepository.Store(campaign);
 
             return campaign;
+
+            if (image?.Length > 0)
+            {
+                string path = GetCampaignImagesPath(campaign.Id);
+                await _fileService.SaveFile(image, path);
+
+                campaign.ImageUrl = GetCampaignImagesUrl(campaign.Id);
+                await _campaignRepository.Update(campaign, campaign);
+            }
         }
 
-        public void Create(Campaign data)
+        public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO)
         {
-            _campaignRepository.Store(data);
+            Campaign oldCampaign = await _campaignRepository.FindOrFail(id);
+
+            Campaign updatedCampaign = new(
+                campaignInputDTO.Name,
+                campaignInputDTO.StartDate,
+                campaignInputDTO.EndDate,
+                campaignInputDTO.DiscountPercentage
+            )
+            {       //processar imagem / upload
+                Id = oldCampaign.Id,
+                ImageUrl = oldCampaign.ImageUrl
+            };
+
+            if (campaignInputDTO.Image?.Length > 0)
+            {
+                string path = GetCampaignImagesPath(updatedCampaign.Id);
+            }
+
+            return await _campaignRepository.Update(oldCampaign, updatedCampaign):
         }
 
-        public void Update(int id, Campaign data)
+        public async Task Delete(int id)
         {
-            _campaignRepository.Update(id, data);
-        }
+            Campaign campaign = await _campaignRepository.FindOrFail(id);
 
-        public void Delete(int id)
-        {
-            _campaignRepository.Delete(id);
+            await _campaignRepository.Delete(campaign);
+
+
+            if (campaign.ImageUrl != GetCampaignImagesUrl(0))
+            {
+                await _fileService.RemoveFile(GetCampaignImagesPath(id));
+            }
         }
     }
 }

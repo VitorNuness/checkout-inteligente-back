@@ -16,62 +16,48 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
-        public List<Campaign>? GetAll(string? sort = null)
+        public async List<Campaign>? GetAll()
         {
-            List<Campaign>? campaigns = _dbContext.Campaigns
+            return await _dbContext.Campaigns
                 .Include(c => c.Products)
-                .ToList();
+                .ToListAsync();
 
-            if (campaigns != null)
-            {
-                if (sort == "active")
-                {
-                    campaigns = campaigns.Where(c => c.Active == true).ToList();
-                }
 
-                if (sort == "desactive")
-                {
-                    campaigns = campaigns.Where(c => c.Active == false).ToList();
-                }
-            }
-
-            return campaigns;
         }
 
-        public Campaign? Get(int id)
+        public async Campaign? FindOrFail(int id)
         {
-            return _dbContext.Campaigns
-                .Include(c => c.Products)
-                .Where(c => c.Id == id)
-                .FirstOrDefault();
+            return await _dbContext.Campaigns.Where(c => c.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Campaign not exist.");
         }
 
-        public void Store(Campaign data)
+        public async Task<Campaign> Store(Campaign data)
         {
             _dbContext.Campaigns.Add(data);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
+            return data;
         }
 
-        public void Update(int id, Campaign data)
+        public async Task<Campaign> Update(Campaign oldCampaign, Campaign newCampaign)
         {
-            Campaign? campaign = this.Get(id);
-            if (campaign != null)
-            {
-                campaign.Id = id;
-                _dbContext.Entry(campaign).CurrentValues.SetValues(data);
-            }
+            _dbContext.Entry(oldCampaign).CurrentValues.SetValues(newCampaign);
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
+
+            return newCampaign;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Campaign? campaign = this.Get(id);
+            Campaign? campaign = await _dbContext.Campaigns.FindAsync(id);
             if (campaign != null)
             {
                 _dbContext.Remove(campaign);
             }
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
-    }
+
+
+
 }
