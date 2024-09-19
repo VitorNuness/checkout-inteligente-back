@@ -32,6 +32,11 @@ namespace App.Models
 
         public void CompleteOrder()
         {
+            if (Status != EOrderStatus.CURRENT)
+            {
+                return;
+            }
+
             Status = EOrderStatus.COMPLETE;
         }
 

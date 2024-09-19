@@ -46,5 +46,14 @@ namespace App.Services
 
             await _orderRepository.Update(order, order);
         }
+
+        public async Task CompleteOrder(int id)
+        {
+            Order order = await _orderRepository.FindOrFail(id);
+
+            order.CompleteOrder();
+
+            await _orderRepository.Update(order, order);
+        }
     }
 }

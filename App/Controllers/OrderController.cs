@@ -41,5 +41,13 @@ namespace App.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("{id}/complete")]
+        public async Task<ActionResult> CompleteOrder(int id)
+        {
+            await _orderService.CompleteOrder(id);
+
+            return NoContent();
+        }
     }
 }
