@@ -32,19 +32,7 @@ namespace App.Services
             Order order = await _orderRepository.FindOrFail(id);
             Product product = await _productService.GetById(productId);
 
-            OrderItem? orderItem = order.Items?.Find(i => i?.Product?.Id == productId);
-
-            if (orderItem != null)
-            {
-                orderItem.AddQuantity();
-            }
-            else
-            {
-                orderItem = new(product, order);
-                order.Items?.Add(orderItem);
-            }
-
-            order.CalculateTotal();
+            order.AddProduct(product);
 
             await _orderRepository.Update(order, order);
         }
@@ -54,16 +42,7 @@ namespace App.Services
             Order order = await _orderRepository.FindOrFail(id);
             Product product = await _productService.GetById(productId);
 
-            OrderItem? orderItem = order.Items?.Find(i => i?.Product?.Id == productId);
-
-            orderItem?.RemoveQuantity();
-
-            if (orderItem?.Quantity <= 0)
-            {
-                order.Items?.Remove(orderItem);
-            }
-
-            order.CalculateTotal();
+            order.RemoveProduct(product);
 
             await _orderRepository.Update(order, order);
         }

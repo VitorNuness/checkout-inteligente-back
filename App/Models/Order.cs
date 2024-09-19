@@ -34,5 +34,37 @@ namespace App.Models
         {
             Status = EOrderStatus.COMPLETE;
         }
+
+        public void AddProduct(Product product)
+        {
+
+            OrderItem? orderItem = Items?.Find(i => i?.Product == product);
+
+            if (orderItem != null)
+            {
+                orderItem.AddQuantity();
+            }
+            else
+            {
+                orderItem = new(product, this);
+                Items?.Add(orderItem);
+            }
+
+            CalculateTotal();
+        }
+
+        public void RemoveProduct(Product product)
+        {
+            OrderItem? orderItem = Items?.Find(i => i?.Product == product);
+
+            orderItem?.RemoveQuantity();
+
+            if (orderItem?.Quantity <= 0)
+            {
+                Items?.Remove(orderItem);
+            }
+
+            CalculateTotal();
+        }
     }
 }
