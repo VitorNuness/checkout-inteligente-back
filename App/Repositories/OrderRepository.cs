@@ -26,6 +26,13 @@ namespace App.Repositories
                 throw new NotExistException("Order not exists.");
         }
 
+        public async Task<List<Order>> FindWhereUser(User user)
+        {
+            return await _dbContext.Orders
+                .Where(o => o.User == user)
+                .ToListAsync();
+        }
+
         public async Task<Order> FindOrFailCurrentUserOrder(User user)
         {
             return await _dbContext.Orders

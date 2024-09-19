@@ -20,6 +20,13 @@ namespace App.Services
             _orderRepository = orderRepository;
         }
 
+        public async Task<List<Order>> GetUserOrders(int userId)
+        {
+            User user = await _userService.Get(userId);
+
+            return await _orderRepository.FindWhereUser(user);
+        }
+
         public async Task<Order> GetCurrentUserOrder(int userId)
         {
             User user = await _userService.Get(userId);
