@@ -48,5 +48,24 @@ namespace App.Services
 
             await _orderRepository.Update(order, order);
         }
+
+        public async Task RemoveProduct(int id, int productId)
+        {
+            Order order = await _orderRepository.FindOrFail(id);
+            Product product = await _productService.GetById(productId);
+
+            OrderItem? orderItem = order.Items?.Find(i => i?.Product?.Id == productId);
+
+            orderItem?.RemoveQuantity();
+
+            if (orderItem?.Quantity <= 0)
+            {
+                order.Items?.Remove(orderItem);
+            }
+
+            order.CalculateTotal();
+
+            await _orderRepository.Update(order, order);
+        }
     }
 }

@@ -33,5 +33,13 @@ namespace App.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("{id}/remove-product")]
+        public async Task<ActionResult> RemoveProductInOrder(int id, int productId)
+        {
+            await _orderService.RemoveProduct(id, productId);
+
+            return NoContent();
+        }
     }
 }
