@@ -25,5 +25,13 @@ namespace App.Controllers
 
             return Ok(new OrderDTO(order));
         }
+
+        [HttpPost("{id}/add-product")]
+        public async Task<ActionResult> AddProductInOrder(int id, int productId)
+        {
+            await _orderService.AddProduct(id, productId);
+
+            return NoContent();
+        }
     }
 }

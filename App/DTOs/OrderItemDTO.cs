@@ -7,7 +7,7 @@ namespace App.DTOs
     )
     {
         public int ProductId { get; set; } = orderItem.Product.Id;
-        public string Product { get; set; } = orderItem.Product.Name;
+        public Product Product { get; set; } = orderItem.Product;
         public double Quantity { get; set; } = orderItem.Quantity;
         public double Total { get; set; } = orderItem.Total;
     }
