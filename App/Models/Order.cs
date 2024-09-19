@@ -37,6 +37,10 @@ namespace App.Models
 
         public void AddProduct(Product product)
         {
+            if (Status != EOrderStatus.CURRENT)
+            {
+                return;
+            }
 
             OrderItem? orderItem = Items?.Find(i => i?.Product == product);
 
@@ -55,6 +59,11 @@ namespace App.Models
 
         public void RemoveProduct(Product product)
         {
+            if (Status != EOrderStatus.CURRENT)
+            {
+                return;
+            }
+
             OrderItem? orderItem = Items?.Find(i => i?.Product == product);
 
             orderItem?.RemoveQuantity();
