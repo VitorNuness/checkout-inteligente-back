@@ -32,7 +32,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<ActionResult<Product>> Store(
             [FromForm] ProductInputDTO productInputDTO,
             IFormFile? image = null
@@ -44,7 +44,7 @@ namespace App.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<ActionResult<Product>> Update(
             int id,
             [FromForm] ProductInputDTO productInputDTO,
