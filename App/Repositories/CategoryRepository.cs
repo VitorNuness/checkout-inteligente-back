@@ -38,6 +38,7 @@ namespace App.Repositories
         {
             Category category = await FindOrFail(id);
 
+            newCategory.Id = category.Id;
             _dbContext.Entry(category).CurrentValues.SetValues(newCategory);
             await _dbContext.SaveChangesAsync();
 
