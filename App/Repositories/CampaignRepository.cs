@@ -1,11 +1,10 @@
 using App.Models;
 using App.Repositories.Database;
-using App.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
-    public class CampaignRepository : ICampaignRepository
+    public class CampaignRepository
     {
         private readonly CheckoutDbContext _dbContext;
 
@@ -16,18 +15,19 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
-        public async List<Campaign>? GetAll()
+        public async Task<List<Campaign>> GetAll()
         {
             return await _dbContext.Campaigns
                 .Include(c => c.Products)
                 .ToListAsync();
-
-
         }
 
-        public async Campaign? FindOrFail(int id)
+        public async Task<Campaign> FindOrFail(int id)
         {
-            return await _dbContext.Campaigns.Where(c => c.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Campaign not exist.");
+            return await _dbContext.Campaigns
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync() ??
+                throw new Exception("Campaign not exist.");
         }
 
         public async Task<Campaign> Store(Campaign data)
@@ -41,9 +41,7 @@ namespace App.Repositories
         public async Task<Campaign> Update(Campaign oldCampaign, Campaign newCampaign)
         {
             _dbContext.Entry(oldCampaign).CurrentValues.SetValues(newCampaign);
-
             await _dbContext.SaveChangesAsync();
-
 
             return newCampaign;
         }
@@ -57,7 +55,5 @@ namespace App.Repositories
             }
             await _dbContext.SaveChangesAsync();
         }
-
-
-
+    }
 }
