@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -23,15 +20,15 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public  async ActionResult<List<Campaign>> Index()
+        public async Task<ActionResult<List<Campaign>>> Index()
         {
-            return _campaignService.GetAll();
+            return Ok(await _campaignService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public async ActionResult<Campaign> Show(int id)
+        public async Task<ActionResult<Campaign>> Show(int id)
         {
-            Campaign? campaign = _campaignService.GetById(id);
+            Campaign? campaign = await _campaignService.GetById(id);
             if (campaign != null)
             {
                 return campaign;
@@ -40,29 +37,26 @@ namespace App.Controllers
             return NotFound();
         }
 
-        [Authorize]
         [HttpPost]
-        public async ActionResult<Campaign> Store(Campaign campaign)
+        public async Task<ActionResult<Campaign>> Store(CampaignInputDTO campaignInputDTO)
         {
-            _campaignService.Create(campaign);
 
-            return campaign;
+
+            return CreatedAtAction(nameof(Store), await _campaignService.Create(campaignInputDTO));
         }
 
-        [Authorize]
         [HttpPut("{id}")]
-        public async ActionResult Update(int id, Campaign campaign)
+        public async Task<ActionResult> Update(int id, CampaignInputDTO campaignInputDTO)
         {
-            _campaignService.Update(id, campaign);
+            await _campaignService.Update(id, campaignInputDTO);
 
             return NoContent();
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
-        public async ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _campaignService.Delete(id);
+            await _campaignService.Delete(id);
 
             return NoContent();
         }

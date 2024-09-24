@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20240903223740_first_migration")]
+    [Migration("20240924203247_first_migration")]
     partial class first_migration
     {
         /// <inheritdoc />
@@ -38,11 +38,8 @@ namespace App.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("Rule")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext");

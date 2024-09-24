@@ -35,11 +35,8 @@ namespace App.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("Rule")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext");
