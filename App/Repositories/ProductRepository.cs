@@ -37,6 +37,7 @@ namespace App.Repositories
 
         public async Task<Product> Update(Product oldProduct, Product newProduct)
         {
+            oldProduct.Category = newProduct.Category;
             _dbContext.Entry(oldProduct).CurrentValues.SetValues(newProduct);
 
             await _dbContext.SaveChangesAsync();
