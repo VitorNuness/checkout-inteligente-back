@@ -1,7 +1,6 @@
 using App.DTOs;
 using App.Models;
 using App.Repositories;
-using App.Services.Interfaces;
 
 namespace App.Services
 {
@@ -33,9 +32,11 @@ namespace App.Services
             return await _categoryRepository.Store(category);
         }
 
-        public async Task Update(int id, Category data)
+        public async Task Update(int id, CategoryInputDTO categoryInputDTO)
         {
-            await _categoryRepository.Update(id, data);
+            Category newCategory = new(categoryInputDTO.Name);
+
+            await _categoryRepository.Update(id, newCategory);
         }
 
         public async Task Delete(int id)
