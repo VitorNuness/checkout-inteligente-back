@@ -14,6 +14,7 @@ namespace App.Models
         public double Price { get; set; } = 0;
         public string? ImageUrl { get; set; } = "http://localhost:5102/files/images/products/0.png";
         public required Category Category { get; set; }
+        public List<Campaign?> Campaigns { get; set; } = [];
 
         [SetsRequiredMembers]
         public Product(

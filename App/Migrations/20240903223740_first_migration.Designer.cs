@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace App.Repositories.Database.Migrations
+namespace App.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20240902165602_update_tables")]
-    partial class update_tables
+    [Migration("20240903223740_first_migration")]
+    partial class first_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,13 +103,13 @@ namespace App.Repositories.Database.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("FreeShipping")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("IsComplete")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<double>("TotalAmount")
+                        .HasColumnType("double");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -156,9 +156,6 @@ namespace App.Repositories.Database.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CampaignId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -176,8 +173,6 @@ namespace App.Repositories.Database.Migrations
                         .HasColumnType("double");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CampaignId");
 
                     b.HasIndex("CategoryId");
 
@@ -212,6 +207,21 @@ namespace App.Repositories.Database.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("CampaignProduct", b =>
+                {
+                    b.Property<int>("CampaignsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CampaignsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("CampaignProduct");
+                });
+
             modelBuilder.Entity("App.Models.Image", b =>
                 {
                     b.HasOne("App.Models.Product", "Product")
@@ -225,7 +235,9 @@ namespace App.Repositories.Database.Migrations
                 {
                     b.HasOne("App.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -251,10 +263,6 @@ namespace App.Repositories.Database.Migrations
 
             modelBuilder.Entity("App.Models.Product", b =>
                 {
-                    b.HasOne("App.Models.Campaign", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CampaignId");
-
                     b.HasOne("App.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
@@ -264,9 +272,19 @@ namespace App.Repositories.Database.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("App.Models.Campaign", b =>
+            modelBuilder.Entity("CampaignProduct", b =>
                 {
-                    b.Navigation("Products");
+                    b.HasOne("App.Models.Campaign", null)
+                        .WithMany()
+                        .HasForeignKey("CampaignsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("App.Models.Category", b =>

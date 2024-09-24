@@ -1,11 +1,11 @@
+using App.Exceptions;
 using App.Models;
 using App.Repositories.Database;
-using App.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository
     {
         private readonly CheckoutDbContext _dbContext;
 
@@ -16,62 +16,62 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
-        public List<Order> GetAll()
+        public async Task<Order> FindOrFail(int id)
         {
-            return _dbContext.Orders
-                .Include(o => o.User)
+            return await _dbContext.Orders
                 .Include(o => o.Items)
-                    .ThenInclude(o => o.Product)
-                .ToList();
-        }
-
-        public Order? Get(int id)
-        {
-            return _dbContext.Orders
-                .Include(o => o.User)
-                .Include(o => o.Items)
-                    .ThenInclude(o => o.Product)
+                .ThenInclude(i => i.Product)
                 .Where(o => o.Id == id)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync() ??
+                throw new NotExistException("Order not exists.");
         }
 
-        public Order? GetCurrentUserOrder(int userId)
+        public async Task<List<Order>> FindWhereUser(User user)
         {
-            return _dbContext.Orders
-                .Include(o => o.User)
+            return await _dbContext.Orders
+                .Where(o => o.User == user)
+                .ToListAsync();
+        }
+
+        public async Task<Order> FindOrFailCurrentUserOrder(User user)
+        {
+            return await _dbContext.Orders
                 .Include(o => o.Items)
-                    .ThenInclude(o => o.Product)
-                .Where(o => o.UserId == userId && o.IsComplete == false)
-                .FirstOrDefault();
+                .ThenInclude(i => i.Product)
+                .Where(o => o.User.Id == user.Id && o.Status == Enums.EOrderStatus.CURRENT)
+                .FirstOrDefaultAsync() ??
+                throw new NotExistException("Order not exists.");
         }
 
-        public async void Store(Order data)
+        public async Task<Order> FindOrCreateCurrentUserOrder(User user)
         {
-            _dbContext.Orders.Add(data);
+            try
+            {
+                return await FindOrFailCurrentUserOrder(user);
+            }
+            catch (NotExistException)
+            {
+                Order order = new(user);
+
+                return await Store(order);
+            }
+        }
+
+        public async Task<Order> Store(Order order)
+        {
+            _dbContext.Orders.Add(order);
             await _dbContext.SaveChangesAsync();
+
+            return order;
         }
 
-        public void Update(int id, Order data)
+        public async Task<Order> Update(Order oldOrder, Order newOrder)
         {
-            Order? order = this.Get(id);
-            if (order != null)
-            {
-                order.Id = id;
-                _dbContext.Entry(order).CurrentValues.SetValues(data);
-            }
+            _dbContext.Entry(oldOrder).CurrentValues.SetValues(newOrder);
 
-            _dbContext.SaveChanges();
-        }
+            await _dbContext.SaveChangesAsync();
 
-        public void Delete(int id)
-        {
-            Order? order = this.Get(id);
-            if (order != null)
-            {
-                _dbContext.Orders.Remove(order);
-            }
-
-            _dbContext.SaveChanges();
+            return newOrder;
         }
     }
 }
