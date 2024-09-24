@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using App.DTOs;
 using App.Models;
 using App.Services;
@@ -45,17 +41,17 @@ namespace App.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, Category category)
+        public async Task<ActionResult> Update(int id, CategoryInputDTO categoryInputDTO)
         {
-            _categoryService.Update(id, category);
+            await _categoryService.Update(id, categoryInputDTO);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _categoryService.Delete(id);
+            await _categoryService.Delete(id);
 
             return NoContent();
         }
