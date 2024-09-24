@@ -1,51 +1,41 @@
+using App.DTOs;
 using App.Models;
 using App.Repositories;
-using App.Services.Interfaces;
 
 namespace App.Services
 {
-    public class CampaignService : ICampaignService
+    public class CampaignService
     {
         private readonly CampaignRepository _campaignRepository;
+        private readonly ProductService _productService;
 
         public CampaignService(
-            CampaignRepository campaignRepository
+            CampaignRepository campaignRepository,
+            ProductService productService
         )
         {
             _campaignRepository = campaignRepository;
+            _productService = productService;
         }
 
-        public async List<Campaign>? GetAll()
+        public async Task<List<Campaign>> GetAll()
         {
-            return _campaignRepository.GetAll();
+            return await _campaignRepository.GetAll();
         }
 
         public async Task<Campaign> GetById(int id)
         {
-           return await _campaignRepository.FindOrFail(id);
+            return await _campaignRepository.FindOrFail(id);
         }
 
         public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO)
         {
             Campaign campaign = new(
-                campaignInputDTO.Name,
-                campaignInputDTO.StartDate,
-                campaignInputDTO.EndDate,
-                campaignInputDTO.DiscountPercentage
+                campaignInputDTO.Title,
+                campaignInputDTO.Active
             );
 
-            await _campaignRepository.Store(campaign);
-
-            return campaign;
-
-            if (image?.Length > 0)
-            {
-                string path = GetCampaignImagesPath(campaign.Id);
-                await _fileService.SaveFile(image, path);
-
-                campaign.ImageUrl = GetCampaignImagesUrl(campaign.Id);
-                await _campaignRepository.Update(campaign, campaign);
-            }
+            return await _campaignRepository.Store(campaign);
         }
 
         public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO)
@@ -53,35 +43,19 @@ namespace App.Services
             Campaign oldCampaign = await _campaignRepository.FindOrFail(id);
 
             Campaign updatedCampaign = new(
-                campaignInputDTO.Name,
-                campaignInputDTO.StartDate,
-                campaignInputDTO.EndDate,
-                campaignInputDTO.DiscountPercentage
+                campaignInputDTO.Title,
+                campaignInputDTO.Active
             )
-            {       //processar imagem / upload
+            {
                 Id = oldCampaign.Id,
-                ImageUrl = oldCampaign.ImageUrl
             };
 
-            if (campaignInputDTO.Image?.Length > 0)
-            {
-                string path = GetCampaignImagesPath(updatedCampaign.Id);
-            }
-
-            return await _campaignRepository.Update(oldCampaign, updatedCampaign):
+            return await _campaignRepository.Update(oldCampaign, updatedCampaign);
         }
 
         public async Task Delete(int id)
         {
-            Campaign campaign = await _campaignRepository.FindOrFail(id);
-
-            await _campaignRepository.Delete(campaign);
-
-
-            if (campaign.ImageUrl != GetCampaignImagesUrl(0))
-            {
-                await _fileService.RemoveFile(GetCampaignImagesPath(id));
-            }
+            await _campaignRepository.Delete(id);
         }
     }
 }
