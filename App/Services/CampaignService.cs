@@ -30,16 +30,33 @@ namespace App.Services
 
         public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO)
         {
+            IEnumerable<Product> products = [];
+
+            if (campaignInputDTO.ProductsId?.Count > 0)
+            {
+                products = await _productService.GetWhereIds(campaignInputDTO.ProductsId);
+            }
+
             Campaign campaign = new(
                 campaignInputDTO.Title,
                 campaignInputDTO.Active
-            );
+            )
+            {
+                Products = products,
+            };
 
             return await _campaignRepository.Store(campaign);
         }
 
         public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO)
         {
+            IEnumerable<Product> products = [];
+
+            if (campaignInputDTO.ProductsId?.Count > 0)
+            {
+                products = await _productService.GetWhereIds(campaignInputDTO.ProductsId);
+            }
+
             Campaign oldCampaign = await _campaignRepository.FindOrFail(id);
 
             Campaign updatedCampaign = new(
@@ -48,6 +65,7 @@ namespace App.Services
             )
             {
                 Id = oldCampaign.Id,
+                Products = products,
             };
 
             return await _campaignRepository.Update(oldCampaign, updatedCampaign);
