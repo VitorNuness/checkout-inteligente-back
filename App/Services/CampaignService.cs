@@ -48,7 +48,7 @@ namespace App.Services
             return await _campaignRepository.Store(campaign);
         }
 
-        public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO)
+        public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO,IFormFile? image)
         {
             IEnumerable<Product> products = [];
 
@@ -59,16 +59,24 @@ namespace App.Services
 
             Campaign oldCampaign = await _campaignRepository.FindOrFail(id);
 
-            Campaign updatedCampaign = new(
+            Campaign newCampaign = new(
                 campaignInputDTO.Title,
                 campaignInputDTO.Active
             )
             {
                 Id = oldCampaign.Id,
                 Products = products,
+                ImageUrl = oldCampaign.ImageUrl,
             };
+            if (image?.Length > 0)
+            {
+                string path = GetCampaignImagesPath(newCampaign.Id);
+                await _fileService.SaveFile(image, path);
 
-            return await _campaignRepository.Update(oldCampaign, updatedCampaign);
+                newCampaign.ImageUrl = GetCampaignImagesUrl(newCampaign.Id);
+            }
+
+            return await _campaignRepository.Update(oldCampaign, newCampaign);
         }
 
         public async Task Delete(int id)
