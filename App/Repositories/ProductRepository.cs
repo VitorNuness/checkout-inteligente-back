@@ -23,6 +23,16 @@ namespace App.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Product>> GetBestSellers()
+        {
+            return await _dbContext.Products
+                .Include(p => p.Category)
+                .Include(p => p.Campaigns)
+                .OrderByDescending(p => p.Sales)
+                .Take(15)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Product>> GetWhereIdsOrFail(List<int> productsIds)
         {
             return await _dbContext.Products

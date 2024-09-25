@@ -25,6 +25,12 @@ namespace App.Controllers
             return Ok(await _productService.GetAll());
         }
 
+        [HttpGet("best-sellers")]
+        public async Task<ActionResult<IEnumerable<Product?>>> BestSellers()
+        {
+            return Ok(await _productService.GetBestSellers());
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Product?>> Show(int id)
         {
