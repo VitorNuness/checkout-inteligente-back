@@ -28,7 +28,7 @@ namespace App.Services
             return await _campaignRepository.FindOrFail(id);
         }
 
-        public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO)
+        public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO,IFormFile? image)
         {
             IEnumerable<Product> products = [];
 
@@ -45,7 +45,11 @@ namespace App.Services
                 Products = products,
             };
 
-            return await _campaignRepository.Store(campaign);
+            await _campaignRepository.Store(campaign);
+
+            await Update(campaign.Id, campaignInputDTO, image);
+
+            return campaign;
         }
 
         public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO,IFormFile? image)
