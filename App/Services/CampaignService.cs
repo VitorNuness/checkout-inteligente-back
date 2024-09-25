@@ -73,7 +73,17 @@ namespace App.Services
 
         public async Task Delete(int id)
         {
-            await _campaignRepository.Delete(id);
+            Campaign campaign = await GetById(id);
+            await _campaignRepository.Delete(campaign);
+
+            if (campaign.ImageUrl != GetCampaignImagesUrl(0))
+            {
+                await _fileService.RemoveFile(GetCampaignImagesPath(id));
+            }
         }
+
+         private string GetCampaignImagesPath(int id) => Path.Combine(_environment.WebRootPath, "files/images/categories", id.ToString() + ".png");
+
+        private string GetCampaignImagesUrl(int id) => "http://localhost:5102/files/images/categories/" + id.ToString() + ".png";
     }
 }

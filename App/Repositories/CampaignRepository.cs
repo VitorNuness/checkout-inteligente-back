@@ -48,9 +48,8 @@ namespace App.Repositories
             return newCampaign;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Campaign campaign)
         {
-            Campaign? campaign = await FindOrFail(id);
             _dbContext.Remove(campaign);
             await _dbContext.SaveChangesAsync();
         }
