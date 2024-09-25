@@ -34,15 +34,13 @@ namespace App.Repositories
             return category;
         }
 
-        public async Task<Category> Update(int id, Category newCategory)
+        public async Task<Category> Update(Category oldCategory, Category newCategory)
         {
-            Category category = await FindOrFail(id);
-
-            newCategory.Id = category.Id;
-            _dbContext.Entry(category).CurrentValues.SetValues(newCategory);
+            newCategory.Id = oldCategory.Id;
+            _dbContext.Entry(oldCategory).CurrentValues.SetValues(newCategory);
             await _dbContext.SaveChangesAsync();
 
-            return category;
+            return newCategory;
         }
 
         public async Task Delete(Category category)

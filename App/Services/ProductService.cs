@@ -57,14 +57,7 @@ namespace App.Services
 
             await _productRepository.Store(product);
 
-            if (image?.Length > 0)
-            {
-                string path = GetProductImagesPath(product.Id);
-                await _fileService.SaveFile(image, path);
-
-                product.ImageUrl = GetProductImagesUrl(product.Id);
-                await _productRepository.Update(product, product);
-            }
+            await Update(product.Id, productInputDTO, image);
 
             return product;
         }

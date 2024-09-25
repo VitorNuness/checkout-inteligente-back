@@ -33,17 +33,24 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Category>> Store(CategoryInputDTO categoryInputDTO)
+        public async Task<ActionResult<Category>> Store(
+           [FromForm] CategoryInputDTO categoryInputDTO,
+           IFormFile? image = null
+            )
         {
-            Category category = await _categoryService.Create(categoryInputDTO);
+            Category category = await _categoryService.Create(categoryInputDTO, image);
 
             return CreatedAtAction(nameof(Store), category);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, CategoryInputDTO categoryInputDTO)
+        public async Task<ActionResult> Update(
+            int id,
+            [FromForm] CategoryInputDTO categoryInputDTO,
+            IFormFile? image = null
+        )
         {
-            await _categoryService.Update(id, categoryInputDTO);
+            await _categoryService.Update(id, categoryInputDTO, image);
 
             return NoContent();
         }
