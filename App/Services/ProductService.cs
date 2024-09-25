@@ -29,6 +29,11 @@ namespace App.Services
             return await _productRepository.GetAll();
         }
 
+        public async Task<IEnumerable<Product>> GetWhereIds(List<int> productIds)
+        {
+            return await _productRepository.GetWhereIdsOrFail(productIds);
+        }
+
         public async Task<Product> GetById(int id)
         {
             return await _productRepository.FindOrFail(id);
