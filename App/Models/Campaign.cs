@@ -9,7 +9,7 @@ namespace App.Models
         [Key]
         public int Id { get; set; }
         public string? Title { get; set; }
-        public List<Product>? Products { get; set; }
+        public IEnumerable<Product>? Products { get; set; }
         public bool Active { get; set; }
         public string? ImageUrl { get; set; } = "http://localhost:5102/files/images/campaigns/0.png";
 

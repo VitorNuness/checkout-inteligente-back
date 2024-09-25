@@ -19,12 +19,27 @@ namespace App.Repositories
         {
             return await _dbContext.Products
                 .Include(p => p.Category)
+                .Include(p => p.Campaigns)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetWhereIdsOrFail(List<int> productsIds)
+        {
+            return await _dbContext.Products
+                .Include(p => p.Category)
+                .Include(p => p.Campaigns)
+                .Where((p) => productsIds.Contains(p.Id))
                 .ToListAsync();
         }
 
         public async Task<Product> FindOrFail(int id)
         {
-            return await _dbContext.Products.Include(p => p.Category).Where(p => p.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Product not exist.");
+            return await _dbContext.Products
+                .Include(p => p.Category)
+                .Include(p => p.Campaigns)
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync() ??
+                throw new Exception("Product not exist.");
         }
 
         public async Task<Product> Store(Product product)
