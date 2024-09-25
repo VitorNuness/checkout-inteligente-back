@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20240924203247_first_migration")]
+    [Migration("20240925181643_first_migration")]
     partial class first_migration
     {
         /// <inheritdoc />
@@ -168,6 +168,9 @@ namespace App.Migrations
 
                     b.Property<double>("Quantity")
                         .HasColumnType("double");
+
+                    b.Property<int>("Sales")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
