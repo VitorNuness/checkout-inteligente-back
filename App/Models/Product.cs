@@ -13,6 +13,7 @@ namespace App.Models
         public double Quantity { get; set; } = 0;
         public double Price { get; set; } = 0;
         public string? ImageUrl { get; set; } = "http://localhost:5102/files/images/products/0.png";
+        public int Sales { get; private set; } = 0;
         public required Category Category { get; set; }
         public List<Campaign?> Campaigns { get; set; } = [];
 
@@ -31,5 +32,10 @@ namespace App.Models
         }
 
         private Product() { }
+
+        public void AddSale()
+        {
+            Sales++;
+        }
     }
 }

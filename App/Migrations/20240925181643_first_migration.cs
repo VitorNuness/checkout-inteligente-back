@@ -82,6 +82,7 @@ namespace App.Migrations
                     Price = table.Column<double>(type: "double", nullable: false),
                     ImageUrl = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Sales = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

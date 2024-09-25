@@ -60,6 +60,8 @@ namespace App.Services
 
             order.CompleteOrder();
 
+            order.Items?.ForEach(i => i?.Product.AddSale());
+
             await _orderRepository.Update(order, order);
         }
     }

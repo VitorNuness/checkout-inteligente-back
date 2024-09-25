@@ -166,6 +166,9 @@ namespace App.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("double");
 
+                    b.Property<int>("Sales")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
