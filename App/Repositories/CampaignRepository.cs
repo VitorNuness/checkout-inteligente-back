@@ -26,6 +26,7 @@ namespace App.Repositories
         {
             return await _dbContext.Campaigns
                 .Where(c => c.Id == id)
+                .Include(c => c.Products)
                 .FirstOrDefaultAsync() ??
                 throw new Exception("Campaign not exist.");
         }
@@ -40,6 +41,7 @@ namespace App.Repositories
 
         public async Task<Campaign> Update(Campaign oldCampaign, Campaign newCampaign)
         {
+            oldCampaign.Products = newCampaign.Products?.ToList();
             _dbContext.Entry(oldCampaign).CurrentValues.SetValues(newCampaign);
             await _dbContext.SaveChangesAsync();
 
@@ -48,11 +50,8 @@ namespace App.Repositories
 
         public async Task Delete(int id)
         {
-            Campaign? campaign = await _dbContext.Campaigns.FindAsync(id);
-            if (campaign != null)
-            {
-                _dbContext.Remove(campaign);
-            }
+            Campaign? campaign = await FindOrFail(id);
+            _dbContext.Remove(campaign);
             await _dbContext.SaveChangesAsync();
         }
     }
