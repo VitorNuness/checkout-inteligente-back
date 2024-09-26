@@ -8,14 +8,20 @@ namespace App.Services
     {
         private readonly CampaignRepository _campaignRepository;
         private readonly ProductService _productService;
+        private readonly FileService _fileService;
+        private readonly IWebHostEnvironment _environment;
 
         public CampaignService(
             CampaignRepository campaignRepository,
-            ProductService productService
+            ProductService productService,
+            FileService fileService,
+            IWebHostEnvironment environment
         )
         {
             _campaignRepository = campaignRepository;
             _productService = productService;
+            _fileService = fileService;
+            _environment = environment;
         }
 
         public async Task<List<Campaign>> GetAll()
@@ -28,7 +34,7 @@ namespace App.Services
             return await _campaignRepository.FindOrFail(id);
         }
 
-        public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO,IFormFile? image)
+        public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO, IFormFile? image)
         {
             IEnumerable<Product> products = [];
 
@@ -52,7 +58,7 @@ namespace App.Services
             return campaign;
         }
 
-        public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO,IFormFile? image)
+        public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO, IFormFile? image)
         {
             IEnumerable<Product> products = [];
 
@@ -94,7 +100,7 @@ namespace App.Services
             }
         }
 
-         private string GetCampaignImagesPath(int id) => Path.Combine(_environment.WebRootPath, "files/images/categories", id.ToString() + ".png");
+        private string GetCampaignImagesPath(int id) => Path.Combine(_environment.WebRootPath, "files/images/categories", id.ToString() + ".png");
 
         private string GetCampaignImagesUrl(int id) => "http://localhost:5102/files/images/categories/" + id.ToString() + ".png";
     }
