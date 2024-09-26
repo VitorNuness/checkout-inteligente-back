@@ -38,15 +38,20 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Campaign>> Store(CampaignInputDTO campaignInputDTO,IFormFile? image = null)
+        public async Task<ActionResult<Campaign>> Store(
+            [FromForm] CampaignInputDTO campaignInputDTO,
+            IFormFile? image = null
+            )
         {
-
-
-            return CreatedAtAction(nameof(Store), await _campaignService.Create(campaignInputDTO,image));
+            return CreatedAtAction(nameof(Store), await _campaignService.Create(campaignInputDTO, image));
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, CampaignInputDTO campaignInputDTO, IFormFile? image = null)
+        public async Task<ActionResult> Update(
+            int id,
+            [FromForm] CampaignInputDTO campaignInputDTO,
+            IFormFile? image = null
+            )
         {
             await _campaignService.Update(id, campaignInputDTO, image);
 
