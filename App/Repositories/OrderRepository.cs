@@ -21,6 +21,7 @@ namespace App.Repositories
             return await _dbContext.Orders
                 .Include(o => o.Items)
                 .ThenInclude(i => i.Product)
+                .ThenInclude(p => p.Category)
                 .Where(o => o.Id == id)
                 .FirstOrDefaultAsync() ??
                 throw new NotExistException("Order not exists.");
@@ -38,6 +39,7 @@ namespace App.Repositories
             return await _dbContext.Orders
                 .Include(o => o.Items)
                 .ThenInclude(i => i.Product)
+                .ThenInclude(p => p.Category)
                 .Where(o => o.User.Id == user.Id && o.Status == Enums.EOrderStatus.CURRENT)
                 .FirstOrDefaultAsync() ??
                 throw new NotExistException("Order not exists.");
