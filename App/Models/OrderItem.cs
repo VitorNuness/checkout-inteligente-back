@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace App.Models
 {
@@ -13,27 +9,42 @@ namespace App.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
+        public required Order Order { get; set; }
+        public required Product Product { get; set; }
         public double Quantity { get; set; }
-        public double Total { get; set; }
+        public double Total { get; private set; }
 
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-
-        public int OrderId { get; set; }
-        [JsonIgnore]
-        public Order Order { get; set; }
-
-        public OrderItem(int productId, Product product, double quantity, int orderId, Order order)
+        [SetsRequiredMembers]
+        public OrderItem(
+                    Product product,
+                    Order order,
+                    double quantity = 1
+                )
         {
-            this.ProductId = productId;
-            this.Product = product;
-            this.Quantity = quantity;
-            this.OrderId = orderId;
-            this.Order = order;
+            Product = product;
+            Order = order;
+            Quantity = quantity;
 
-            this.Total = product.Price * quantity;
+            CalculateTotal();
         }
 
         private OrderItem() { }
+
+        public void AddQuantity()
+        {
+            Quantity++;
+            CalculateTotal();
+        }
+
+        public void RemoveQuantity()
+        {
+            Quantity--;
+            CalculateTotal();
+        }
+
+        private void CalculateTotal()
+        {
+            Total = Product.Price * Quantity;
+        }
     }
 }

@@ -1,61 +1,107 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using App.DTOs;
 using App.Models;
 using App.Repositories;
-using App.Services.Interfaces;
 
 namespace App.Services
 {
-    public class CampaignService : ICampaignService
+    public class CampaignService
     {
-        private readonly CampaignRepository Repository;
+        private readonly CampaignRepository _campaignRepository;
+        private readonly ProductService _productService;
+        private readonly FileService _fileService;
+        private readonly IWebHostEnvironment _environment;
 
-        public CampaignService()
+        public CampaignService(
+            CampaignRepository campaignRepository,
+            ProductService productService,
+            FileService fileService,
+            IWebHostEnvironment environment
+        )
         {
-            this.Repository = new CampaignRepository();
+            _campaignRepository = campaignRepository;
+            _productService = productService;
+            _fileService = fileService;
+            _environment = environment;
         }
 
-        public List<Campaign>? GetAll(string? sort = null)
+        public async Task<List<Campaign>> GetAll()
         {
-            return this.Repository.GetAll(sort);
+            return await _campaignRepository.GetAll();
         }
 
-        public Campaign? GetById(int id, string? sort = null)
+        public async Task<Campaign> GetById(int id)
         {
-            Campaign? campaign = this.Repository.Get(id);
+            return await _campaignRepository.FindOrFail(id);
+        }
 
-            if (campaign == null)
+        public async Task<Campaign> Create(CampaignInputDTO campaignInputDTO, IFormFile? image)
+        {
+            IEnumerable<Product> products = [];
+
+            if (campaignInputDTO.ProductsId?.Count > 0)
             {
-                return campaign;
+                products = await _productService.GetWhereIds(campaignInputDTO.ProductsId);
             }
 
-            if (sort == "trend")
+            Campaign campaign = new(
+                campaignInputDTO.Title,
+                campaignInputDTO.Active
+            )
             {
-                if (campaign.Products != null)
-                {
-                    campaign.Products = campaign.Products.OrderByDescending(p => p.Views).ToList();
-                    return campaign;
-                }
-            }
+                Products = products,
+            };
+
+            await _campaignRepository.Store(campaign);
+
+            await Update(campaign.Id, campaignInputDTO, image);
 
             return campaign;
         }
 
-        public void Create(Campaign data)
+        public async Task<Campaign> Update(int id, CampaignInputDTO campaignInputDTO, IFormFile? image)
         {
-            this.Repository.Store(data);
+            IEnumerable<Product> products = [];
+
+            if (campaignInputDTO.ProductsId?.Count > 0)
+            {
+                products = await _productService.GetWhereIds(campaignInputDTO.ProductsId);
+            }
+
+            Campaign oldCampaign = await _campaignRepository.FindOrFail(id);
+
+            Campaign newCampaign = new(
+                campaignInputDTO.Title,
+                campaignInputDTO.Active
+            )
+            {
+                Id = oldCampaign.Id,
+                Products = products,
+                ImageUrl = oldCampaign.ImageUrl,
+            };
+            if (image?.Length > 0)
+            {
+                string path = GetCampaignImagesPath(newCampaign.Id);
+                await _fileService.SaveFile(image, path);
+
+                newCampaign.ImageUrl = GetCampaignImagesUrl(newCampaign.Id);
+            }
+
+            return await _campaignRepository.Update(oldCampaign, newCampaign);
         }
 
-        public void Update(int id, Campaign data)
+        public async Task Delete(int id)
         {
-            this.Repository.Update(id, data);
+            Campaign campaign = await GetById(id);
+            await _campaignRepository.Delete(campaign);
+
+            if (campaign.ImageUrl != GetCampaignImagesUrl(0))
+            {
+                await _fileService.RemoveFile(GetCampaignImagesPath(id));
+            }
         }
 
-        public void Delete(int id)
-        {
-            this.Repository.Delete(id);
-        }
+        private string GetCampaignImagesPath(int id) => Path.Combine(_environment.WebRootPath, "files/images/categories", id.ToString() + ".png");
+
+        private string GetCampaignImagesUrl(int id) => "http://localhost:5102/files/images/categories/" + id.ToString() + ".png";
     }
 }

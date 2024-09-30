@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,48 +10,63 @@ namespace App.Controllers
     [Route("api/products")]
     public class ProductController : ControllerBase
     {
-        private readonly ProductService Service;
+        private readonly ProductService _productService;
 
-        public ProductController()
+        public ProductController(
+            ProductService productService
+        )
         {
-            this.Service = new ProductService();
+            _productService = productService;
         }
 
         [HttpGet]
-        public ActionResult<List<Product>?> Index(int? category = null, string? sort = null)
+        public async Task<ActionResult<IEnumerable<Product?>>> Index()
         {
-            return this.Service.GetAll(category, sort);
+            return Ok(await _productService.GetAll());
+        }
+
+        [HttpGet("best-sellers")]
+        public async Task<ActionResult<IEnumerable<Product?>>> BestSellers()
+        {
+            return Ok(await _productService.GetBestSellers());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product?> Show(int id)
+        public async Task<ActionResult<Product?>> Show(int id)
         {
-            return this.Service.GetById(id);
+            return Ok(await _productService.GetById(id));
         }
 
-        [Authorize]
         [HttpPost]
-        public ActionResult<Product> Store(Product data)
+        // [Authorize(Roles = "admin")]
+        public async Task<ActionResult<Product>> Store(
+            [FromForm] ProductInputDTO productInputDTO,
+            IFormFile? image = null
+        )
         {
-            this.Service.Create(data);
+            Product product = await _productService.Create(productInputDTO, image);
 
-            return data;
+            return CreatedAtAction(nameof(Store), product);
         }
 
-        [Authorize]
         [HttpPut("{id}")]
-        public ActionResult Update(int id, Product data)
+        // [Authorize(Roles = "admin")]
+        public async Task<ActionResult<Product>> Update(
+            int id,
+            [FromForm] ProductInputDTO productInputDTO,
+            IFormFile? image = null
+        )
         {
-            this.Service.Update(id, data);
+            Product product = await _productService.Update(id, productInputDTO, image);
 
-            return NoContent();
+            return Ok(product);
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        // [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Delete(int id)
         {
-            this.Service.Delete(id);
+            await _productService.Delete(id);
 
             return NoContent();
         }

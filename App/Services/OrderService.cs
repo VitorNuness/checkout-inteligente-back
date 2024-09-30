@@ -1,195 +1,68 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using App.Models;
 using App.Repositories;
-using App.Services.Interfaces;
 
 namespace App.Services
 {
-    public class OrderService : IOrderService
+    public class OrderService
     {
-        private readonly ProductService ProductService;
-        private readonly SuggestionService SuggestionService;
-        private readonly CampaignService CampaignService;
-        private readonly OrderItemService OrderItemService;
-        private readonly OrderRepository Repository;
+        private readonly UserService _userService;
+        private readonly ProductService _productService;
+        private readonly OrderRepository _orderRepository;
 
-        public OrderService()
+        public OrderService(
+            UserService userService,
+            ProductService productService,
+            OrderRepository orderRepository
+        )
         {
-            this.ProductService = new ProductService();
-            this.SuggestionService = new SuggestionService();
-            this.CampaignService = new CampaignService();
-            this.OrderItemService = new OrderItemService();
-            this.Repository = new OrderRepository();
+            _userService = userService;
+            _productService = productService;
+            _orderRepository = orderRepository;
         }
 
-        public List<Order> GetAll()
+        public async Task<List<Order>> GetUserOrders(int userId)
         {
-            return this.Repository.GetAll();
+            User user = await _userService.Get(userId);
+
+            return await _orderRepository.FindWhereUser(user);
         }
 
-        public Order? GetById(int id)
+        public async Task<Order> GetCurrentUserOrder(int userId)
         {
-            return this.Repository.Get(id);
+            User user = await _userService.Get(userId);
+
+            return await _orderRepository.FindOrCreateCurrentUserOrder(user);
         }
 
-        public Order? GetCurrentUserOrder(int userId)
+        public async Task AddProduct(int id, int productId)
         {
-            return this.Repository.GetCurrentUserOrder(userId);
+            Order order = await _orderRepository.FindOrFail(id);
+            Product product = await _productService.GetById(productId);
+
+            order.AddProduct(product);
+
+            await _orderRepository.Update(order, order);
         }
 
-        public void Create(Order data)
+        public async Task RemoveProduct(int id, int productId)
         {
-            this.Repository.Store(data);
+            Order order = await _orderRepository.FindOrFail(id);
+            Product product = await _productService.GetById(productId);
+
+            order.RemoveProduct(product);
+
+            await _orderRepository.Update(order, order);
         }
 
-        public void Update(int id, Order data)
+        public async Task CompleteOrder(int id)
         {
-            this.Repository.Update(id, data);
+            Order order = await _orderRepository.FindOrFail(id);
+
+            order.CompleteOrder();
+
+            order.Items?.ForEach(i => i?.Product.AddSale());
+
+            await _orderRepository.Update(order, order);
         }
-
-        public void Delete(int id)
-        {
-            this.Repository.Delete(id);
-        }
-
-        public void AddProduct(int id, int productId)
-        {
-            Order? order = this.GetById(id);
-            Product? product = this.ProductService.GetById(productId);
-
-            if (order != null && product != null)
-            {
-                OrderItem? item = this.OrderItemService.GetByProductAndOrder(productId, order.Id);
-
-                if (item == null)
-                {
-                    item = new OrderItem(productId, product, 1, id, order);
-                }
-
-                if (order.Items != null && order.Items.Any(i => i.ProductId == productId))
-                {
-                    this.OrderItemService.AddProduct(item.Id, productId);
-                }
-                else
-                {
-                    order.Items.Add(item);
-                }
-                order = this.VerifyFreeShiping(order);
-                this.Update(id, order);
-
-            }
-        }
-
-
-        public void RemoveProduct(int id, int productId)
-        {
-            Order? order = this.GetById(id);
-            Product? product = this.ProductService.GetById(productId);
-
-            if (order != null && product != null)
-            {
-                OrderItem? item = this.OrderItemService.GetByProductAndOrder(productId, order.Id);
-                if (order.Items != null && order.Items.Any(i => i.ProductId == productId))
-                {
-                    this.OrderItemService.RemoveProduct(item.Id, productId);
-                }
-                order = this.VerifyFreeShiping(order);
-                this.Update(id, order);
-            }
-        }
-
-        public void CompleteOrder(int id)
-        {
-            Order? order = this.GetById(id);
-            if (order != null && order.Items != null)
-            {
-                order.IsComplete = true;
-                this.Update(id, order);
-
-                Order? newOrder = new Order(order.User, order.UserId);
-                this.Create(newOrder);
-
-                foreach (OrderItem? item in order.Items)
-                {
-                    this.ProductService.AddView(item.ProductId);
-                }
-            }
-        }
-
-        public List<Product>? GetSuggestions(int id)
-        {
-            Order? order = this.GetById(id);
-            List<Product>? products = this.ProductService.GetAll(null, "popularity");
-
-            List<Product>? suggestions = this.SuggestionService.GetSuggestions(order, products);
-            return suggestions;
-        }
-
-        public List<Product>? GetSuggestionsByCampaigns(int id)
-        {
-            Order? order = this.GetById(id);
-            List<Campaign>? campaigns = this.CampaignService.GetAll("active");
-            List<Product>? products = new List<Product>();
-
-            if (campaigns != null && order != null && !order.FreeShipping)
-            {
-                foreach (Campaign campaign in campaigns)
-                {
-                    if (campaign.Products != null)
-                    {
-                        foreach (Product product in campaign.Products)
-                        {
-                            products.Add(product);
-                        }
-                    }
-                }
-            }
-
-            products = products.OrderByDescending(p => p.Views).ToList();
-
-            List<Product>? suggestions = this.SuggestionService.GetSuggestions(order, products);
-            return suggestions;
-        }
-
-        public Order VerifyFreeShiping(Order order)
-        {
-            List<Campaign>? campaigns = this.CampaignService.GetAll("active");
-            HashSet<Product> productsInCampaigns = new HashSet<Product>();
-
-            if (order != null && campaigns != null)
-            {
-                foreach (Campaign campaign in campaigns)
-                {
-                    if (campaign.Products != null && order.Items != null)
-                    {
-                        foreach (Product product in campaign.Products)
-                        {
-                            foreach (OrderItem item in order.Items)
-                            {
-                                if (product == item.Product)
-                                {
-                                    productsInCampaigns.Add(product);
-                                }
-                            }
-                        }
-                        if (productsInCampaigns.Count() == campaign.Products.Count())
-                        {
-                            order.FreeShipping = true;
-                            return order;
-                        }
-                        else
-                        {
-                            order.FreeShipping = false;
-                        }
-                        productsInCampaigns.Clear();
-                    }
-                }
-            }
-            return order;
-        }
-
     }
 }

@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace App.Models
 {
@@ -11,36 +9,33 @@ namespace App.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public double Quantity { get; set; }
-        public double Price { get; set; }
-        public int Views { get; set; }
+        public required string Name { get; set; }
+        public double Quantity { get; set; } = 0;
+        public double Price { get; set; } = 0;
+        public string? ImageUrl { get; set; } = "http://localhost:5102/files/images/products/0.png";
+        public int Sales { get; private set; } = 0;
+        public required Category Category { get; set; }
+        public List<Campaign?> Campaigns { get; set; } = [];
 
-        public int CategoryId { get; set; }
-        public Category? Category { get; set; }
-
-        public int? ImageId { get; set; }
-        public Image? Image { get; set; }
-
-        [JsonIgnore]
-        public List<OrderItem> Orders { get; set; }
-
-        public Product(string? name, int categoryId, Category category, double quantity, double price, int? imageId = null, Image? image = null)
+        [SetsRequiredMembers]
+        public Product(
+            string name,
+            Category category,
+            double quantity = 0,
+            double price = 0
+        )
         {
-            this.Name = name;
-            this.Quantity = quantity;
-            this.Price = price;
-            this.Views = 0;
-
-            this.CategoryId = categoryId;
-            this.Category = category;
-
-            this.ImageId = imageId;
-            this.Image = image;
-
-            this.Orders = new List<OrderItem>();
+            Name = name;
+            Category = category;
+            Quantity = quantity;
+            Price = price;
         }
 
         private Product() { }
+
+        public void AddSale()
+        {
+            Sales++;
+        }
     }
 }

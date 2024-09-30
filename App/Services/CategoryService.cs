@@ -1,60 +1,81 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using App.DTOs;
 using App.Models;
 using App.Repositories;
-using App.Services.Interfaces;
 
 namespace App.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService
     {
-        private readonly CategoryRepository Repository;
+        private readonly CategoryRepository _categoryRepository;
+        private readonly FileService _fileService;
+        private readonly IWebHostEnvironment _environment;
 
-        public CategoryService()
+        public CategoryService(
+            CategoryRepository categoryRepository,
+            FileService fileService,
+            IWebHostEnvironment environment
+        )
         {
-            this.Repository = new CategoryRepository();
+            _categoryRepository = categoryRepository;
+            _fileService = fileService;
+            _environment = environment;
         }
 
-        public List<Category> GetAll()
+        public async Task<IEnumerable<Category?>> GetAll()
         {
-            return this.Repository.GetAll();
+            return await _categoryRepository.GetAll();
         }
 
-        public Category? GetById(int id, string? sort)
+        public async Task<Category> GetById(int id)
         {
-            Category? category = this.Repository.Get(id);
+            return await _categoryRepository.FindOrFail(id);
+        }
 
-            if (category == null)
-            {
-                return category;
-            }
+        public async Task<Category> Create(CategoryInputDTO categoryInputDTO, IFormFile? image)
+        {
+            Category category = new(categoryInputDTO.Name);
 
-            if (sort == "trend")
-            {
-                if (category.Products != null)
-                {
-                    category.Products = category.Products.OrderByDescending(p => p.Views).ToList();
-                }
-            }
+            await _categoryRepository.Store(category);
+            await Update(category.Id, categoryInputDTO, image);
 
             return category;
         }
 
-        public void Create(Category data)
+        public async Task<Category> Update(int id, CategoryInputDTO categoryInputDTO, IFormFile? image)
         {
-            this.Repository.Store(data);
+            Category oldCategory = await GetById(id);
+
+            Category newCategory = new(categoryInputDTO.Name)
+            {
+                Id = oldCategory.Id,
+                ImageUrl = oldCategory.ImageUrl,
+            };
+
+            if (image?.Length > 0)
+            {
+                string path = GetCategoryImagesPath(newCategory.Id);
+                await _fileService.SaveFile(image, path);
+
+                newCategory.ImageUrl = GetCategoryImagesUrl(newCategory.Id);
+            }
+
+            return await _categoryRepository.Update(oldCategory, newCategory);
         }
 
-        public void Update(int id, Category data)
+        public async Task Delete(int id)
         {
-            this.Repository.Update(id, data);
+            Category category = await GetById(id);
+            await _categoryRepository.Delete(category);
+
+            if (category.ImageUrl != GetCategoryImagesUrl(0))
+            {
+                await _fileService.RemoveFile(GetCategoryImagesPath(id));
+            }
         }
 
-        public void Delete(int id)
-        {
-            this.Repository.Delete(id);
-        }
+        private string GetCategoryImagesPath(int id) => Path.Combine(_environment.WebRootPath, "files/images/categories", id.ToString() + ".png");
+
+        private string GetCategoryImagesUrl(int id) => "http://localhost:5102/files/images/categories/" + id.ToString() + ".png";
+
     }
 }

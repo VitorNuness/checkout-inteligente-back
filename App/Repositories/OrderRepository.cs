@@ -1,79 +1,79 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Database;
+using App.Exceptions;
 using App.Models;
-using App.Repositories.Interfaces;
+using App.Repositories.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public OrderRepository()
+        public OrderRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
-        public List<Order> GetAll()
+        public async Task<Order> FindOrFail(int id)
         {
-            return this.DbContext.Orders
-                .Include(o => o.User)
+            return await _dbContext.Orders
                 .Include(o => o.Items)
-                    .ThenInclude(o => o.Product)
-                .ToList();
-        }
-
-        public Order? Get(int id)
-        {
-            return this.DbContext.Orders
-                .Include(o => o.User)
-                .Include(o => o.Items)
-                    .ThenInclude(o => o.Product)
+                .ThenInclude(i => i.Product)
+                .ThenInclude(p => p.Category)
                 .Where(o => o.Id == id)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync() ??
+                throw new NotExistException("Order not exists.");
         }
 
-        public Order? GetCurrentUserOrder(int userId)
+        public async Task<List<Order>> FindWhereUser(User user)
         {
-            return this.DbContext.Orders
-                .Include(o => o.User)
+            return await _dbContext.Orders
+                .Where(o => o.User == user)
+                .ToListAsync();
+        }
+
+        public async Task<Order> FindOrFailCurrentUserOrder(User user)
+        {
+            return await _dbContext.Orders
                 .Include(o => o.Items)
-                    .ThenInclude(o => o.Product)
-                .Where(o => o.UserId == userId && o.IsComplete == false)
-                .FirstOrDefault();
+                .ThenInclude(i => i.Product)
+                .ThenInclude(p => p.Category)
+                .Where(o => o.User.Id == user.Id && o.Status == Enums.EOrderStatus.CURRENT)
+                .FirstOrDefaultAsync() ??
+                throw new NotExistException("Order not exists.");
         }
 
-        public void Store(Order data)
+        public async Task<Order> FindOrCreateCurrentUserOrder(User user)
         {
-            this.DbContext.Orders.Add(data);
-            this.DbContext.SaveChanges();
-        }
-
-        public void Update(int id, Order data)
-        {
-            Order? order = this.Get(id);
-            if (order != null)
+            try
             {
-                order.Id = id;
-                this.DbContext.Entry(order).CurrentValues.SetValues(data);
+                return await FindOrFailCurrentUserOrder(user);
             }
+            catch (NotExistException)
+            {
+                Order order = new(user);
 
-            this.DbContext.SaveChanges();
+                return await Store(order);
+            }
         }
 
-        public void Delete(int id)
+        public async Task<Order> Store(Order order)
         {
-            Order? order = this.Get(id);
-            if (order != null)
-            {
-                this.DbContext.Orders.Remove(order);
-            }
+            _dbContext.Orders.Add(order);
+            await _dbContext.SaveChangesAsync();
 
-            this.DbContext.SaveChanges();
+            return order;
+        }
+
+        public async Task<Order> Update(Order oldOrder, Order newOrder)
+        {
+            _dbContext.Entry(oldOrder).CurrentValues.SetValues(newOrder);
+
+            await _dbContext.SaveChangesAsync();
+
+            return newOrder;
         }
     }
 }

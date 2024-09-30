@@ -1,50 +1,40 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using App.DTOs;
 using App.Models;
 using App.Repositories;
-using App.Services.Interfaces;
 
 
 namespace App.Services
 {
-    public class UserService : IUserService
+    public class UserService
     {
-        private readonly UserRepository Repository;
-        private readonly OrderService OrderService;
+        private readonly UserRepository _userRepository;
 
-        public UserService()
+        public UserService(
+            UserRepository userRepository
+        )
         {
-            this.Repository = new UserRepository();
-            this.OrderService = new OrderService();
+            _userRepository = userRepository;
         }
 
-        public List<User> GetAll()
-        {
-            return this.Repository.GetAll();
-        }
+        public async Task<IEnumerable<User?>> GetAll() => await _userRepository.GetAll();
 
-        public User? GetById(int id)
-        {
-            return this.Repository.Get(id);
-        }
+        public async Task<User> Get(int id) => await _userRepository.FindOrFail(id);
 
-        public void Create(User data)
+        public async Task<User> GetByCredentials(UserCredentialsDTO userCredentialsDTO) => await _userRepository.FindByCredentialsOrFail(userCredentialsDTO);
+
+        public async Task<User> Create(UserInputDTO userInputDTO)
         {
-            this.Repository.Store(data);
-            Order? newOrder = new Order(data, data.Id);
-            this.OrderService.Create(newOrder);
+            return await _userRepository.Store(userInputDTO);
         }
 
         public void Update(int id, User data)
         {
-            this.Repository.Update(id, data);
+            _userRepository.Update(id, data);
         }
 
         public void Delete(int id)
         {
-            this.Repository.Delete(id);
+            _userRepository.Delete(id);
         }
     }
 }

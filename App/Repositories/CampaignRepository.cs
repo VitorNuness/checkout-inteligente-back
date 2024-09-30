@@ -1,80 +1,57 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using App.Database;
 using App.Models;
-using App.Repositories.Interfaces;
+using App.Repositories.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories
 {
-    public class CampaignRepository : ICampaignRepository
+    public class CampaignRepository
     {
-        private readonly CheckoutDbContext DbContext;
+        private readonly CheckoutDbContext _dbContext;
 
-        public CampaignRepository()
+        public CampaignRepository(
+            CheckoutDbContext dbContext
+        )
         {
-            this.DbContext = new CheckoutDbContext();
+            _dbContext = dbContext;
         }
 
-        public List<Campaign>? GetAll(string? sort = null)
+        public async Task<List<Campaign>> GetAll()
         {
-            List<Campaign>? campaigns = this.DbContext.Campaigns
+            return await _dbContext.Campaigns
                 .Include(c => c.Products)
-                .ToList();
-
-            if (campaigns != null)
-            {
-                if (sort == "active")
-                {
-                    campaigns = campaigns.Where(c => c.Active == true).ToList();
-                }
-
-                if (sort == "desactive")
-                {
-                    campaigns = campaigns.Where(c => c.Active == false).ToList();
-                }
-            }
-
-            return campaigns;
+                .ToListAsync();
         }
 
-        public Campaign? Get(int id)
+        public async Task<Campaign> FindOrFail(int id)
         {
-            return this.DbContext.Campaigns
-                .Include(c => c.Products)
+            return await _dbContext.Campaigns
                 .Where(c => c.Id == id)
-                .FirstOrDefault();
+                .Include(c => c.Products)
+                .FirstOrDefaultAsync() ??
+                throw new Exception("Campaign not exist.");
         }
 
-        public void Store(Campaign data)
+        public async Task<Campaign> Store(Campaign data)
         {
-            this.DbContext.Campaigns.Add(data);
-            this.DbContext.SaveChanges();
+            _dbContext.Campaigns.Add(data);
+            await _dbContext.SaveChangesAsync();
+
+            return data;
         }
 
-        public void Update(int id, Campaign data)
+        public async Task<Campaign> Update(Campaign oldCampaign, Campaign newCampaign)
         {
-            Campaign? campaign = this.Get(id);
-            if (campaign != null)
-            {
-                campaign.Id = id;
-                this.DbContext.Entry(campaign).CurrentValues.SetValues(data);
-            }
+            oldCampaign.Products = newCampaign.Products?.ToList();
+            _dbContext.Entry(oldCampaign).CurrentValues.SetValues(newCampaign);
+            await _dbContext.SaveChangesAsync();
 
-            this.DbContext.SaveChanges();
+            return newCampaign;
         }
 
-        public void Delete(int id)
+        public async Task Delete(Campaign campaign)
         {
-            Campaign? campaign = this.Get(id);
-            if (campaign != null)
-            {
-                this.DbContext.Campaigns.Remove(campaign);
-            }
-            this.DbContext.SaveChanges();
+            _dbContext.Remove(campaign);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

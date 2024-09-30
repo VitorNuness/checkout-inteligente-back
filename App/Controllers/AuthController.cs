@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Database;
+using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,37 +9,45 @@ namespace App.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly CheckoutDbContext DbContext;
-        public readonly TokenService TokenService;
+        private readonly UserService _userService;
 
-        public AuthController()
+        public readonly TokenService _tokenService;
+
+        public AuthController(
+            UserService userService,
+            TokenService tokenService
+            )
         {
-            this.DbContext = new CheckoutDbContext();
-            this.TokenService = new TokenService();
+            _userService = userService;
+            _tokenService = tokenService;
         }
 
-        [HttpPost("signIn")]
-        public ActionResult<object> SingIn(User data)
+        [HttpPost("register")]
+        public async Task<ActionResult<AuthOutputDTO?>> Register(UserInputDTO userInputDTO)
         {
-            User? user = this.DbContext.Users.FirstOrDefault(u => u.Email == data.Email && u.Password == data.Password);
+            User? user = await _userService.Create(userInputDTO);
+            string token = _tokenService.CreateToken(user);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            string token = this.TokenService.CreateToken(user);
-
-            return new { user, token };
+            return CreatedAtAction(nameof(Register),
+                new AuthOutputDTO(
+                    new UserOutputDTO(user),
+                    token
+                )
+            );
         }
 
-        [HttpPost("signUp")]
-        public ActionResult SignUp(User data)
+        [HttpPost("login")]
+        public async Task<ActionResult<User?>> Login(UserCredentialsDTO userCredentialsDTO)
         {
-            this.DbContext.Users.Add(data);
-            this.DbContext.SaveChanges();
+            User? user = await _userService.GetByCredentials(userCredentialsDTO);
+            string token = _tokenService.CreateToken(user);
 
-            return NoContent();
+            return Ok(
+                new AuthOutputDTO(
+                    new UserOutputDTO(user),
+                    token
+                )
+            );
         }
     }
 }

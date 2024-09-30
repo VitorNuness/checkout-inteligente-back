@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace App.Models
 {
@@ -13,17 +9,14 @@ namespace App.Models
         [Key]
         public int Id { get; set; }
         public string? Title { get; set; }
-        public IList<Product>? Products { get; set; }
-        public bool Rule { get; set; }
+        public IEnumerable<Product>? Products { get; set; }
         public bool Active { get; set; }
-        public string? ImagePath { get; set; }
+        public string? ImageUrl { get; set; } = "http://localhost:5102/files/images/campaigns/0.png";
 
-        public Campaign(string? title, string? imagePath)
+        public Campaign(string? title, bool active)
         {
             this.Title = title;
-            this.Rule = true;
-            this.Active = true;
-            this.ImagePath = imagePath;
+            this.Active = active;
         }
 
         private Campaign() { }

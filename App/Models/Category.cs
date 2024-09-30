@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace App.Models
 {
@@ -13,14 +9,14 @@ namespace App.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string? Name { get; set; }
-        [JsonIgnore]
-        public IList<Product>? Products { get; set; }
+        public required string Name { get; set; }
+        public List<Product?> Products { get; set; } = [];
+        public string ImageUrl { get; set; } = "http://localhost:5102/files/images/categories/0.png";
 
-        public Category(string? name)
+        [SetsRequiredMembers]
+        public Category(string name)
         {
-            this.Name = name;
-            this.Products = new List<Product>();
+            Name = name;
         }
 
         private Category() { }

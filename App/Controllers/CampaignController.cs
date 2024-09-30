@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,23 +10,25 @@ namespace App.Controllers
     [Route("api/campaigns")]
     public class CampaignController : ControllerBase
     {
-        private readonly CampaignService Service;
+        private readonly CampaignService _campaignService;
 
-        public CampaignController()
+        public CampaignController(
+            CampaignService campaignService
+        )
         {
-            this.Service = new CampaignService();
+            _campaignService = campaignService;
         }
 
         [HttpGet]
-        public ActionResult<List<Campaign>> Index(string? sort = null)
+        public async Task<ActionResult<List<Campaign>>> Index()
         {
-            return this.Service.GetAll(sort);
+            return Ok(await _campaignService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Campaign> Show(int id, string? sort)
+        public async Task<ActionResult<Campaign>> Show(int id)
         {
-            Campaign? campaign = this.Service.GetById(id, sort);
+            Campaign? campaign = await _campaignService.GetById(id);
             if (campaign != null)
             {
                 return campaign;
@@ -38,29 +37,31 @@ namespace App.Controllers
             return NotFound();
         }
 
-        [Authorize]
         [HttpPost]
-        public ActionResult<Campaign> Store(Campaign campaign)
+        public async Task<ActionResult<Campaign>> Store(
+            [FromForm] CampaignInputDTO campaignInputDTO,
+            IFormFile? image = null
+            )
         {
-            this.Service.Create(campaign);
-
-            return campaign;
+            return CreatedAtAction(nameof(Store), await _campaignService.Create(campaignInputDTO, image));
         }
 
-        [Authorize]
         [HttpPut("{id}")]
-        public ActionResult Update(int id, Campaign campaign)
+        public async Task<ActionResult> Update(
+            int id,
+            [FromForm] CampaignInputDTO campaignInputDTO,
+            IFormFile? image = null
+            )
         {
-            this.Service.Update(id, campaign);
+            await _campaignService.Update(id, campaignInputDTO, image);
 
             return NoContent();
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            this.Service.Delete(id);
+            await _campaignService.Delete(id);
 
             return NoContent();
         }
