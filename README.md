@@ -8,10 +8,6 @@ Este projeto é uma API desenvolvida em .NET 8 utilizando Entity Framework Core,
 
 ## Instalação
 
-Abaixo estão os passos necessários, **exclusivamente para a instalação e execução do projeto**. Para mais detalhes sobre os endpoints e suas funcionalidades, consulte a documentação em seu repositório.
-
-[Repositório](https://github.com/VitorNuness/checkout-inteligente-back)
-
 ### Pré-requisitos
 
 Antes de começar, você precisa ter os seguintes itens instalados em sua máquina:
