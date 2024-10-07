@@ -1,84 +1,80 @@
+namespace App.Models;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using App.Enums;
 
-namespace App.Models
+public class Order
 {
-    public class Order
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Key]
+    public int Id { get; set; }
+    public required User User { get; set; }
+    public List<OrderItem?> Items { get; set; } = [];
+    public double TotalAmount { get; private set; }
+    public EOrderStatus Status { get; private set; } = EOrderStatus.CURRENT;
+
+    [SetsRequiredMembers]
+    public Order(User user)
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        public int Id { get; set; }
-        public required User User { get; set; }
-        public List<OrderItem?> Items { get; set; } = [];
-        public double TotalAmount { get; private set; }
-        public EOrderStatus Status { get; private set; } = EOrderStatus.CURRENT;
+        this.User = user;
 
-        [SetsRequiredMembers]
-        public Order(User user)
+        this.CalculateTotal();
+    }
+
+    private Order() { }
+
+    public void CalculateTotal() => this.TotalAmount = this.Items?.Sum(i => i?.Total) ?? 0;
+
+    public void CompleteOrder()
+    {
+        if (this.Status != EOrderStatus.CURRENT || this.TotalAmount <= 0)
         {
-            User = user;
-
-            CalculateTotal();
+            return;
         }
 
-        private Order() { }
+        this.Status = EOrderStatus.COMPLETE;
+    }
 
-        public void CalculateTotal()
+    public void AddProduct(Product product)
+    {
+        if (this.Status != EOrderStatus.CURRENT)
         {
-            TotalAmount = Items?.Sum(i => i?.Total) ?? 0;
+            return;
         }
 
-        public void CompleteOrder()
-        {
-            if (Status != EOrderStatus.CURRENT || TotalAmount <= 0)
-            {
-                return;
-            }
+        var orderItem = this.Items?.Find(i => i?.Product == product);
 
-            Status = EOrderStatus.COMPLETE;
+        if (orderItem != null)
+        {
+            orderItem.AddQuantity();
+        }
+        else
+        {
+            orderItem = new(product, this);
+            this.Items?.Add(orderItem);
         }
 
-        public void AddProduct(Product product)
+        this.CalculateTotal();
+    }
+
+    public void RemoveProduct(Product product)
+    {
+        if (this.Status != EOrderStatus.CURRENT)
         {
-            if (Status != EOrderStatus.CURRENT)
-            {
-                return;
-            }
-
-            OrderItem? orderItem = Items?.Find(i => i?.Product == product);
-
-            if (orderItem != null)
-            {
-                orderItem.AddQuantity();
-            }
-            else
-            {
-                orderItem = new(product, this);
-                Items?.Add(orderItem);
-            }
-
-            CalculateTotal();
+            return;
         }
 
-        public void RemoveProduct(Product product)
+        var orderItem = this.Items?.Find(i => i?.Product == product);
+
+        orderItem?.RemoveQuantity();
+
+        if (orderItem?.Quantity <= 0)
         {
-            if (Status != EOrderStatus.CURRENT)
-            {
-                return;
-            }
-
-            OrderItem? orderItem = Items?.Find(i => i?.Product == product);
-
-            orderItem?.RemoveQuantity();
-
-            if (orderItem?.Quantity <= 0)
-            {
-                Items?.Remove(orderItem);
-            }
-
-            CalculateTotal();
+            this.Items?.Remove(orderItem);
         }
+
+        this.CalculateTotal();
     }
 }

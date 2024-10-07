@@ -1,8 +1,7 @@
-namespace App.Enums
+namespace App.Enums;
+
+public enum ERole
 {
-    public enum ERole
-    {
-        ADMIN,
-        CUSTOMER
-    }
+    ADMIN,
+    CUSTOMER
 }

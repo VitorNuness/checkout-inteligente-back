@@ -1,66 +1,57 @@
+namespace App.Controllers;
+
 using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Controllers
+[ApiController]
+[Route("api/categories")]
+public class CategoryController(
+    CategoryService categoryService
+    ) : ControllerBase
 {
-    [ApiController]
-    [Route("api/categories")]
-    public class CategoryController : ControllerBase
+    private readonly CategoryService _categoryService = categoryService;
+
+    [HttpGet]
+    public async Task<ActionResult<List<Category?>>> Index() => this.Ok(await this._categoryService.GetAll());
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Category>> Show(int id)
     {
-        private readonly CategoryService _categoryService;
+        var category = await this._categoryService.GetById(id);
 
-        public CategoryController(
-            CategoryService categoryService
+        return this.Ok(category);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Category>> Store(
+       [FromForm] CategoryInputDTO categoryInputDTO,
+       IFormFile? image = null
         )
-        {
-            _categoryService = categoryService;
-        }
+    {
+        var category = await this._categoryService.Create(categoryInputDTO, image);
 
-        [HttpGet]
-        public async Task<ActionResult<List<Category?>>> Index()
-        {
-            return Ok(await _categoryService.GetAll());
-        }
+        return this.CreatedAtAction(nameof(Store), category);
+    }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> Show(int id)
-        {
-            Category category = await _categoryService.GetById(id);
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Update(
+        int id,
+        [FromForm] CategoryInputDTO categoryInputDTO,
+        IFormFile? image = null
+    )
+    {
+        await this._categoryService.Update(id, categoryInputDTO, image);
 
-            return Ok(category);
-        }
+        return this.NoContent();
+    }
 
-        [HttpPost]
-        public async Task<ActionResult<Category>> Store(
-           [FromForm] CategoryInputDTO categoryInputDTO,
-           IFormFile? image = null
-            )
-        {
-            Category category = await _categoryService.Create(categoryInputDTO, image);
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        await this._categoryService.Delete(id);
 
-            return CreatedAtAction(nameof(Store), category);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(
-            int id,
-            [FromForm] CategoryInputDTO categoryInputDTO,
-            IFormFile? image = null
-        )
-        {
-            await _categoryService.Update(id, categoryInputDTO, image);
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            await _categoryService.Delete(id);
-
-            return NoContent();
-        }
+        return this.NoContent();
     }
 }

@@ -1,8 +1,7 @@
-namespace App.Enums
+namespace App.Enums;
+
+public enum EOrderStatus
 {
-    public enum EOrderStatus
-    {
-        CURRENT,
-        COMPLETE
-    }
+    CURRENT,
+    COMPLETE
 }

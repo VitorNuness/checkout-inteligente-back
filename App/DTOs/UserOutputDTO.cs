@@ -1,27 +1,18 @@
+namespace App.DTOs;
+
 using System.Diagnostics.CodeAnalysis;
 using App.Models;
 
-namespace App.DTOs
+[method: SetsRequiredMembers]
+public class UserOutputDTO(
+    User user
+    )
 {
-    public class UserOutputDTO
-    {
-        public required int Id { get; set; }
+    public required int Id { get; set; } = user.Id;
 
-        public required string Name { get; set; }
+    public required string Name { get; set; } = user.Name;
 
-        public required string Email { get; set; }
+    public required string Email { get; set; } = user.Email;
 
-        public required string Role { get; set; }
-
-        [SetsRequiredMembers]
-        public UserOutputDTO(
-            User user
-        )
-        {
-            Id = user.Id;
-            Name = user.Name;
-            Email = user.Email;
-            Role = user.Role.ToString();
-        }
-    }
+    public required string Role { get; set; } = user.Role.ToString();
 }

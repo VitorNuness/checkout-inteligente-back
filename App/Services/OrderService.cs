@@ -1,68 +1,60 @@
+namespace App.Services;
+
 using App.Models;
 using App.Repositories;
 
-namespace App.Services
+public class OrderService(
+    UserService userService,
+    ProductService productService,
+    OrderRepository orderRepository
+    )
 {
-    public class OrderService
+    private readonly UserService _userService = userService;
+    private readonly ProductService _productService = productService;
+    private readonly OrderRepository _orderRepository = orderRepository;
+
+    public async Task<List<Order>> GetUserOrders(int userId)
     {
-        private readonly UserService _userService;
-        private readonly ProductService _productService;
-        private readonly OrderRepository _orderRepository;
+        var user = await this._userService.Get(userId);
 
-        public OrderService(
-            UserService userService,
-            ProductService productService,
-            OrderRepository orderRepository
-        )
-        {
-            _userService = userService;
-            _productService = productService;
-            _orderRepository = orderRepository;
-        }
+        return await this._orderRepository.FindWhereUser(user);
+    }
 
-        public async Task<List<Order>> GetUserOrders(int userId)
-        {
-            User user = await _userService.Get(userId);
+    public async Task<Order> GetCurrentUserOrder(int userId)
+    {
+        var user = await this._userService.Get(userId);
 
-            return await _orderRepository.FindWhereUser(user);
-        }
+        return await this._orderRepository.FindOrCreateCurrentUserOrder(user);
+    }
 
-        public async Task<Order> GetCurrentUserOrder(int userId)
-        {
-            User user = await _userService.Get(userId);
+    public async Task AddProduct(int id, int productId)
+    {
+        var order = await this._orderRepository.FindOrFail(id);
+        var product = await this._productService.GetById(productId);
 
-            return await _orderRepository.FindOrCreateCurrentUserOrder(user);
-        }
+        order.AddProduct(product);
 
-        public async Task AddProduct(int id, int productId)
-        {
-            Order order = await _orderRepository.FindOrFail(id);
-            Product product = await _productService.GetById(productId);
+        await this._orderRepository.Update(order, order);
+    }
 
-            order.AddProduct(product);
+    public async Task RemoveProduct(int id, int productId)
+    {
+        var order = await this._orderRepository.FindOrFail(id);
+        var product = await this._productService.GetById(productId);
 
-            await _orderRepository.Update(order, order);
-        }
+        order.RemoveProduct(product);
 
-        public async Task RemoveProduct(int id, int productId)
-        {
-            Order order = await _orderRepository.FindOrFail(id);
-            Product product = await _productService.GetById(productId);
+        await this._orderRepository.Update(order, order);
+    }
 
-            order.RemoveProduct(product);
+    public async Task CompleteOrder(int id)
+    {
+        var order = await this._orderRepository.FindOrFail(id);
 
-            await _orderRepository.Update(order, order);
-        }
+        order.CompleteOrder();
 
-        public async Task CompleteOrder(int id)
-        {
-            Order order = await _orderRepository.FindOrFail(id);
+        order.Items?.ForEach(i => i?.Product.AddSale());
 
-            order.CompleteOrder();
-
-            order.Items?.ForEach(i => i?.Product.AddSale());
-
-            await _orderRepository.Update(order, order);
-        }
+        await this._orderRepository.Update(order, order);
     }
 }

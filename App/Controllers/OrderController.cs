@@ -1,61 +1,54 @@
+namespace App.Controllers;
+
 using App.DTOs;
-using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Controllers
+[ApiController]
+[Route("api/orders")]
+public class OrderController(
+    OrderService orderService
+    ) : ControllerBase
 {
-    [ApiController]
-    [Route("api/orders")]
-    public class OrderController : ControllerBase
+    private readonly OrderService _orderService = orderService;
+
+    [HttpGet("user/{userId}/orders/current")]
+    public async Task<ActionResult<OrderDTO?>> GetCurrentUserOrder(int userId)
     {
-        private readonly OrderService _orderService;
+        var order = await this._orderService.GetCurrentUserOrder(userId);
 
-        public OrderController(
-            OrderService orderService
-        )
-        {
-            _orderService = orderService;
-        }
+        return this.Ok(new OrderDTO(order));
+    }
 
-        [HttpGet("user/{userId}/orders/current")]
-        public async Task<ActionResult<OrderDTO?>> GetCurrentUserOrder(int userId)
-        {
-            Order order = await _orderService.GetCurrentUserOrder(userId);
+    [HttpGet("user/{userId}/orders")]
+    public async Task<ActionResult<List<OrderDTO?>>> GetUserOrders(int userId)
+    {
+        var orders = await this._orderService.GetUserOrders(userId);
 
-            return Ok(new OrderDTO(order));
-        }
+        return this.Ok(orders.Select(o => new OrderDTO(o)));
+    }
 
-        [HttpGet("user/{userId}/orders")]
-        public async Task<ActionResult<List<OrderDTO?>>> GetUserOrders(int userId)
-        {
-            List<Order> orders = await _orderService.GetUserOrders(userId);
+    [HttpPost("{id}/add-product")]
+    public async Task<ActionResult> AddProductInOrder(int id, int productId)
+    {
+        await this._orderService.AddProduct(id, productId);
 
-            return Ok(orders.Select(o => new OrderDTO(o)));
-        }
+        return this.NoContent();
+    }
 
-        [HttpPost("{id}/add-product")]
-        public async Task<ActionResult> AddProductInOrder(int id, int productId)
-        {
-            await _orderService.AddProduct(id, productId);
+    [HttpPost("{id}/remove-product")]
+    public async Task<ActionResult> RemoveProductInOrder(int id, int productId)
+    {
+        await this._orderService.RemoveProduct(id, productId);
 
-            return NoContent();
-        }
+        return this.NoContent();
+    }
 
-        [HttpPost("{id}/remove-product")]
-        public async Task<ActionResult> RemoveProductInOrder(int id, int productId)
-        {
-            await _orderService.RemoveProduct(id, productId);
+    [HttpPost("{id}/complete")]
+    public async Task<ActionResult> CompleteOrder(int id)
+    {
+        await this._orderService.CompleteOrder(id);
 
-            return NoContent();
-        }
-
-        [HttpPost("{id}/complete")]
-        public async Task<ActionResult> CompleteOrder(int id)
-        {
-            await _orderService.CompleteOrder(id);
-
-            return NoContent();
-        }
+        return this.NoContent();
     }
 }
