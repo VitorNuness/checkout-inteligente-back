@@ -22,6 +22,7 @@ public class Program
         builder.Services.AddCors(opt => opt.AddPolicy("AllowAnyOrigins",
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
+        builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
                         {

@@ -6,12 +6,16 @@ using System.Text;
 using App.Models;
 using Microsoft.IdentityModel.Tokens;
 
-public class TokenService
+public class TokenService(
+    IConfiguration configuration
+    )
 {
+    private readonly IConfiguration _configuration = configuration;
+
     public string CreateToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes("456465Afsafsf5465SDAD456ASasdfs424dfDHJFGDS89123fsd2424fdszxioASdfgdfDHSFHGS23115648");
+        var key = Encoding.UTF8.GetBytes(this._configuration["JWT:SECRET_KEY"]!);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]
