@@ -18,7 +18,7 @@ public class UserService(
 
     public async Task<User> Create(UserInputDTO userInputDTO) => await this._userRepository.Store(userInputDTO);
 
-    public void Update(int id, User data) => this._userRepository.Update(id, data);
+    public async Task Update(int id, User data) => await this._userRepository.Update(id, data);
 
-    public void Delete(int id) => this._userRepository.Delete(id);
+    public async Task Delete(int id) => await this._userRepository.Delete(id);
 }
