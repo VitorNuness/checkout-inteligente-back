@@ -45,7 +45,6 @@ public class Program
         builder.Services.AddScoped<FileService>();
         builder.Services.AddScoped<OrderService>();
         builder.Services.AddScoped<ProductService>();
-        builder.Services.AddScoped<SuggestionService>();
         builder.Services.AddScoped<TokenService>();
         builder.Services.AddScoped<UserService>();
 
