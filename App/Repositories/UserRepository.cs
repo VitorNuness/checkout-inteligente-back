@@ -42,7 +42,7 @@ public class UserRepository(
             this._dbContext.Entry(user).CurrentValues.SetValues(data);
         }
 
-        this._dbContext.SaveChanges();
+        await this._dbContext.SaveChangesAsync();
     }
 
     public async Task Delete(int id)
@@ -52,6 +52,6 @@ public class UserRepository(
         {
             this._dbContext.Remove(user);
         }
-        this._dbContext.SaveChanges();
+        await this._dbContext.SaveChangesAsync();
     }
 }
