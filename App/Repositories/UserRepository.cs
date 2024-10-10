@@ -33,7 +33,7 @@ public class UserRepository(
         return user;
     }
 
-    public async void Update(int id, User data)
+    public async Task Update(int id, User data)
     {
         var user = await this.FindOrFail(id);
         if (user != null)
@@ -45,7 +45,7 @@ public class UserRepository(
         this._dbContext.SaveChanges();
     }
 
-    public async void Delete(int id)
+    public async Task Delete(int id)
     {
         var user = await this.FindOrFail(id);
         if (user != null)
