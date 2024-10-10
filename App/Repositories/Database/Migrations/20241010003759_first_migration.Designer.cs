@@ -12,7 +12,7 @@ namespace App.Repositories.Database.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
     [Migration("20241010003759_first_migration")]
-    partial class first_migration
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
