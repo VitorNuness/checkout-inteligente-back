@@ -30,17 +30,17 @@ public class UserController(
     }
 
     [HttpPut("{id}")]
-    public ActionResult Update(int id, User data)
+    public async Task<ActionResult> Update(int id, User data)
     {
-        this._userService.Update(id, data);
+        await this._userService.Update(id, data);
 
         return this.NoContent();
     }
 
     [HttpDelete("{id}")]
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
-        this._userService.Delete(id);
+        await this._userService.Delete(id);
 
         return this.NoContent();
     }
