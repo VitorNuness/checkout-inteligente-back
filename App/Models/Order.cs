@@ -14,6 +14,7 @@ namespace App.Models
         public List<OrderItem?> Items { get; set; } = [];
         public double TotalAmount { get; private set; }
         public EOrderStatus Status { get; private set; } = EOrderStatus.CURRENT;
+        public DateTime CompletedAt { get; private set; } = DateTime.Now;
 
         [SetsRequiredMembers]
         public Order(User user)
