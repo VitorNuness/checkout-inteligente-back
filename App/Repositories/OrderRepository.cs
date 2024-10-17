@@ -16,6 +16,20 @@ namespace App.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<List<Order>> FindBetweenDates(DateTime startDate, DateTime endDate)
+        {
+            return await _dbContext.Orders
+                .Include(o => o.User)
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .Where(o =>
+                    o.CompletedAt >= startDate &&
+                    o.CompletedAt <= endDate &&
+                    o.Status == Enums.EOrderStatus.COMPLETE
+                    )
+                .ToListAsync();
+        }
+
         public async Task<Order> FindOrFail(int id)
         {
             return await _dbContext.Orders
@@ -27,7 +41,7 @@ namespace App.Repositories
                 throw new NotExistException("Order not exists.");
         }
 
-        public async Task<List<Order>> FindWhereUser(User user)
+        public async Task<List<Order?>> FindWhereUser(User user)
         {
             return await _dbContext.Orders
                 .Where(o => o.User == user)
