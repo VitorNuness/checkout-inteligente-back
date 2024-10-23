@@ -26,15 +26,5 @@ namespace App.Services
         {
             return await _userRepository.Store(userInputDTO);
         }
-
-        public void Update(int id, User data)
-        {
-            _userRepository.Update(id, data);
-        }
-
-        public void Delete(int id)
-        {
-            _userRepository.Delete(id);
-        }
     }
 }

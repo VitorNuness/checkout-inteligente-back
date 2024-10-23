@@ -37,27 +37,5 @@ namespace App.Repositories
 
             return user;
         }
-
-        public async void Update(int id, User data)
-        {
-            User user = await FindOrFail(id);
-            if (user != null)
-            {
-                user.Id = id;
-                this._dbContext.Entry(user).CurrentValues.SetValues(data);
-            }
-
-            this._dbContext.SaveChanges();
-        }
-
-        public async void Delete(int id)
-        {
-            User? user = await FindOrFail(id);
-            if (user != null)
-            {
-                this._dbContext.Remove(user);
-            }
-            this._dbContext.SaveChanges();
-        }
     }
 }

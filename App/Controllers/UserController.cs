@@ -40,21 +40,5 @@ namespace App.Controllers
 
             return CreatedAtAction(nameof(Store), user);
         }
-
-        [HttpPut("{id}")]
-        public ActionResult Update(int id, User data)
-        {
-            _userService.Update(id, data);
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            _userService.Delete(id);
-
-            return NoContent();
-        }
     }
 }
