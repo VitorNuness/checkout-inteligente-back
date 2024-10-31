@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using App.DTOs;
 using App.Models;
 using App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -47,6 +49,18 @@ namespace App.Controllers
                     new UserOutputDTO(user),
                     token
                 )
+            );
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<ActionResult<UserOutputDTO>> GetUser()
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")!.Value;
+            User user = await _userService.Get(Int32.Parse(userId));
+
+            return Ok(
+                new UserOutputDTO(user)
             );
         }
     }
