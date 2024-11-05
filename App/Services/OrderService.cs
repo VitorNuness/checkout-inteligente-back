@@ -1,4 +1,5 @@
 using System.Text;
+using App.DTOs;
 using App.Models;
 using App.Repositories;
 
@@ -8,18 +9,21 @@ namespace App.Services
     {
         private readonly UserService _userService;
         private readonly ProductService _productService;
+        private readonly ReportService _reportService;
         private readonly OrderRepository _orderRepository;
         private readonly IWebHostEnvironment _environment;
 
         public OrderService(
             UserService userService,
             ProductService productService,
+            ReportService reportService,
             OrderRepository orderRepository,
             IWebHostEnvironment environment
         )
         {
             _userService = userService;
             _productService = productService;
+            _reportService = reportService;
             _orderRepository = orderRepository;
             _environment = environment;
         }
@@ -83,8 +87,19 @@ namespace App.Services
                 }
             }
 
-            string filePath = Path.Combine(_environment.WebRootPath, "files", "exports", "csv", $"{DateTime.Now:ddMMyyyy}_orders_{startDate:ddMMyyyy}_{endDate:ddMMyyyy}.csv");
+            string fileName = $"{DateTime.Now:ddMMyyyy}_orders_{startDate:ddMMyyyy}_{endDate:ddMMyyyy}.csv";
+            string filePath = Path.Combine(_environment.WebRootPath, "files", "exports", "csv", fileName);
             await File.WriteAllTextAsync(filePath, stringBuilder.ToString());
+
+            ReportDTO reportDTO = new(
+                id: null,
+                name: fileName,
+                url: "http://localhost:5102/files/exports/csv/" + fileName,
+                reference: "Pedidos", 
+                createdAt: null
+            );
+
+            await this._reportService.CreateReport(reportDTO);
         }
 
     }

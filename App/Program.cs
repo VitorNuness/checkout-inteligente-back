@@ -80,6 +80,7 @@ namespace App
             builder.Services.AddScoped<FileService>();
             builder.Services.AddScoped<OrderService>();
             builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<ReportService>();
             builder.Services.AddScoped<SuggestionService>();
             builder.Services.AddScoped<TokenService>();
             builder.Services.AddScoped<UserService>();
@@ -88,6 +89,7 @@ namespace App
             builder.Services.AddScoped<CategoryRepository>();
             builder.Services.AddScoped<OrderRepository>();
             builder.Services.AddScoped<ProductRepository>();
+            builder.Services.AddScoped<ReportRepository>();
             builder.Services.AddScoped<UserRepository>();
 
             var app = builder.Build();
