@@ -17,7 +17,7 @@ public partial class CheckoutDbContext : DbContext
 
     public DbSet<OrderItem> OrderItems { get; set; }
 
-    public DbSet<Image> Images { get; set; }
+    public DbSet<Report> Reports { get; set; }
 
     public CheckoutDbContext()
     {
