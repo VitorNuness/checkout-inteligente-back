@@ -58,7 +58,7 @@ namespace App.Controllers
             return NoContent();
         }
 
-        [HttpPost("orders/export/csv")]
+        [HttpPost("export/csv")]
         public async Task<ActionResult> ExportToCSV(DateTime startDate, DateTime endDate)
         {
             await this._orderService.CreateCSVForOrdersBetweenDates(startDate, endDate.Date.AddHours(23).AddMinutes(59));

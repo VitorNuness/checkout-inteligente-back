@@ -16,6 +16,36 @@ public class ReportRepository
         _dbContext = dbContext;
     }
 
+    public async Task Destroy(int id)
+    {
+        Report? report = await this._dbContext.Reports.FindAsync(id);
+        if (report is null)
+        {
+            return;
+        }
+
+        this._dbContext.Reports.Remove(report);
+        await this._dbContext.SaveChangesAsync();
+    }
+
+    public async Task<ReportDTO> FindOrFail(int id)
+    {
+        var report = await this._dbContext.Reports.FindAsync(id);
+
+        if (report is null)
+        {
+            throw new Exception("Report not exist.");
+        }
+
+        return new ReportDTO(
+            id: report.Id,
+            name: report.Name,
+            url: report.Url,
+            reference: report.Reference,
+            createdAt: report.CreatedAt.ToShortDateString()
+        );
+    }
+
     public async Task<IEnumerable<ReportDTO?>> GetAll()
     {
         var reportsFromDbContext = await this._dbContext.Reports.ToListAsync();

@@ -22,5 +22,13 @@ namespace App.Controllers
         {
             return Ok(await this._reportService.GetReports());
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Remove(int id)
+        {
+            await this._reportService.RemoveReport(id);
+
+            return Ok();
+        }
     }
 }
