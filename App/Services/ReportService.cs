@@ -15,6 +15,11 @@ public class ReportService
         _reportRepository = reportRepository;
     }
 
+    public async Task<IEnumerable<ReportDTO?>> GetReports()
+    {
+        return await this._reportRepository.GetAll();
+    }
+
     public async Task CreateReport(ReportDTO reportDTO)
     {
         await this._reportRepository.Store(reportDTO);
