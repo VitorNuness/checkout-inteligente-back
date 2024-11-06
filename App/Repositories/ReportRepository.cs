@@ -61,15 +61,25 @@ public class ReportRepository
 
     public async Task<Report> Store(ReportDTO reportDTO)
     {
-        Report report = new(
-            reportDTO.Name!,
-            reportDTO.Url!,
-            reportDTO.Reference!
-        );
-        
-        _dbContext.Add(report);
-        await _dbContext.SaveChangesAsync();
+
+        Report? report = await this.WhereName(reportDTO.Name!);
+
+        if (report is null)
+        {
+            report = new(
+                reportDTO.Name!,
+                reportDTO.Url!,
+                reportDTO.Reference!
+            );
+            _dbContext.Add(report);
+            await _dbContext.SaveChangesAsync();
+        }
 
         return report;
+    }
+
+    public async Task<Report?> WhereName(string name)
+    {
+        return await this._dbContext.Reports.Where(r => r.Name == name).FirstOrDefaultAsync();
     }
 }
