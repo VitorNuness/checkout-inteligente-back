@@ -81,7 +81,6 @@ namespace App
             builder.Services.AddScoped<OrderService>();
             builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<ReportService>();
-            builder.Services.AddScoped<SuggestionService>();
             builder.Services.AddScoped<TokenService>();
             builder.Services.AddScoped<UserService>();
 
