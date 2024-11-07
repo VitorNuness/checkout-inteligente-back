@@ -1,74 +1,58 @@
+namespace App.Controllers;
+
 using App.DTOs;
 using App.Models;
 using App.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Controllers
+[ApiController]
+[Route("api/products")]
+public class ProductController(
+    ProductService productService
+    ) : ControllerBase
 {
-    [ApiController]
-    [Route("api/products")]
-    public class ProductController : ControllerBase
+    private readonly ProductService _productService = productService;
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Product?>>> Index() => this.Ok(await this._productService.GetAll());
+
+    [HttpGet("best-sellers")]
+    public async Task<ActionResult<IEnumerable<Product?>>> BestSellers() => this.Ok(await this._productService.GetBestSellers());
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Product?>> Show(int id) => this.Ok(await this._productService.GetById(id));
+
+    [HttpPost]
+    // [Authorize(Roles = "admin")]
+    public async Task<ActionResult<Product>> Store(
+        [FromForm] ProductInputDTO productInputDTO,
+        IFormFile? image = null
+    )
     {
-        private readonly ProductService _productService;
+        var product = await this._productService.Create(productInputDTO, image);
 
-        public ProductController(
-            ProductService productService
-        )
-        {
-            _productService = productService;
-        }
+        return this.CreatedAtAction(nameof(Store), product);
+    }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product?>>> Index()
-        {
-            return Ok(await _productService.GetAll());
-        }
+    [HttpPut("{id}")]
+    // [Authorize(Roles = "admin")]
+    public async Task<ActionResult<Product>> Update(
+        int id,
+        [FromForm] ProductInputDTO productInputDTO,
+        IFormFile? image = null
+    )
+    {
+        var product = await this._productService.Update(id, productInputDTO, image);
 
-        [HttpGet("best-sellers")]
-        public async Task<ActionResult<IEnumerable<Product?>>> BestSellers()
-        {
-            return Ok(await _productService.GetBestSellers());
-        }
+        return this.Ok(product);
+    }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product?>> Show(int id)
-        {
-            return Ok(await _productService.GetById(id));
-        }
+    [HttpDelete("{id}")]
+    // [Authorize(Roles = "admin")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        await this._productService.Delete(id);
 
-        [HttpPost]
-        // [Authorize(Roles = "admin")]
-        public async Task<ActionResult<Product>> Store(
-            [FromForm] ProductInputDTO productInputDTO,
-            IFormFile? image = null
-        )
-        {
-            Product product = await _productService.Create(productInputDTO, image);
-
-            return CreatedAtAction(nameof(Store), product);
-        }
-
-        [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
-        public async Task<ActionResult<Product>> Update(
-            int id,
-            [FromForm] ProductInputDTO productInputDTO,
-            IFormFile? image = null
-        )
-        {
-            Product product = await _productService.Update(id, productInputDTO, image);
-
-            return Ok(product);
-        }
-
-        [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            await _productService.Delete(id);
-
-            return NoContent();
-        }
+        return this.NoContent();
     }
 }

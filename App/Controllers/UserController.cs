@@ -1,60 +1,47 @@
+namespace App.Controllers;
+
 using App.DTOs;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Controllers
+[ApiController]
+[Route("api/users")]
+[Authorize]
+public class UserController(
+    UserService userService
+    ) : ControllerBase
 {
+    private readonly UserService _userService = userService;
 
-    [ApiController]
-    [Route("api/users")]
-    [Authorize]
-    public class UserController : ControllerBase
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<User?>>> Index() => this.Ok(await this._userService.GetAll());
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<User?>> Show(int id) => this.Ok(await this._userService.Get(id));
+
+    [HttpPost()]
+    public async Task<ActionResult<User>> Store(UserInputDTO userInputDTO)
     {
-        private readonly UserService _userService;
+        var user = await this._userService.Create(userInputDTO);
 
-        public UserController(
-            UserService userService
-        )
-        {
-            _userService = userService;
-        }
+        return this.CreatedAtAction(nameof(Store), user);
+    }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User?>>> Index()
-        {
-            return Ok(await _userService.GetAll());
-        }
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Update(int id, User data)
+    {
+        await this._userService.Update(id, data);
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User?>> Show(int id)
-        {
-            return Ok(await _userService.Get(id));
-        }
+        return this.NoContent();
+    }
 
-        [HttpPost()]
-        public async Task<ActionResult<User>> Store(UserInputDTO userInputDTO)
-        {
-            User user = await _userService.Create(userInputDTO);
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        await this._userService.Delete(id);
 
-            return CreatedAtAction(nameof(Store), user);
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult Update(int id, User data)
-        {
-            _userService.Update(id, data);
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            _userService.Delete(id);
-
-            return NoContent();
-        }
+        return this.NoContent();
     }
 }

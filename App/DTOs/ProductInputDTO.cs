@@ -1,10 +1,11 @@
-namespace App.DTOs
+namespace App.DTOs;
+
+using System.Text.Json.Serialization;
+
+public class ProductInputDTO
 {
-    public class ProductInputDTO
-    {
-        public string Name { get; set; }
-        public double Quantity { get; set; } = 0;
-        public double Price { get; set; } = 0;
-        public int CategoryId { get; set; }
-    }
+    public string? Name { get; set; }
+    [JsonRequired] public double Quantity { get; set; }
+    [JsonRequired] public double Price { get; set; }
+    [JsonRequired] public int CategoryId { get; set; }
 }

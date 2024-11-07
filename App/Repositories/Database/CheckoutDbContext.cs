@@ -1,4 +1,4 @@
-﻿using App.Models;
+using App.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repositories.Database;

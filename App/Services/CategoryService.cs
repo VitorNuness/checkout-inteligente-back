@@ -1,81 +1,67 @@
+namespace App.Services;
+
 using App.DTOs;
 using App.Models;
 using App.Repositories;
 
-namespace App.Services
+public class CategoryService(
+    CategoryRepository categoryRepository,
+    FileService fileService,
+    IWebHostEnvironment environment
+    )
 {
-    public class CategoryService
+    private readonly CategoryRepository _categoryRepository = categoryRepository;
+    private readonly FileService _fileService = fileService;
+    private readonly IWebHostEnvironment _environment = environment;
+
+    public async Task<IEnumerable<Category?>> GetAll() => await this._categoryRepository.GetAll();
+
+    public async Task<Category> GetById(int id) => await this._categoryRepository.FindOrFail(id);
+
+    public async Task<Category> Create(CategoryInputDTO categoryInputDTO, IFormFile? image)
     {
-        private readonly CategoryRepository _categoryRepository;
-        private readonly FileService _fileService;
-        private readonly IWebHostEnvironment _environment;
+        Category category = new(categoryInputDTO.Name);
 
-        public CategoryService(
-            CategoryRepository categoryRepository,
-            FileService fileService,
-            IWebHostEnvironment environment
-        )
-        {
-            _categoryRepository = categoryRepository;
-            _fileService = fileService;
-            _environment = environment;
-        }
+        await this._categoryRepository.Store(category);
+        await this.Update(category.Id, categoryInputDTO, image);
 
-        public async Task<IEnumerable<Category?>> GetAll()
-        {
-            return await _categoryRepository.GetAll();
-        }
-
-        public async Task<Category> GetById(int id)
-        {
-            return await _categoryRepository.FindOrFail(id);
-        }
-
-        public async Task<Category> Create(CategoryInputDTO categoryInputDTO, IFormFile? image)
-        {
-            Category category = new(categoryInputDTO.Name);
-
-            await _categoryRepository.Store(category);
-            await Update(category.Id, categoryInputDTO, image);
-
-            return category;
-        }
-
-        public async Task<Category> Update(int id, CategoryInputDTO categoryInputDTO, IFormFile? image)
-        {
-            Category oldCategory = await GetById(id);
-
-            Category newCategory = new(categoryInputDTO.Name)
-            {
-                Id = oldCategory.Id,
-                ImageUrl = oldCategory.ImageUrl,
-            };
-
-            if (image?.Length > 0)
-            {
-                string path = GetCategoryImagesPath(newCategory.Id);
-                await _fileService.SaveFile(image, path);
-
-                newCategory.ImageUrl = GetCategoryImagesUrl(newCategory.Id);
-            }
-
-            return await _categoryRepository.Update(oldCategory, newCategory);
-        }
-
-        public async Task Delete(int id)
-        {
-            Category category = await GetById(id);
-            await _categoryRepository.Delete(category);
-
-            if (category.ImageUrl != GetCategoryImagesUrl(0))
-            {
-                await _fileService.RemoveFile(GetCategoryImagesPath(id));
-            }
-        }
-
-        private string GetCategoryImagesPath(int id) => Path.Combine(_environment.WebRootPath, "files/images/categories", id.ToString() + ".png");
-
-        private string GetCategoryImagesUrl(int id) => "http://localhost:5102/files/images/categories/" + id.ToString() + ".png";
-
+        return category;
     }
+
+    public async Task<Category> Update(int id, CategoryInputDTO categoryInputDTO, IFormFile? image)
+    {
+        var oldCategory = await this.GetById(id);
+
+        Category newCategory = new(categoryInputDTO.Name)
+        {
+            Id = oldCategory.Id,
+            ImageUrl = oldCategory.ImageUrl,
+        };
+
+        if (image?.Length > 0)
+        {
+            var path = this.GetCategoryImagesPath(newCategory.Id);
+            await this._fileService.SaveFile(image, path);
+
+            newCategory.ImageUrl = GetCategoryImagesUrl(newCategory.Id);
+        }
+
+        return await this._categoryRepository.Update(oldCategory, newCategory);
+    }
+
+    public async Task Delete(int id)
+    {
+        var category = await this.GetById(id);
+        await this._categoryRepository.Delete(category);
+
+        if (category.ImageUrl != GetCategoryImagesUrl(0))
+        {
+            await this._fileService.RemoveFile(this.GetCategoryImagesPath(id));
+        }
+    }
+
+    private string GetCategoryImagesPath(int id) => Path.Combine(this._environment.WebRootPath, "files/images/categories", id.ToString() + ".png");
+
+    private static string GetCategoryImagesUrl(int id) => "http://localhost:5102/files/images/categories/" + id.ToString() + ".png";
+
 }

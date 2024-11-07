@@ -1,9 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
-
-namespace App.DTOs
+namespace App.DTOs;
+public class CategoryInputDTO
 {
-    public class CategoryInputDTO
-    {
-        public string? Name { get; set; }
-    }
+    public string? Name { get; set; }
 }

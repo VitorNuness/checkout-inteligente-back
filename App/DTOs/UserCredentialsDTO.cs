@@ -1,21 +1,14 @@
+namespace App.DTOs;
+
 using System.Diagnostics.CodeAnalysis;
 
-namespace App.DTOs
+[method: SetsRequiredMembers]
+public class UserCredentialsDTO(
+    string email,
+    string password
+    )
 {
-    public class UserCredentialsDTO
-    {
-        public required string Email { get; set; }
+    public required string Email { get; set; } = email;
 
-        public required string Password { get; set; }
-
-        [SetsRequiredMembers]
-        public UserCredentialsDTO(
-            string email,
-            string password
-        )
-        {
-            Email = email;
-            Password = password;
-        }
-    }
+    public required string Password { get; set; } = password;
 }
