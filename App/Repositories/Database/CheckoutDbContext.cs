@@ -1,6 +1,7 @@
-namespace App.Repositories.Database;
 using App.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace App.Repositories.Database;
 
 public partial class CheckoutDbContext : DbContext
 {
@@ -15,6 +16,8 @@ public partial class CheckoutDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
 
     public DbSet<OrderItem> OrderItems { get; set; }
+
+    public DbSet<Report> Reports { get; set; }
 
     public CheckoutDbContext()
     {
@@ -31,7 +34,7 @@ public partial class CheckoutDbContext : DbContext
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        this.OnModelCreatingPartial(modelBuilder);
+        OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

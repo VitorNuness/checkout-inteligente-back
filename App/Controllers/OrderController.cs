@@ -1,54 +1,69 @@
-namespace App.Controllers;
-
 using App.DTOs;
+using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
 
-[ApiController]
-[Route("api/orders")]
-public class OrderController(
-    OrderService orderService
-    ) : ControllerBase
+namespace App.Controllers
 {
-    private readonly OrderService _orderService = orderService;
-
-    [HttpGet("user/{userId}/orders/current")]
-    public async Task<ActionResult<OrderDTO?>> GetCurrentUserOrder(int userId)
+    [ApiController]
+    [Route("api/orders")]
+    public class OrderController : ControllerBase
     {
-        var order = await this._orderService.GetCurrentUserOrder(userId);
+        private readonly OrderService _orderService;
 
-        return this.Ok(new OrderDTO(order));
-    }
+        public OrderController(
+            OrderService orderService
+        )
+        {
+            _orderService = orderService;
+        }
 
-    [HttpGet("user/{userId}/orders")]
-    public async Task<ActionResult<List<OrderDTO?>>> GetUserOrders(int userId)
-    {
-        var orders = await this._orderService.GetUserOrders(userId);
+        [HttpGet("user/{userId}/orders/current")]
+        public async Task<ActionResult<OrderDTO?>> GetCurrentUserOrder(int userId)
+        {
+            Order order = await _orderService.GetCurrentUserOrder(userId);
 
-        return this.Ok(orders.Select(o => new OrderDTO(o)));
-    }
+            return Ok(new OrderDTO(order));
+        }
 
-    [HttpPost("{id}/add-product")]
-    public async Task<ActionResult> AddProductInOrder(int id, int productId)
-    {
-        await this._orderService.AddProduct(id, productId);
+        [HttpGet("user/{userId}/orders")]
+        public async Task<ActionResult<List<OrderDTO?>>> GetUserOrders(int userId)
+        {
+            List<Order> orders = await _orderService.GetUserOrders(userId);
 
-        return this.NoContent();
-    }
+            return Ok(orders.Select(o => new OrderDTO(o)));
+        }
 
-    [HttpPost("{id}/remove-product")]
-    public async Task<ActionResult> RemoveProductInOrder(int id, int productId)
-    {
-        await this._orderService.RemoveProduct(id, productId);
+        [HttpPost("{id}/add-product")]
+        public async Task<ActionResult> AddProductInOrder(int id, int productId)
+        {
+            await _orderService.AddProduct(id, productId);
 
-        return this.NoContent();
-    }
+            return NoContent();
+        }
 
-    [HttpPost("{id}/complete")]
-    public async Task<ActionResult> CompleteOrder(int id)
-    {
-        await this._orderService.CompleteOrder(id);
+        [HttpPost("{id}/remove-product")]
+        public async Task<ActionResult> RemoveProductInOrder(int id, int productId)
+        {
+            await _orderService.RemoveProduct(id, productId);
 
-        return this.NoContent();
+            return NoContent();
+        }
+
+        [HttpPost("{id}/complete")]
+        public async Task<ActionResult> CompleteOrder(int id)
+        {
+            await _orderService.CompleteOrder(id);
+
+            return NoContent();
+        }
+
+        [HttpPost("export/csv")]
+        public async Task<ActionResult> ExportToCSV(DateTime startDate, DateTime endDate)
+        {
+            await this._orderService.CreateCSVForOrdersBetweenDates(startDate, endDate.Date.AddHours(23).AddMinutes(59));
+
+            return Ok();
+        }
     }
 }
