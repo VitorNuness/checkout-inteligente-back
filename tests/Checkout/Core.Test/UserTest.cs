@@ -1,5 +1,6 @@
 namespace Core.Test;
 
+using Core.Enums;
 using Core.Models;
 
 public class UserTest
@@ -21,5 +22,17 @@ public class UserTest
         Assert.Equal(name, user.Name);
         Assert.Equal(email, user.Email);
         Assert.Equal(password, user.Password);
+    }
+
+    [Fact]
+    public void TestUserCanBeCreatedWithDefaultRoleCustomer()
+    {
+        var user = new User(
+            name: "Exemplo",
+            email: "Email",
+            password: "Password"
+        );
+
+        Assert.Equal(ERole.CUSTOMER, user.Role);
     }
 }
