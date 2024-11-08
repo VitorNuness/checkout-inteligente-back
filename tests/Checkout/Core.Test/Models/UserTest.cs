@@ -1,4 +1,4 @@
-namespace Core.Test;
+namespace Core.Test.Models;
 
 using Core.Enums;
 using Core.Models;
