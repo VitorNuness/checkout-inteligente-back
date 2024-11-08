@@ -35,4 +35,16 @@ public class UserTest
 
         Assert.Equal(ERole.CUSTOMER, user.Role);
     }
+
+    [Fact]
+    public void TestCanBeCreateAnAdminUser()
+    {
+        var user = User.WithRoleAdmin(
+            name: "Example",
+            email: "Email",
+            password: "Password"
+        );
+
+        Assert.Equal(ERole.ADMIN, user.Role);
+    }
 }

@@ -14,6 +14,19 @@ public class User
     public string Password { get; set; }
     public ERole Role { get; set; } = ERole.CUSTOMER;
 
+    public static User WithRoleAdmin(
+        string name,
+        string email,
+        string password
+    ) => new(
+            name: name,
+            email: email,
+            password: password
+        )
+    {
+        Role = ERole.ADMIN
+    };
+
     public User(
         string name,
         string email,
@@ -29,13 +42,15 @@ public class User
         int id,
         string name,
         string email,
-        string password
+        string password,
+        ERole role
     )
     {
         this.Id = id;
         this.Name = name;
         this.Email = email;
         this.Password = password;
+        this.Role = role;
     }
 
     private User() {}
