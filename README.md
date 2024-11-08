@@ -63,6 +63,7 @@ O servidor deve iniciar e você verá uma mensagem indicando que a aplicação e
 -   **[Campaign](#campaign)**
 -   **[Category](#category)**
 -   **[Order](#order)**
+-   **[Report](#report)**
 -   **[Product](#product)**
 
 ### Auth
@@ -509,7 +510,7 @@ O servidor deve iniciar e você verá uma mensagem indicando que a aplicação e
 >
 > -   `200 - No content`
 
-#### **POST:** `/api/categories/{id}`
+#### **POST:** `/api/orders/{id}/remove-product`
 
 > Parameters:
 >
@@ -520,12 +521,52 @@ O servidor deve iniciar e você verá uma mensagem indicando que a aplicação e
 >
 > -   `200 - No content`
 
-#### **POST:** `/api/categories/{id}`
+#### **POST:** `/api/orders/{id}/complete`
 
 > Parameters:
 >
 > -   `id=0`
 > -   `productId=0`
+>
+> Response:
+>
+> -   `200 - No content`
+
+#### **POST:** `/api/orders/export/csv`
+
+> Parameters:
+>
+> -   `startDate="string"`
+> -   `endDate="string"`
+>
+> Response:
+>
+> -   `200 - No content`
+---
+
+### Report
+
+#### **GET:** `/api/reports`
+
+> Response:
+>
+> ```json
+> [
+>     {
+>         "id": 0,
+>         "name": "string",
+>         "url": "string",
+>         "reference": "string",
+>         "createdAt": "string",
+>     }
+> ]
+> ```
+
+#### **DELETE:** `/api/reports/{id}`
+
+> Parameters:
+>
+> -   `id=0`
 >
 > Response:
 >
