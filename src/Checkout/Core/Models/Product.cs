@@ -1,8 +1,7 @@
-using System;
+namespace Core.Models;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Core.Models;
 
 public class Product
 {
@@ -12,9 +11,10 @@ public class Product
     public string Name { get; set; }
     public int Quantity { get; set; }
     public double Price { get; set; }
-    public Category Category { get; set; }
     public int Sales { get; set; }
     public string ImageUrl { get; set; } = "http://localhost:5102/files/images/products/0.png";
+    public Category Category { get; set; }
+    public List<Campaign> Campaigns { get; set; } = [];
 
     public Product(
         string name,
