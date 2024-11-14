@@ -3,14 +3,15 @@ namespace App.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using App.Models;
+using Core.Models;
+using Core.Services;
 using Microsoft.IdentityModel.Tokens;
 
-public class TokenService(
-    IConfiguration configuration
-    )
+public class TokenService : ITokenService
 {
-    private readonly IConfiguration _configuration = configuration;
+    private readonly IConfiguration _configuration;
+
+    public TokenService(IConfiguration configuration) => this._configuration = configuration;
 
     public string CreateToken(User user)
     {

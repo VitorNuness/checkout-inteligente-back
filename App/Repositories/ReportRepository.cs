@@ -1,24 +1,20 @@
-using App.DTOs;
-using App.Models;
-using App.Repositories.Database;
-using Microsoft.EntityFrameworkCore;
-
 namespace App.Repositories;
 
-public class ReportRepository
+using App.Repositories.Database;
+using Core.DTOs;
+using Core.Models;
+using Core.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+public class ReportRepository : IReportRepository
 {
     private readonly CheckoutDbContext _dbContext;
 
-    public ReportRepository(
-        CheckoutDbContext dbContext
-    )
-    {
-        _dbContext = dbContext;
-    }
+    public ReportRepository(CheckoutDbContext dbContext) => this._dbContext = dbContext;
 
     public async Task Destroy(int id)
     {
-        Report? report = await this._dbContext.Reports.FindAsync(id);
+        var report = await this._dbContext.Reports.FindAsync(id);
         if (report is null)
         {
             return;
@@ -30,12 +26,7 @@ public class ReportRepository
 
     public async Task<ReportDTO> FindOrFail(int id)
     {
-        var report = await this._dbContext.Reports.FindAsync(id);
-
-        if (report is null)
-        {
-            throw new Exception("Report not exist.");
-        }
+        var report = await this._dbContext.Reports.FindAsync(id) ?? throw new Exception("Report not exist.");
 
         return new ReportDTO(
             id: report.Id,
@@ -62,7 +53,7 @@ public class ReportRepository
     public async Task<Report> Store(ReportDTO reportDTO)
     {
 
-        Report? report = await this.WhereName(reportDTO.Name!);
+        var report = await this.WhereName(reportDTO.Name!);
 
         if (report is null)
         {
@@ -71,15 +62,12 @@ public class ReportRepository
                 reportDTO.Url!,
                 reportDTO.Reference!
             );
-            _dbContext.Add(report);
-            await _dbContext.SaveChangesAsync();
+            this._dbContext.Add(report);
+            await this._dbContext.SaveChangesAsync();
         }
 
         return report;
     }
 
-    public async Task<Report?> WhereName(string name)
-    {
-        return await this._dbContext.Reports.Where(r => r.Name == name).FirstOrDefaultAsync();
-    }
+    public async Task<Report?> WhereName(string name) => await this._dbContext.Reports.Where(r => r.Name == name).FirstOrDefaultAsync();
 }

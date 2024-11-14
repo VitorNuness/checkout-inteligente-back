@@ -1,17 +1,17 @@
 namespace App.Controllers;
 
-using App.DTOs;
-using App.Models;
-using App.Services;
+using Core.Services;
+using Core.DTOs;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/campaigns")]
 public class CampaignController(
-    CampaignService campaignService
+    ICampaignService campaignService
     ) : ControllerBase
 {
-    private readonly CampaignService _campaignService = campaignService;
+    private readonly ICampaignService _campaignService = campaignService;
 
     [HttpGet]
     public async Task<ActionResult<List<Campaign>>> Index() => this.Ok(await this._campaignService.GetAll());

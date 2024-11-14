@@ -1,14 +1,17 @@
 namespace App.Repositories;
 
-using App.Models;
-using App.Repositories.Database;
+using Core.Models;
+using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using App.Repositories.Database;
 
-public class CampaignRepository(
-    CheckoutDbContext dbContext
-    )
+public class CampaignRepository : ICampaignRepository
 {
-    private readonly CheckoutDbContext _dbContext = dbContext;
+    private readonly CheckoutDbContext _dbContext;
+
+    public CampaignRepository(
+        CheckoutDbContext dbContext
+    ) => this._dbContext = dbContext;
 
     public async Task<List<Campaign>> GetAll() => await this._dbContext.Campaigns
             .Include(c => c.Products)
@@ -20,17 +23,17 @@ public class CampaignRepository(
             .FirstOrDefaultAsync() ??
             throw new Exception("Campaign not exist.");
 
-    public async Task<Campaign> Store(Campaign data)
+    public async Task<Campaign> Store(Campaign campaign)
     {
-        this._dbContext.Campaigns.Add(data);
+        this._dbContext.Campaigns.Add(campaign);
         await this._dbContext.SaveChangesAsync();
 
-        return data;
+        return campaign;
     }
 
     public async Task<Campaign> Update(Campaign oldCampaign, Campaign newCampaign)
     {
-        oldCampaign.Products = newCampaign.Products?.ToList();
+        oldCampaign.Products = [.. newCampaign.Products];
         this._dbContext.Entry(oldCampaign).CurrentValues.SetValues(newCampaign);
         await this._dbContext.SaveChangesAsync();
 

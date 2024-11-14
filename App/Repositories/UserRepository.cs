@@ -1,15 +1,16 @@
 namespace App.Repositories;
 
-using App.DTOs;
-using App.Models;
 using App.Repositories.Database;
+using Core.DTOs;
+using Core.Models;
+using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-public class UserRepository(
-    CheckoutDbContext dbContext
-    )
+public class UserRepository : IUserRepository
 {
-    private readonly CheckoutDbContext _dbContext = dbContext;
+    private readonly CheckoutDbContext _dbContext;
+
+    public UserRepository(CheckoutDbContext dbContext) => this._dbContext = dbContext;
 
     public async Task<IEnumerable<User?>> GetAll() => await this._dbContext.Users.ToListAsync();
 

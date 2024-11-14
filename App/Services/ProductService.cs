@@ -1,26 +1,35 @@
 namespace App.Services;
 
-using App.DTOs;
-using App.Models;
-using App.Repositories;
+using Core.DTOs;
+using Core.Models;
+using Core.Repositories;
+using Core.Services;
 
-public class ProductService(
-    ProductRepository productRepository,
-    CategoryService categoryService,
-    FileService fileService,
-    IWebHostEnvironment environment
-    )
+public class ProductService : IProductService
 {
-    private readonly ProductRepository _productRepository = productRepository;
-    private readonly CategoryService _categoryService = categoryService;
-    private readonly FileService _fileService = fileService;
-    private readonly IWebHostEnvironment _environment = environment;
+    private readonly IProductRepository _productRepository;
+    private readonly ICategoryService _categoryService;
+    private readonly IFileService _fileService;
+    private readonly IWebHostEnvironment _environment;
 
-    public async Task<IEnumerable<Product?>> GetAll() => await this._productRepository.GetAll();
+    public ProductService(
+        IProductRepository productRepository,
+        ICategoryService categoryService,
+        IFileService fileService,
+        IWebHostEnvironment environment
+    )
+    {
+        this._productRepository = productRepository;
+        this._categoryService = categoryService;
+        this._fileService = fileService;
+        this._environment = environment;
+    }
 
-    public async Task<IEnumerable<Product>> GetWhereIds(List<int> productIds) => await this._productRepository.GetWhereIdsOrFail(productIds);
+    public async Task<IList<Product?>> GetAll() => await this._productRepository.GetAll();
 
-    public async Task<IEnumerable<Product>> GetBestSellers() => await this._productRepository.GetBestSellers();
+    public async Task<IList<Product>> GetWhereIds(List<int?> productIds) => await this._productRepository.GetWhereIdsOrFail(productIds);
+
+    public async Task<IList<Product>> GetBestSellers() => await this._productRepository.GetBestSellers();
 
     public async Task<Product> GetById(int id) => await this._productRepository.FindOrFail(id);
 
@@ -30,9 +39,9 @@ public class ProductService(
 
         Product product = new(
             productInputDTO.Name,
-            category,
             productInputDTO.Quantity,
-            productInputDTO.Price
+            productInputDTO.Price,
+            category
         );
 
         await this._productRepository.Store(product);
@@ -50,9 +59,9 @@ public class ProductService(
 
         Product product = new(
             productInputDTO.Name,
-            category,
             productInputDTO.Quantity,
-            productInputDTO.Price
+            productInputDTO.Price,
+            category
         )
         {
             Id = oldProduct.Id,

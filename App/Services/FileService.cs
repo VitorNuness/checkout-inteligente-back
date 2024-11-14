@@ -1,7 +1,9 @@
 namespace App.Services;
-using System.Threading.Tasks;
 
-public class FileService
+using System.Threading.Tasks;
+using Core.Services;
+
+public class FileService : IFileService
 {
     public async Task SaveFile(IFormFile file, string path)
     {

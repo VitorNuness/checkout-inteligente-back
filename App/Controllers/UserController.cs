@@ -1,8 +1,8 @@
 namespace App.Controllers;
 
-using App.DTOs;
-using App.Models;
 using App.Services;
+using Core.DTOs;
+using Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,28 +1,29 @@
 namespace App.Repositories;
 
-using App.Models;
 using App.Repositories.Database;
+using Core.Models;
+using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-public class ProductRepository(
-    CheckoutDbContext dbContext
-    )
+public class ProductRepository : IProductRepository
 {
-    private readonly CheckoutDbContext _dbContext = dbContext;
+    private readonly CheckoutDbContext _dbContext;
 
-    public async Task<IEnumerable<Product?>> GetAll() => await this._dbContext.Products
+    public ProductRepository(CheckoutDbContext dbContext) => this._dbContext = dbContext;
+
+    public async Task<IList<Product>> GetAll() => await this._dbContext.Products
             .Include(p => p.Category)
             .Include(p => p.Campaigns)
             .ToListAsync();
 
-    public async Task<IEnumerable<Product>> GetBestSellers() => await this._dbContext.Products
+    public async Task<IList<Product>> GetBestSellers() => await this._dbContext.Products
             .Include(p => p.Category)
             .Include(p => p.Campaigns)
             .OrderByDescending(p => p.Sales)
             .Take(15)
             .ToListAsync();
 
-    public async Task<IEnumerable<Product>> GetWhereIdsOrFail(List<int> productsIds) => await this._dbContext.Products
+    public async Task<IList<Product>> GetWhereIdsOrFail(List<int?> productsIds) => await this._dbContext.Products
             .Include(p => p.Category)
             .Include(p => p.Campaigns)
             .Where((p) => productsIds.Contains(p.Id))

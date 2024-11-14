@@ -1,18 +1,25 @@
 namespace App.Repositories;
 
-using App.Models;
 using App.Repositories.Database;
+using Core.Models;
+using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-public class CategoryRepository(
-    CheckoutDbContext dbContext
-    )
+public class CategoryRepository : ICategoryRepository
 {
-    private readonly CheckoutDbContext _dbContext = dbContext;
+    private readonly CheckoutDbContext _dbContext;
 
-    public async Task<IEnumerable<Category?>> GetAll() => await this._dbContext.Categories.Include(c => c.Products).ToListAsync();
+    public CategoryRepository(CheckoutDbContext checkoutDbContext) => this._dbContext = checkoutDbContext;
 
-    public async Task<Category> FindOrFail(int id) => await this._dbContext.Categories.Include(c => c.Products).Where(p => p.Id == id).FirstOrDefaultAsync() ?? throw new Exception("Category not exist.");
+    public async Task<IList<Category?>> GetAll() => await this._dbContext.Categories
+        .Include(c => c.Products)
+        .ToListAsync();
+
+    public async Task<Category> FindOrFail(int id) => await this._dbContext.Categories
+        .Include(c => c.Products)
+        .Where(p => p.Id == id)
+        .FirstOrDefaultAsync() ??
+        throw new Exception("Category not exist.");
 
     public async Task<Category> Store(Category category)
     {

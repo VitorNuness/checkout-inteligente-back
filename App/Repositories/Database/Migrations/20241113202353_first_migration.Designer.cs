@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Repositories.Database.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20241105184822_create_reports_table")]
-    partial class create_reports_table
+    [Migration("20241113202353_first_migration")]
+    partial class first_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

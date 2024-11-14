@@ -1,7 +1,8 @@
-using App.Models;
+namespace App.Repositories.Database;
+
+using Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.Repositories.Database;
 
 public partial class CheckoutDbContext : DbContext
 {
@@ -34,7 +35,7 @@ public partial class CheckoutDbContext : DbContext
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        OnModelCreatingPartial(modelBuilder);
+        this.OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

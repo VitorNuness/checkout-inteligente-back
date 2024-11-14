@@ -1,67 +1,66 @@
-using System.Security.Claims;
-using App.DTOs;
-using App.Models;
-using App.Services;
+namespace App.Controllers;
+
+using Core.DTOs;
+using Core.Models;
+using Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Controllers
+
+[ApiController]
+[Route("api/auth")]
+public class AuthController : ControllerBase
 {
-    [ApiController]
-    [Route("api/auth")]
-    public class AuthController : ControllerBase
+    private readonly IUserService _userService;
+
+    public readonly ITokenService _tokenService;
+
+    public AuthController(
+        IUserService userService,
+        ITokenService tokenService
+        )
     {
-        private readonly UserService _userService;
+        this._userService = userService;
+        this._tokenService = tokenService;
+    }
 
-        public readonly TokenService _tokenService;
+    [HttpPost("register")]
+    public async Task<ActionResult<AuthOutputDTO?>> Register(UserInputDTO userInputDTO)
+    {
+        User? user = await this._userService.Create(userInputDTO);
+        string token = this._tokenService.CreateToken(user);
 
-        public AuthController(
-            UserService userService,
-            TokenService tokenService
+        return this.CreatedAtAction(nameof(Register),
+            new AuthOutputDTO(
+                new UserOutputDTO(user),
+                token
             )
-        {
-            _userService = userService;
-            _tokenService = tokenService;
-        }
+        );
+    }
 
-        [HttpPost("register")]
-        public async Task<ActionResult<AuthOutputDTO?>> Register(UserInputDTO userInputDTO)
-        {
-            User? user = await _userService.Create(userInputDTO);
-            string token = _tokenService.CreateToken(user);
+    [HttpPost("login")]
+    public async Task<ActionResult<User?>> Login(UserCredentialsDTO userCredentialsDTO)
+    {
+        User? user = await this._userService.GetByCredentials(userCredentialsDTO);
+        string token = this._tokenService.CreateToken(user);
 
-            return CreatedAtAction(nameof(Register),
-                new AuthOutputDTO(
-                    new UserOutputDTO(user),
-                    token
-                )
-            );
-        }
+        return this.Ok(
+            new AuthOutputDTO(
+                new UserOutputDTO(user),
+                token
+            )
+        );
+    }
 
-        [HttpPost("login")]
-        public async Task<ActionResult<User?>> Login(UserCredentialsDTO userCredentialsDTO)
-        {
-            User? user = await _userService.GetByCredentials(userCredentialsDTO);
-            string token = _tokenService.CreateToken(user);
+    [HttpGet("me")]
+    [Authorize]
+    public async Task<ActionResult<UserOutputDTO>> GetUser()
+    {
+        var userId = this.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")!.Value;
+        User user = await this._userService.Get(Int32.Parse(userId));
 
-            return Ok(
-                new AuthOutputDTO(
-                    new UserOutputDTO(user),
-                    token
-                )
-            );
-        }
-
-        [HttpGet("me")]
-        [Authorize]
-        public async Task<ActionResult<UserOutputDTO>> GetUser()
-        {
-            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")!.Value;
-            User user = await _userService.Get(Int32.Parse(userId));
-
-            return Ok(
-                new UserOutputDTO(user)
-            );
-        }
+        return this.Ok(
+            new UserOutputDTO(user)
+        );
     }
 }

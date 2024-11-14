@@ -1,8 +1,7 @@
-namespace Core;
+namespace Core.Models;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Models;
 
 public class OrderItem
 {

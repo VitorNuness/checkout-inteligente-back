@@ -1,18 +1,26 @@
 namespace App.Services;
 
-using App.DTOs;
-using App.Models;
-using App.Repositories;
+using Core.DTOs;
+using Core.Models;
+using Core.Repositories;
+using Core.Services;
 
-public class CategoryService(
-    CategoryRepository categoryRepository,
-    FileService fileService,
-    IWebHostEnvironment environment
-    )
+public class CategoryService : ICategoryService
 {
-    private readonly CategoryRepository _categoryRepository = categoryRepository;
-    private readonly FileService _fileService = fileService;
-    private readonly IWebHostEnvironment _environment = environment;
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly IFileService _fileService;
+    private readonly IWebHostEnvironment _environment;
+
+    public CategoryService(
+        ICategoryRepository categoryRepository,
+        IFileService fileService,
+        IWebHostEnvironment environment
+    )
+    {
+        this._categoryRepository = categoryRepository;
+        this._fileService = fileService;
+        this._environment = environment;
+    }
 
     public async Task<IEnumerable<Category?>> GetAll() => await this._categoryRepository.GetAll();
 

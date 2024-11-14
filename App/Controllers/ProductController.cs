@@ -1,17 +1,17 @@
 namespace App.Controllers;
 
-using App.DTOs;
-using App.Models;
-using App.Services;
+using Core.Services;
+using Core.DTOs;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/products")]
 public class ProductController(
-    ProductService productService
+    IProductService productService
     ) : ControllerBase
 {
-    private readonly ProductService _productService = productService;
+    private readonly IProductService _productService = productService;
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product?>>> Index() => this.Ok(await this._productService.GetAll());

@@ -1,20 +1,29 @@
 namespace App.Services;
 
-using App.DTOs;
-using App.Models;
-using App.Repositories;
+using Core.DTOs;
+using Core.Models;
+using Core.Repositories;
+using Core.Services;
 
-public class CampaignService(
-    CampaignRepository campaignRepository,
-    ProductService productService,
-    FileService fileService,
-    IWebHostEnvironment environment
-    )
+public class CampaignService : ICampaignService
 {
-    private readonly CampaignRepository _campaignRepository = campaignRepository;
-    private readonly ProductService _productService = productService;
-    private readonly FileService _fileService = fileService;
-    private readonly IWebHostEnvironment _environment = environment;
+    private readonly ICampaignRepository _campaignRepository;
+    private readonly IProductService _productService;
+    private readonly IFileService _fileService;
+    private readonly IWebHostEnvironment _environment;
+
+    public CampaignService(
+        ICampaignRepository campaignRepository,
+        IProductService productService,
+        IFileService fileService,
+        IWebHostEnvironment environment
+    )
+    {
+        this._campaignRepository = campaignRepository;
+        this._productService = productService;
+        this._fileService = fileService;
+        this._environment = environment;
+    }
 
     public async Task<List<Campaign>> GetAll() => await this._campaignRepository.GetAll();
 
@@ -34,7 +43,7 @@ public class CampaignService(
             campaignInputDTO.Active
         )
         {
-            Products = products,
+            Products = products.ToList(),
         };
 
         await this._campaignRepository.Store(campaign);
@@ -61,7 +70,7 @@ public class CampaignService(
         )
         {
             Id = oldCampaign.Id,
-            Products = products,
+            Products = products.ToList(),
             ImageUrl = oldCampaign.ImageUrl,
         };
         if (image?.Length > 0)

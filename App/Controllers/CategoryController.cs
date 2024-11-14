@@ -1,17 +1,17 @@
 namespace App.Controllers;
 
-using App.DTOs;
-using App.Models;
-using App.Services;
+using Core.Services;
+using Core.DTOs;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/categories")]
 public class CategoryController(
-    CategoryService categoryService
+    ICategoryService categoryService
     ) : ControllerBase
 {
-    private readonly CategoryService _categoryService = categoryService;
+    private readonly ICategoryService _categoryService = categoryService;
 
     [HttpGet]
     public async Task<ActionResult<List<Category?>>> Index() => this.Ok(await this._categoryService.GetAll());

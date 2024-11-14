@@ -4,11 +4,11 @@ using Core.Models;
 
 public interface IProductRepository
 {
-    public Task<IEnumerable<Product?>> GetAll();
+    public Task<IList<Product?>> GetAll();
 
-    public Task<IEnumerable<Product>> GetBestSellers();
+    public Task<IList<Product>> GetBestSellers();
 
-    public Task<IEnumerable<Product>> GetWhereIdsOrFail(List<int> productsIds);
+    public Task<IList<Product>> GetWhereIdsOrFail(List<int?> productsIds);
 
     public Task<Product> FindOrFail(int id);
 

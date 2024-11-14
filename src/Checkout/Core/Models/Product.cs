@@ -9,7 +9,7 @@ public class Product
     [Key]
     public int Id { get; set; }
     public string Name { get; set; }
-    public int Quantity { get; set; }
+    public double Quantity { get; set; }
     public double Price { get; set; }
     public int Sales { get; set; }
     public string ImageUrl { get; set; } = "http://localhost:5102/files/images/products/0.png";
@@ -18,7 +18,7 @@ public class Product
 
     public Product(
         string name,
-        int quantity,
+        double quantity,
         double price,
         Category category,
         string imageUrl
@@ -33,7 +33,7 @@ public class Product
 
     public Product(
         string name,
-        int quantity,
+        double quantity,
         double price,
         Category category
     )
@@ -47,7 +47,7 @@ public class Product
     public Product(
         int id,
         string name,
-        int quantity,
+        double quantity,
         double price,
         Category category,
         int sales,

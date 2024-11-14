@@ -15,10 +15,12 @@ public class Campaign
     public List<Product> Products { get; set; } = [];
 
     public Campaign(
-        string title
+        string title,
+        bool active
     )
     {
         this.Title = title;
+        this.Active = active;
     }
 
     public Campaign(

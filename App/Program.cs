@@ -6,6 +6,8 @@ using App.Repositories;
 using App.Services;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Core.Services;
+using Core.Repositories;
 
 namespace App
 {
@@ -75,21 +77,21 @@ namespace App
                 .AddJsonOptions(option =>
                     option.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 
-            builder.Services.AddScoped<CampaignService>();
-            builder.Services.AddScoped<CategoryService>();
-            builder.Services.AddScoped<FileService>();
-            builder.Services.AddScoped<OrderService>();
-            builder.Services.AddScoped<ProductService>();
-            builder.Services.AddScoped<ReportService>();
-            builder.Services.AddScoped<TokenService>();
-            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<ICampaignService, CampaignService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IFileService, FileService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IReportService, ReportService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
-            builder.Services.AddScoped<CampaignRepository>();
-            builder.Services.AddScoped<CategoryRepository>();
-            builder.Services.AddScoped<OrderRepository>();
-            builder.Services.AddScoped<ProductRepository>();
-            builder.Services.AddScoped<ReportRepository>();
-            builder.Services.AddScoped<UserRepository>();
+            builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IReportRepository, ReportRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 

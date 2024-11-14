@@ -1,14 +1,15 @@
 namespace App.Services;
 
-using App.DTOs;
-using App.Models;
-using App.Repositories;
+using Core.DTOs;
+using Core.Models;
+using Core.Repositories;
+using Core.Services;
 
-public class UserService(
-    UserRepository userRepository
-    )
+public class UserService : IUserService
 {
-    private readonly UserRepository _userRepository = userRepository;
+    private readonly IUserRepository _userRepository;
+
+    public UserService(IUserRepository userRepository) => this._userRepository = userRepository;
 
     public async Task<IEnumerable<User?>> GetAll() => await this._userRepository.GetAll();
 

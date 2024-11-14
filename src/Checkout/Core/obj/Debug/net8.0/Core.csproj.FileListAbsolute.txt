@@ -10,3 +10,4 @@
 /home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/obj/Debug/net8.0/refint/Core.dll
 /home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/obj/Debug/net8.0/Core.pdb
 /home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/obj/Debug/net8.0/ref/Core.dll
+/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/obj/Debug/net8.0/Core.csproj.AssemblyReference.cache
