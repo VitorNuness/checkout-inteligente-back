@@ -1,0 +1,153 @@
+{
+  "Files": [
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/exports/csv/example.csv",
+      "PackagePath": "staticwebassets/files/exports/csv/example.csv"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/0.png",
+      "PackagePath": "staticwebassets/files/images/campaigns/0.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/1.png",
+      "PackagePath": "staticwebassets/files/images/campaigns/1.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/2.png",
+      "PackagePath": "staticwebassets/files/images/campaigns/2.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/3.png",
+      "PackagePath": "staticwebassets/files/images/campaigns/3.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/0.png",
+      "PackagePath": "staticwebassets/files/images/categories/0.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/1.png",
+      "PackagePath": "staticwebassets/files/images/categories/1.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/2.png",
+      "PackagePath": "staticwebassets/files/images/categories/2.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/3.png",
+      "PackagePath": "staticwebassets/files/images/categories/3.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/5.png",
+      "PackagePath": "staticwebassets/files/images/categories/5.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/6.png",
+      "PackagePath": "staticwebassets/files/images/categories/6.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/0.png",
+      "PackagePath": "staticwebassets/files/images/products/0.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/1.png",
+      "PackagePath": "staticwebassets/files/images/products/1.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/10.png",
+      "PackagePath": "staticwebassets/files/images/products/10.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/11.png",
+      "PackagePath": "staticwebassets/files/images/products/11.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/12.png",
+      "PackagePath": "staticwebassets/files/images/products/12.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/13.png",
+      "PackagePath": "staticwebassets/files/images/products/13.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/14.png",
+      "PackagePath": "staticwebassets/files/images/products/14.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/15.png",
+      "PackagePath": "staticwebassets/files/images/products/15.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/16.png",
+      "PackagePath": "staticwebassets/files/images/products/16.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/17.png",
+      "PackagePath": "staticwebassets/files/images/products/17.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/18.png",
+      "PackagePath": "staticwebassets/files/images/products/18.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/19.png",
+      "PackagePath": "staticwebassets/files/images/products/19.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/2.png",
+      "PackagePath": "staticwebassets/files/images/products/2.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/20.png",
+      "PackagePath": "staticwebassets/files/images/products/20.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/21.png",
+      "PackagePath": "staticwebassets/files/images/products/21.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/3.png",
+      "PackagePath": "staticwebassets/files/images/products/3.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/4.png",
+      "PackagePath": "staticwebassets/files/images/products/4.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/5.png",
+      "PackagePath": "staticwebassets/files/images/products/5.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/6.png",
+      "PackagePath": "staticwebassets/files/images/products/6.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/7.png",
+      "PackagePath": "staticwebassets/files/images/products/7.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/8.png",
+      "PackagePath": "staticwebassets/files/images/products/8.png"
+    },
+    {
+      "Id": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/9.png",
+      "PackagePath": "staticwebassets/files/images/products/9.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Presentation.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.Presentation.props",
+      "PackagePath": "build\\Presentation.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Presentation.props",
+      "PackagePath": "buildMultiTargeting\\Presentation.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Presentation.props",
+      "PackagePath": "buildTransitive\\Presentation.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
