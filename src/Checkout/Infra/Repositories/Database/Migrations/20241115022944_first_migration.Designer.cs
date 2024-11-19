@@ -13,7 +13,7 @@ namespace Infra.Repositories.Database.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
     [Migration("20241115022944_first_migration")]
-    partial class first_migration
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

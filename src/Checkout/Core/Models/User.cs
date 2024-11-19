@@ -53,5 +53,5 @@ public class User
         this.Role = role;
     }
 
-    private User() {}
+    private User() { }
 }

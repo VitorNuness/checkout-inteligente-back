@@ -7,22 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/reports")]
 [ApiController]
-public class ReportController : ControllerBase
+public class ReportController(
+    IReportService reportService
+    ) : ControllerBase
 {
-    private readonly IReportService _reportService;
-
-    public ReportController(
-        IReportService reportService
-    )
-    {
-        this._reportService = reportService;
-    }
+    private readonly IReportService _reportService = reportService;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ReportDTO?>>> GetAll()
-    {
-        return this.Ok(await this._reportService.GetReports());
-    }
+    public async Task<ActionResult<IEnumerable<ReportDTO?>>> GetAll() => this.Ok(await this._reportService.GetReports());
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> Remove(int id)

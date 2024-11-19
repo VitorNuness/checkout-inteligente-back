@@ -7,25 +7,17 @@ using Core.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-public class ProductService : IProductService
+public class ProductService(
+    IProductRepository productRepository,
+    ICategoryService categoryService,
+    IFileService fileService,
+    IWebHostEnvironment environment
+    ) : IProductService
 {
-    private readonly IProductRepository _productRepository;
-    private readonly ICategoryService _categoryService;
-    private readonly IFileService _fileService;
-    private readonly IWebHostEnvironment _environment;
-
-    public ProductService(
-        IProductRepository productRepository,
-        ICategoryService categoryService,
-        IFileService fileService,
-        IWebHostEnvironment environment
-    )
-    {
-        this._productRepository = productRepository;
-        this._categoryService = categoryService;
-        this._fileService = fileService;
-        this._environment = environment;
-    }
+    private readonly IProductRepository _productRepository = productRepository;
+    private readonly ICategoryService _categoryService = categoryService;
+    private readonly IFileService _fileService = fileService;
+    private readonly IWebHostEnvironment _environment = environment;
 
     public async Task<IList<Product?>> GetAll() => await this._productRepository.GetAll();
 

@@ -1,16 +1,14 @@
 namespace Infra.Repositories;
 
-using Infra.Repositories.Database;
 using Core.DTOs;
 using Core.Models;
 using Core.Repositories;
+using Infra.Repositories.Database;
 using Microsoft.EntityFrameworkCore;
 
-public class ReportRepository : IReportRepository
+public class ReportRepository(CheckoutDbContext dbContext) : IReportRepository
 {
-    private readonly CheckoutDbContext _dbContext;
-
-    public ReportRepository(CheckoutDbContext dbContext) => this._dbContext = dbContext;
+    private readonly CheckoutDbContext _dbContext = dbContext;
 
     public async Task Destroy(int id)
     {

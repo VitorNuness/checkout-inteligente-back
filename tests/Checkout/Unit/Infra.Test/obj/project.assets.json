@@ -6475,32 +6475,34 @@
     ]
   },
   "packageFolders": {
-    "/home/vitornunesdasilva/.nuget/packages/": {}
+    "C:\\Users\\rainh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Infra.Test/Infra.Test.csproj",
+      "projectUniqueName": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Unit\\Infra.Test\\Infra.Test.csproj",
       "projectName": "Infra.Test",
-      "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Infra.Test/Infra.Test.csproj",
-      "packagesPath": "/home/vitornunesdasilva/.nuget/packages/",
-      "outputPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Infra.Test/obj/",
+      "projectPath": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Unit\\Infra.Test\\Infra.Test.csproj",
+      "packagesPath": "C:\\Users\\rainh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Unit\\Infra.Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/vitornunesdasilva/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\rainh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Infra/Infra.csproj": {
-              "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Infra/Infra.csproj"
+            "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Infra\\Infra.csproj": {
+              "projectPath": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Infra\\Infra.csproj"
             }
           }
         }
@@ -6556,7 +6558,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

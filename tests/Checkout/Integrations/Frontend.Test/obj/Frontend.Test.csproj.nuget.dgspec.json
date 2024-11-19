@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Integrations/Frontend.Test/Frontend.Test.csproj": {}
+    "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Integrations\\Frontend.Test\\Frontend.Test.csproj": {}
   },
   "projects": {
-    "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Integrations/Frontend.Test/Frontend.Test.csproj": {
+    "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Integrations\\Frontend.Test\\Frontend.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Integrations/Frontend.Test/Frontend.Test.csproj",
+        "projectUniqueName": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Integrations\\Frontend.Test\\Frontend.Test.csproj",
         "projectName": "Frontend.Test",
-        "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Integrations/Frontend.Test/Frontend.Test.csproj",
-        "packagesPath": "/home/vitornunesdasilva/.nuget/packages/",
-        "outputPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Integrations/Frontend.Test/obj/",
+        "projectPath": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Integrations\\Frontend.Test\\Frontend.Test.csproj",
+        "packagesPath": "C:\\Users\\rainh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\tests\\Checkout\\Integrations\\Frontend.Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/vitornunesdasilva/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\rainh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,6 +39,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.26.1, )"
+            },
+            "Selenium.WebDriver.ChromeDriver": {
+              "target": "Package",
+              "version": "[131.0.6778.6900, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -53,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

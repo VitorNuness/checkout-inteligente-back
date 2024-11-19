@@ -5,14 +5,12 @@ using System.Security.Claims;
 using System.Text;
 using Core.Models;
 using Core.Services;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
-public class TokenService : ITokenService
+public class TokenService(IConfiguration configuration) : ITokenService
 {
-    private readonly IConfiguration _configuration;
-
-    public TokenService(IConfiguration configuration) => this._configuration = configuration;
+    private readonly IConfiguration _configuration = configuration;
 
     public string CreateToken(User user)
     {

@@ -5,19 +5,13 @@ using Core.Repositories;
 using Core.Services;
 using Microsoft.AspNetCore.Hosting;
 
-public class ReportService : IReportService
+public class ReportService(
+    IReportRepository reportRepository,
+    IWebHostEnvironment environment
+    ) : IReportService
 {
-    private readonly IReportRepository _reportRepository;
-    private readonly IWebHostEnvironment _environment;
-
-    public ReportService(
-        IReportRepository reportRepository,
-        IWebHostEnvironment environment
-    )
-    {
-        this._reportRepository = reportRepository;
-        this._environment = environment;
-    }
+    private readonly IReportRepository _reportRepository = reportRepository;
+    private readonly IWebHostEnvironment _environment = environment;
 
     public async Task<IEnumerable<ReportDTO?>> GetReports() => await this._reportRepository.GetAll();
 

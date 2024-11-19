@@ -1,15 +1,13 @@
 namespace Infra.Repositories;
 
-using Infra.Repositories.Database;
 using Core.Models;
 using Core.Repositories;
+using Infra.Repositories.Database;
 using Microsoft.EntityFrameworkCore;
 
-public class CategoryRepository : ICategoryRepository
+public class CategoryRepository(CheckoutDbContext checkoutDbContext) : ICategoryRepository
 {
-    private readonly CheckoutDbContext _dbContext;
-
-    public CategoryRepository(CheckoutDbContext checkoutDbContext) => this._dbContext = checkoutDbContext;
+    private readonly CheckoutDbContext _dbContext = checkoutDbContext;
 
     public async Task<IList<Category?>> GetAll() => await this._dbContext.Categories
         .Include(c => c.Products)

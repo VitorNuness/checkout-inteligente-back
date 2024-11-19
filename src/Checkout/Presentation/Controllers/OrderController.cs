@@ -1,27 +1,22 @@
 namespace Presentation.Controllers;
 
-using Core.Services;
 using Core.DTOs;
 using Core.Models;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/orders")]
-public class OrderController : ControllerBase
+public class OrderController(
+    IOrderService orderService
+    ) : ControllerBase
 {
-    private readonly IOrderService _orderService;
-
-    public OrderController(
-        IOrderService orderService
-    )
-    {
-        this._orderService = orderService;
-    }
+    private readonly IOrderService _orderService = orderService;
 
     [HttpGet("user/{userId}/orders/current")]
     public async Task<ActionResult<OrderDTO?>> GetCurrentUserOrder(int userId)
     {
-        Order order = await this._orderService.GetCurrentUserOrder(userId);
+        var order = await this._orderService.GetCurrentUserOrder(userId);
 
         return this.Ok(new OrderDTO(order));
     }
@@ -29,7 +24,7 @@ public class OrderController : ControllerBase
     [HttpGet("user/{userId}/orders")]
     public async Task<ActionResult<List<OrderDTO?>>> GetUserOrders(int userId)
     {
-        List<Order> orders = await this._orderService.GetUserOrders(userId);
+        var orders = await this._orderService.GetUserOrders(userId);
 
         return this.Ok(orders.Select(o => new OrderDTO(o)));
     }

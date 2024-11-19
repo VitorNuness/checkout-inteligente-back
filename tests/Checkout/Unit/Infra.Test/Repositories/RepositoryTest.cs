@@ -3,7 +3,7 @@ namespace Infra.Test.Repositories;
 using Infra.Repositories.Database;
 using Microsoft.EntityFrameworkCore;
 
-public class RepositoryTest
+public class RepositoryTest : IDisposable
 {
     protected readonly CheckoutDbContext Context;
 
@@ -14,5 +14,10 @@ public class RepositoryTest
             .Options;
 
         this.Context = new CheckoutDbContext(options);
+    }
+
+    public void Dispose()
+    {
+        throw new NotImplementedException();
     }
 }

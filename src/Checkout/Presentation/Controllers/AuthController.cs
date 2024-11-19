@@ -9,26 +9,20 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/auth")]
-public class AuthController : ControllerBase
+public class AuthController(
+    IUserService userService,
+    ITokenService tokenService
+        ) : ControllerBase
 {
-    private readonly IUserService _userService;
+    private readonly IUserService _userService = userService;
 
-    public readonly ITokenService _tokenService;
-
-    public AuthController(
-        IUserService userService,
-        ITokenService tokenService
-        )
-    {
-        this._userService = userService;
-        this._tokenService = tokenService;
-    }
+    public readonly ITokenService _tokenService = tokenService;
 
     [HttpPost("register")]
     public async Task<ActionResult<AuthOutputDTO?>> Register(UserInputDTO userInputDTO)
     {
-        User? user = await this._userService.Create(userInputDTO);
-        string token = this._tokenService.CreateToken(user);
+        var user = await this._userService.Create(userInputDTO);
+        var token = this._tokenService.CreateToken(user);
 
         return this.CreatedAtAction(nameof(Register),
             new AuthOutputDTO(
@@ -41,8 +35,8 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<User?>> Login(UserCredentialsDTO userCredentialsDTO)
     {
-        User? user = await this._userService.GetByCredentials(userCredentialsDTO);
-        string token = this._tokenService.CreateToken(user);
+        var user = await this._userService.GetByCredentials(userCredentialsDTO);
+        var token = this._tokenService.CreateToken(user);
 
         return this.Ok(
             new AuthOutputDTO(
@@ -57,7 +51,7 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<UserOutputDTO>> GetUser()
     {
         var userId = this.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")!.Value;
-        User user = await this._userService.Get(Int32.Parse(userId));
+        var user = await this._userService.Get(int.Parse(userId));
 
         return this.Ok(
             new UserOutputDTO(user)

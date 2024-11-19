@@ -7,25 +7,17 @@ using Core.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-public class CampaignService : ICampaignService
+public class CampaignService(
+    ICampaignRepository campaignRepository,
+    IProductService productService,
+    IFileService fileService,
+    IWebHostEnvironment environment
+    ) : ICampaignService
 {
-    private readonly ICampaignRepository _campaignRepository;
-    private readonly IProductService _productService;
-    private readonly IFileService _fileService;
-    private readonly IWebHostEnvironment _environment;
-
-    public CampaignService(
-        ICampaignRepository campaignRepository,
-        IProductService productService,
-        IFileService fileService,
-        IWebHostEnvironment environment
-    )
-    {
-        this._campaignRepository = campaignRepository;
-        this._productService = productService;
-        this._fileService = fileService;
-        this._environment = environment;
-    }
+    private readonly ICampaignRepository _campaignRepository = campaignRepository;
+    private readonly IProductService _productService = productService;
+    private readonly IFileService _fileService = fileService;
+    private readonly IWebHostEnvironment _environment = environment;
 
     public async Task<List<Campaign>> GetAll() => await this._campaignRepository.GetAll();
 

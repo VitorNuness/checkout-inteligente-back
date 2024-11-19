@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wYwp1NBoEK3aEdBA1ZDkgdBvc+n9bg1G4YzZWHdqUhw=",
+  "Hash": "ts1C5YYTiOOVlB5lI8CntpHWsX+xytMw039N3jGzABk=",
   "Source": "Presentation",
   "BasePath": "_content/Presentation",
   "Mode": "Default",
@@ -8,38 +8,19 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "Presentation/wwwroot",
+      "Name": "Presentation\\wwwroot",
       "Source": "Presentation",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/exports/csv/18112024_orders_18112024_18112024.csv",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\exports\\csv\\example.csv",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
-      "BasePath": "_content/Presentation",
-      "RelativePath": "files/exports/csv/18112024_orders_18112024_18112024.csv",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/exports/csv/18112024_orders_18112024_18112024.csv"
-    },
-    {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/exports/csv/example.csv",
-      "SourceId": "Presentation",
-      "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/exports/csv/example.csv",
       "AssetKind": "All",
@@ -52,13 +33,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/exports/csv/example.csv"
+      "OriginalItemSpec": "wwwroot\\files\\exports\\csv\\example.csv"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/0.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\campaigns\\0.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/campaigns/0.png",
       "AssetKind": "All",
@@ -71,13 +52,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/campaigns/0.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\campaigns\\0.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/1.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\campaigns\\1.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/campaigns/1.png",
       "AssetKind": "All",
@@ -90,13 +71,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/campaigns/1.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\campaigns\\1.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/2.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\campaigns\\2.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/campaigns/2.png",
       "AssetKind": "All",
@@ -109,13 +90,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/campaigns/2.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\campaigns\\2.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/campaigns/3.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\campaigns\\3.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/campaigns/3.png",
       "AssetKind": "All",
@@ -128,13 +109,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/campaigns/3.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\campaigns\\3.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/0.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\categories\\0.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/categories/0.png",
       "AssetKind": "All",
@@ -147,13 +128,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/categories/0.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\categories\\0.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/1.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\categories\\1.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/categories/1.png",
       "AssetKind": "All",
@@ -166,13 +147,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/categories/1.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\categories\\1.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/2.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\categories\\2.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/categories/2.png",
       "AssetKind": "All",
@@ -185,13 +166,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/categories/2.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\categories\\2.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/3.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\categories\\3.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/categories/3.png",
       "AssetKind": "All",
@@ -204,13 +185,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/categories/3.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\categories\\3.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/5.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\categories\\5.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/categories/5.png",
       "AssetKind": "All",
@@ -223,13 +204,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/categories/5.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\categories\\5.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/categories/6.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\categories\\6.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/categories/6.png",
       "AssetKind": "All",
@@ -242,13 +223,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/categories/6.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\categories\\6.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/0.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\0.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/0.png",
       "AssetKind": "All",
@@ -261,13 +242,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/0.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\0.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/1.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\1.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/1.png",
       "AssetKind": "All",
@@ -280,13 +261,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/1.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\1.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/10.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\10.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/10.png",
       "AssetKind": "All",
@@ -299,13 +280,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/10.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\10.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/11.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\11.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/11.png",
       "AssetKind": "All",
@@ -318,13 +299,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/11.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\11.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/12.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\12.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/12.png",
       "AssetKind": "All",
@@ -337,13 +318,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/12.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\12.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/13.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\13.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/13.png",
       "AssetKind": "All",
@@ -356,13 +337,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/13.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\13.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/14.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\14.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/14.png",
       "AssetKind": "All",
@@ -375,13 +356,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/14.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\14.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/15.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\15.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/15.png",
       "AssetKind": "All",
@@ -394,13 +375,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/15.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\15.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/16.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\16.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/16.png",
       "AssetKind": "All",
@@ -413,13 +394,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/16.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\16.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/17.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\17.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/17.png",
       "AssetKind": "All",
@@ -432,13 +413,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/17.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\17.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/18.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\18.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/18.png",
       "AssetKind": "All",
@@ -451,13 +432,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/18.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\18.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/19.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\19.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/19.png",
       "AssetKind": "All",
@@ -470,13 +451,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/19.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\19.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/2.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\2.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/2.png",
       "AssetKind": "All",
@@ -489,13 +470,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/2.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\2.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/20.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\20.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/20.png",
       "AssetKind": "All",
@@ -508,13 +489,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/20.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\20.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/21.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\21.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/21.png",
       "AssetKind": "All",
@@ -527,13 +508,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/21.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\21.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/3.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\3.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/3.png",
       "AssetKind": "All",
@@ -546,13 +527,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/3.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\3.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/4.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\4.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/4.png",
       "AssetKind": "All",
@@ -565,13 +546,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/4.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\4.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/5.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\5.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/5.png",
       "AssetKind": "All",
@@ -584,13 +565,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/5.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\5.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/6.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\6.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/6.png",
       "AssetKind": "All",
@@ -603,13 +584,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/6.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\6.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/7.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\7.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/7.png",
       "AssetKind": "All",
@@ -622,13 +603,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/7.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\7.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/8.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\8.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/8.png",
       "AssetKind": "All",
@@ -641,13 +622,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/8.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\8.png"
     },
     {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/images/products/9.png",
+      "Identity": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\files\\images\\products\\9.png",
       "SourceId": "Presentation",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
+      "ContentRoot": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Presentation\\wwwroot\\",
       "BasePath": "_content/Presentation",
       "RelativePath": "files/images/products/9.png",
       "AssetKind": "All",
@@ -660,7 +641,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/images/products/9.png"
+      "OriginalItemSpec": "wwwroot\\files\\images\\products\\9.png"
     }
   ]
 }

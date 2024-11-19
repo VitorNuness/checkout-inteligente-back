@@ -2,16 +2,14 @@ namespace Infra.Repositories;
 
 using Core.Models;
 using Core.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Infra.Repositories.Database;
+using Microsoft.EntityFrameworkCore;
 
-public class CampaignRepository : ICampaignRepository
+public class CampaignRepository(
+    CheckoutDbContext dbContext
+    ) : ICampaignRepository
 {
-    private readonly CheckoutDbContext _dbContext;
-
-    public CampaignRepository(
-        CheckoutDbContext dbContext
-    ) => this._dbContext = dbContext;
+    private readonly CheckoutDbContext _dbContext = dbContext;
 
     public async Task<List<Campaign>> GetAll() => await this._dbContext.Campaigns
             .Include(c => c.Products)

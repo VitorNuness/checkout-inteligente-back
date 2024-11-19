@@ -14,3 +14,19 @@
 /home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Application/obj/Debug/net8.0/refint/Application.dll
 /home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Application/obj/Debug/net8.0/Application.pdb
 /home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Application/obj/Debug/net8.0/ref/Application.dll
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\bin\Debug\net8.0\Application.deps.json
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\bin\Debug\net8.0\Application.dll
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\bin\Debug\net8.0\Application.pdb
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\bin\Debug\net8.0\Core.dll
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\bin\Debug\net8.0\Core.pdb
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.csproj.AssemblyReference.cache
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.sourcelink.json
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.csproj.CopyComplete
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.dll
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\refint\Application.dll
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\Application.pdb
+C:\Users\rainh\OneDrive\Documentos\Vini facul\Checkout_Front_Back\checkout-inteligente-back\src\Checkout\Application\obj\Debug\net8.0\ref\Application.dll

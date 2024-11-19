@@ -5,11 +5,9 @@ using Core.Models;
 using Core.Repositories;
 using Core.Services;
 
-public class UserService : IUserService
+public class UserService(IUserRepository userRepository) : IUserService
 {
-    private readonly IUserRepository _userRepository;
-
-    public UserService(IUserRepository userRepository) => this._userRepository = userRepository;
+    private readonly IUserRepository _userRepository = userRepository;
 
     public async Task<IEnumerable<User?>> GetAll() => await this._userRepository.GetAll();
 

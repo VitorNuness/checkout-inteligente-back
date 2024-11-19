@@ -7,22 +7,15 @@ using Core.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-public class CategoryService : ICategoryService
+public class CategoryService(
+    ICategoryRepository categoryRepository,
+    IFileService fileService,
+    IWebHostEnvironment environment
+    ) : ICategoryService
 {
-    private readonly ICategoryRepository _categoryRepository;
-    private readonly IFileService _fileService;
-    private readonly IWebHostEnvironment _environment;
-
-    public CategoryService(
-        ICategoryRepository categoryRepository,
-        IFileService fileService,
-        IWebHostEnvironment environment
-    )
-    {
-        this._categoryRepository = categoryRepository;
-        this._fileService = fileService;
-        this._environment = environment;
-    }
+    private readonly ICategoryRepository _categoryRepository = categoryRepository;
+    private readonly IFileService _fileService = fileService;
+    private readonly IWebHostEnvironment _environment = environment;
 
     public async Task<IEnumerable<Category?>> GetAll() => await this._categoryRepository.GetAll();
 

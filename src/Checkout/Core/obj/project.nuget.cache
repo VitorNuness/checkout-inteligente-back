@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "CqYXuP91cDl5cwSD+hlo3ZRiXBIpGib0DvLvjRG8Tr4SRH8S+Lsc15MUEs6nWO+JVbJqzScM5DobgIOOaibn3g==",
+  "dgSpecHash": "ajOJfjAF57ce3hO5MV3BOzanAIiL+9YIia0gbz3W8xG6qo85kWhOLWKwD76lZJnJ27yVRGJ0MKEmbNfwhLhmcQ==",
   "success": true,
-  "projectFilePath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj",
+  "projectFilePath": "C:\\Users\\rainh\\OneDrive\\Documentos\\Vini facul\\Checkout_Front_Back\\checkout-inteligente-back\\src\\Checkout\\Core\\Core.csproj",
   "expectedPackageFiles": [
-    "/home/vitornunesdasilva/.nuget/packages/microsoft.aspnetcore.http.abstractions/2.2.0/microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
-    "/home/vitornunesdasilva/.nuget/packages/microsoft.aspnetcore.http.features/2.2.0/microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
-    "/home/vitornunesdasilva/.nuget/packages/microsoft.extensions.primitives/2.2.0/microsoft.extensions.primitives.2.2.0.nupkg.sha512",
-    "/home/vitornunesdasilva/.nuget/packages/system.memory/4.5.1/system.memory.4.5.1.nupkg.sha512",
-    "/home/vitornunesdasilva/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.1/system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512",
-    "/home/vitornunesdasilva/.nuget/packages/system.text.encodings.web/4.5.0/system.text.encodings.web.4.5.0.nupkg.sha512"
+    "C:\\Users\\rainh\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\rainh\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "C:\\Users\\rainh\\.nuget\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
+    "C:\\Users\\rainh\\.nuget\\packages\\system.memory\\4.5.1\\system.memory.4.5.1.nupkg.sha512",
+    "C:\\Users\\rainh\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.1\\system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512",
+    "C:\\Users\\rainh\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }

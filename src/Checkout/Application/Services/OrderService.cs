@@ -7,28 +7,19 @@ using Core.Repositories;
 using Core.Services;
 using Microsoft.AspNetCore.Hosting;
 
-public class OrderService : IOrderService
+public class OrderService(
+    IUserService userService,
+    IProductService productService,
+    IReportService reportService,
+    IOrderRepository orderRepository,
+    IWebHostEnvironment environment
+    ) : IOrderService
 {
-    private readonly IUserService _userService;
-    private readonly IProductService _productService;
-    private readonly IReportService _reportService;
-    private readonly IOrderRepository _orderRepository;
-    private readonly IWebHostEnvironment _environment;
-
-    public OrderService(
-        IUserService userService,
-        IProductService productService,
-        IReportService reportService,
-        IOrderRepository orderRepository,
-        IWebHostEnvironment environment
-    )
-    {
-        this._userService = userService;
-        this._productService = productService;
-        this._reportService = reportService;
-        this._orderRepository = orderRepository;
-        this._environment = environment;
-    }
+    private readonly IUserService _userService = userService;
+    private readonly IProductService _productService = productService;
+    private readonly IReportService _reportService = reportService;
+    private readonly IOrderRepository _orderRepository = orderRepository;
+    private readonly IWebHostEnvironment _environment = environment;
 
     public async Task<List<Order?>> GetUserOrders(int userId)
     {

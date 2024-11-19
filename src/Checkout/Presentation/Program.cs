@@ -14,7 +14,7 @@ using Presentation.Services;
 
 public class Program
 {
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddEndpointsApiExplorer();
@@ -49,26 +49,17 @@ public class Program
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<CheckoutDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-        builder.Services.AddCors(opt =>
-            {
-                opt.AddPolicy("AllowAnyOrigins",
-                builder =>
-                    {
-                        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-                    });
-            });
+        builder.Services.AddCors(opt => opt.AddPolicy("AllowAnyOrigins",
+                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                        .AddJwtBearer(options =>
+                        .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            options.TokenValidationParameters = new TokenValidationParameters
-                            {
-                                ValidateIssuer = false,
-                                ValidateAudience = false,
-                                ValidateLifetime = true,
-                                ValidateIssuerSigningKey = true,
-                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SECRET_KEY"]!))
-                            };
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SECRET_KEY"]!))
                         });
 
         builder.Services.AddAuthorization();

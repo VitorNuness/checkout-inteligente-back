@@ -2,20 +2,12 @@ namespace Core.DTOs;
 
 using Core.Models;
 
-public class UserOutputDTO
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Role { get; set; }
-
-    public UserOutputDTO(
-        User user
+public class UserOutputDTO(
+    User user
     )
-    {
-        this.Id = user.Id;
-        this.Name = user.Name;
-        this.Email = user.Email;
-        this.Role = user.Role.ToString();
-    }
+{
+    public int Id { get; set; } = user.Id;
+    public string Name { get; set; } = user.Name;
+    public string Email { get; set; } = user.Email;
+    public string Role { get; set; } = user.Role.ToString();
 }

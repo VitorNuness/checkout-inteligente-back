@@ -1,16 +1,14 @@
 namespace Infra.Repositories;
 
-using Infra.Repositories.Database;
 using Core.DTOs;
 using Core.Models;
 using Core.Repositories;
+using Infra.Repositories.Database;
 using Microsoft.EntityFrameworkCore;
 
-public class UserRepository : IUserRepository
+public class UserRepository(CheckoutDbContext dbContext) : IUserRepository
 {
-    private readonly CheckoutDbContext _dbContext;
-
-    public UserRepository(CheckoutDbContext dbContext) => this._dbContext = dbContext;
+    private readonly CheckoutDbContext _dbContext = dbContext;
 
     public async Task<IEnumerable<User?>> GetAll() => await this._dbContext.Users.ToListAsync();
 

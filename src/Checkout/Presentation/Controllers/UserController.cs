@@ -9,11 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("api/users")]
 [Authorize]
-public class UserController : ControllerBase
+public class UserController(IUserService userService) : ControllerBase
 {
-    private readonly IUserService _userService;
-
-    public UserController(IUserService userService) => this._userService = userService;
+    private readonly IUserService _userService = userService;
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User?>>> Index() => this.Ok(await this._userService.GetAll());
