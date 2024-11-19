@@ -50,6 +50,7 @@ public class Order
         }
 
         this.Status = EOrderStatus.COMPLETE;
+        this.CompletedAt = DateTime.Now;
     }
 
     public void AddProduct(Product product)

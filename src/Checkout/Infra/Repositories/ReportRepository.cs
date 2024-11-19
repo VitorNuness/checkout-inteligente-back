@@ -58,9 +58,9 @@ public class ReportRepository : IReportRepository
         if (report is null)
         {
             report = new(
-                reportDTO.Name!,
-                reportDTO.Url!,
-                reportDTO.Reference!
+                name: reportDTO.Name!,
+                url: reportDTO.Url!,
+                reference: reportDTO.Reference!
             );
             this._dbContext.Add(report);
             await this._dbContext.SaveChangesAsync();
