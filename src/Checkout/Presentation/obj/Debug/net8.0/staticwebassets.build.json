@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wYwp1NBoEK3aEdBA1ZDkgdBvc+n9bg1G4YzZWHdqUhw=",
+  "Hash": "YJuJl4BnmHZd2stpNlOtZy5ZVtkM4tktc4dSj7lmEn4=",
   "Source": "Presentation",
   "BasePath": "_content/Presentation",
   "Mode": "Default",
@@ -16,25 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/exports/csv/18112024_orders_18112024_18112024.csv",
-      "SourceId": "Presentation",
-      "SourceType": "Discovered",
-      "ContentRoot": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/",
-      "BasePath": "_content/Presentation",
-      "RelativePath": "files/exports/csv/18112024_orders_18112024_18112024.csv",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/exports/csv/18112024_orders_18112024_18112024.csv"
-    },
     {
       "Identity": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Presentation/wwwroot/files/exports/csv/example.csv",
       "SourceId": "Presentation",
