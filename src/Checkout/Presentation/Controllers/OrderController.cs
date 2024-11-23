@@ -1,7 +1,6 @@
 namespace Presentation.Controllers;
 
 using Core.DTOs;
-using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 

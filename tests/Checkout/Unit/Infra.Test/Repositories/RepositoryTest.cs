@@ -16,8 +16,5 @@ public class RepositoryTest : IDisposable
         this.Context = new CheckoutDbContext(options);
     }
 
-    public void Dispose()
-    {
-        throw new NotImplementedException();
-    }
+    public void Dispose() => throw new NotImplementedException();
 }

@@ -55,7 +55,7 @@ public class TestUser
 
             Thread.Sleep(1500);
 
-            var botaoFinal = driver.FindElement(By.CssSelector("button.btn.btn-success.btn-cart"));
+            var botaoFinal = driver.FindElement(By.CssSelector("bputton.btn.btn-success.btn-cart"));
             botaoFinal.Click();
 
         }

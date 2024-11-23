@@ -26,7 +26,7 @@ public class TestAdmin
             fieldPassword.SendKeys("password");
 
             //acessa o botao de gravar
-            var buttonEntrar = driver.FindElement(By.CssSelector("# app > div > div > div.row.my-4.justify-content-end.align-middle > button > strong"));
+            var buttonEntrar = driver.FindElement(By.Id("btnLogin"));
             //executa o click
             buttonEntrar.Click();
 
