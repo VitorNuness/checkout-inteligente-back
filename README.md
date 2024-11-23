@@ -56,7 +56,7 @@ dotnet ef database update -s ../Presentation
 Navegue até o projeto de infraestrutura:
 
 ```bash
-cd ..//Presentation
+cd ../Presentation
 ```
 
 Para executar o projeto, use o seguinte comando:
