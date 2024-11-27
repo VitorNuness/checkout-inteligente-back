@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj": {}
+    "/home/vitornunesdasilva/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj": {}
   },
   "projects": {
-    "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj": {
+    "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj",
+        "projectUniqueName": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj",
         "projectName": "Core",
-        "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj",
+        "projectPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj",
         "packagesPath": "/home/vitornunesdasilva/.nuget/packages/",
-        "outputPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/obj/",
+        "outputPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/vitornunesdasilva/.nuget/NuGet/NuGet.Config"
@@ -63,14 +63,14 @@
         }
       }
     },
-    "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj": {
+    "/home/vitornunesdasilva/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj",
+        "projectUniqueName": "/home/vitornunesdasilva/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj",
         "projectName": "Core.Test",
-        "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj",
+        "projectPath": "/home/vitornunesdasilva/checkout/backend/tests/Checkout/Unit/Core.Test/Core.Test.csproj",
         "packagesPath": "/home/vitornunesdasilva/.nuget/packages/",
-        "outputPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Unit/Core.Test/obj/",
+        "outputPath": "/home/vitornunesdasilva/checkout/backend/tests/Checkout/Unit/Core.Test/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/vitornunesdasilva/.nuget/NuGet/NuGet.Config"
@@ -85,8 +85,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj": {
-                "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj"
+              "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj": {
+                "projectPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj"
               }
             }
           }

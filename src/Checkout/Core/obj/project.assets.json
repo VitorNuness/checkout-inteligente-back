@@ -210,11 +210,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj",
+      "projectUniqueName": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj",
       "projectName": "Core",
-      "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj",
+      "projectPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj",
       "packagesPath": "/home/vitornunesdasilva/.nuget/packages/",
-      "outputPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/obj/",
+      "outputPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/vitornunesdasilva/.nuget/NuGet/NuGet.Config"

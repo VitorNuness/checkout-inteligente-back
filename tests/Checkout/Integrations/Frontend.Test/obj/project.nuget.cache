@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "/lND6DR+ADFXuZV0mgHfUb48eBcxUcF/VB6Fn0u3/5e/ELqf6WcAEGZHDLlaM7xWoaYPnSJ98gWvxFl4soBk7w==",
+  "dgSpecHash": "vdLd8Thd1qAGLuA7yWcnSJMN2VH8JMrlam0Z5Qzec363HacURlb/HSbp2Q8BaWVzdS54Y534Z+1yLLQ5k/UCig==",
   "success": true,
-  "projectFilePath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/tests/Checkout/Integrations/Frontend.Test/Frontend.Test.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/vitornunesdasilva/checkout/backend/tests/Checkout/Integrations/Frontend.Test/Frontend.Test.csproj",
+  "expectedPackageFiles": [
+    "/home/vitornunesdasilva/.nuget/packages/selenium.webdriver/4.26.1/selenium.webdriver.4.26.1.nupkg.sha512",
+    "/home/vitornunesdasilva/.nuget/packages/selenium.webdriver.chromedriver/131.0.6778.6900/selenium.webdriver.chromedriver.131.0.6778.6900.nupkg.sha512"
+  ],
   "logs": []
 }

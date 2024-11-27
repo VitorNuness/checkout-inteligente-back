@@ -7028,11 +7028,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Infra/Infra.csproj",
+      "projectUniqueName": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Infra/Infra.csproj",
       "projectName": "Infra",
-      "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Infra/Infra.csproj",
+      "projectPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Infra/Infra.csproj",
       "packagesPath": "/home/vitornunesdasilva/.nuget/packages/",
-      "outputPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Infra/obj/",
+      "outputPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Infra/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/vitornunesdasilva/.nuget/NuGet/NuGet.Config"
@@ -7047,8 +7047,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj": {
-              "projectPath": "/home/vitornunesdasilva/Documents/Unimar/checkout/backend/src/Checkout/Core/Core.csproj"
+            "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj": {
+              "projectPath": "/home/vitornunesdasilva/checkout/backend/src/Checkout/Core/Core.csproj"
             }
           }
         }
